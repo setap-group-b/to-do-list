@@ -10,9 +10,34 @@
 - up2038282 - axad
 - up2118183 - HarveyL101
 
-## Deployment on Vercel
+## Run Locally
+
+```bash
+npm run dev
+```
+
+## Deployment (Vercel)
 
 1. Import the project.
 2. Navigate to storage and create a Neon database.
 3. Install the vercel CLI.
 4. Run `vercel env pull .env`.
+
+## Prisma
+
+### Keeping Schema in Sync
+
+```bash
+npx prisma db push
+npx prisma generate
+```
+
+### View Prisma Studio
+
+```bash
+npx prisma studio
+```
+
+## Prisma Docs
+
+- [CRUD](https://www.prisma.io/docs/orm/prisma-client/queries/crud)
