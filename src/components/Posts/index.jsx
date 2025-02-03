@@ -1,6 +1,8 @@
 import prisma from "lib/prisma";
 
-export const getStaticProps = async () => {
+import { Post } from "@/components";
+
+export const Posts = async () => {
   const feed = await prisma.post.findMany({
     where: { published: true },
     include: {
@@ -9,12 +11,14 @@ export const getStaticProps = async () => {
       },
     },
   });
-  return {
-    props: { feed },
-    revalidate: 10,
-  };
-};
 
-export const Posts = () => {
-  <h1>posts</h1>;
+  return (
+    <>
+      {feed.map((post) => (
+        <div key={post.id}>
+          <Post post={post} />
+        </div>
+      ))}
+    </>
+  );
 };

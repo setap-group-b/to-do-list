@@ -13,6 +13,8 @@
 ## Run Locally
 
 ```bash
+npm i
+vercel env pull .env
 npm run dev
 ```
 
