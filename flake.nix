@@ -14,6 +14,7 @@
           buildInputs = with pkgs; [
             openssl
             nodePackages.prisma
+            nodePackages.vercel
             nodePackages.npm
             nodejs-slim
           ];
