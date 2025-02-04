@@ -12,29 +12,28 @@
 
 ## Run Locally
 
-```bash
-npm i
-vercel env pull .env
-npm run dev
-```
-
-## Deployment (Vercel)
-
-1. Import the project.
+1. Import the project on [Vercel](https://vercel.com)
 2. Navigate to storage and create a Neon database.
-3. Install the vercel CLI.
-4. Run `vercel env pull .env`.
+3. Install the [Vercel CLI](https://vercel.com/docs/cli).
+
+Then run:
+
+```bash
+npm i # install dependencies
+vercel link # link to Vercel project
+vercel env pull .env # pull .env variable to link to Neon database
+npm run dev # run dev server
+```
 
 ## Prisma
 
-### Keeping Schema in Sync
+To keep the database and schema in sync:
 
 ```bash
 npx prisma db push
-npx prisma generate
 ```
 
-### View Prisma Studio
+To view prisma studio:
 
 ```bash
 npx prisma studio
