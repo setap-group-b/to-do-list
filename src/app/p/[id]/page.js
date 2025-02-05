@@ -1,10 +1,11 @@
 import prisma from "lib/prisma";
 
 export default async function Page({ params }) {
-  const slug = (await params).slug;
+  // TODO: add error handling for invald routes
+  const { id } = await params;
   const post = await prisma.post.findUnique({
     where: {
-      id: String(slug?.id),
+      id: id,
     },
     include: {
       author: {
@@ -12,7 +13,12 @@ export default async function Page({ params }) {
       },
     },
   });
-  console.log(post);
 
-  return <h1>{post}</h1>;
+  return (
+    <>
+      <h1>{post.title}</h1>
+      <p>{post.content}</p>
+      <p>author: {post.author.name}</p>
+    </>
+  );
 }
