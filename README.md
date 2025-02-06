@@ -42,3 +42,7 @@ npx prisma studio
 ## Prisma Docs
 
 - [CRUD](https://www.prisma.io/docs/orm/prisma-client/queries/crud)
+
+## Resources
+
+- [How to Build a Fullstack App with Next.js, Prisma, and Vercel Postgres](https://vercel.com/guides/nextjs-prisma-postgres)
