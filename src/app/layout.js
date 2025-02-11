@@ -1,4 +1,6 @@
 import { Roboto } from "next/font/google";
+import { getServerSession } from "next-auth";
+import { NavMenu, SessionWrapper } from "@/components";
 import "./globals.css";
 
 const roboto = Roboto({
@@ -13,10 +15,17 @@ export const metadata = {
   description: "A to-do app.",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const session = await getServerSession();
+
   return (
     <html lang="en">
-      <body className={roboto.className}>{children}</body>
+      <body className={roboto.className}>
+        <SessionWrapper session={session}>
+          <NavMenu />
+          {children}
+        </SessionWrapper>
+      </body>
     </html>
   );
 }
