@@ -25,6 +25,16 @@ vercel env pull .env # pull .env variable to link to Neon database
 npm run dev # run dev server
 ```
 
+To sign in and use OAuth:
+
+1. Create a GitHub OAuth application.
+2. Add the environment variables:
+
+- `NEXTAUTH_URL` - set it to the base url of your application,
+- `NEXTAUTH_SECRET` - run `openssl rand -base64 32` to generate the secret.
+- `GITHUB_ID` - the GitHub client id.
+- `GITHUB_SECRET` - the GitHub client secret.
+
 ## Prisma
 
 To keep the database and schema in sync:
