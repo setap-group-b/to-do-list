@@ -18,6 +18,7 @@ export default async function Page({ params }) {
       },
     });
   };
+
   const getCachedPost = unstable_cache(async () => await getPost(), ["post"], {
     revalidate: 3600,
     tags: ["post"],

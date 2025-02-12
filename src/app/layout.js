@@ -1,6 +1,6 @@
 import { Roboto } from "next/font/google";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api";
 import { NavMenu, SessionWrapper } from "@/components";
 import "./globals.css";
 

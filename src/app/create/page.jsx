@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Create = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const router = useRouter();
 
   const submitData = async (e) => {
+    // TODO: validate with zod
     e.preventDefault();
     try {
       const body = { title, content };
@@ -16,7 +18,7 @@ const Create = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      redirect("/");
+      router.push("/");
     } catch (error) {
       console.error(error);
     }
@@ -25,7 +27,7 @@ const Create = () => {
   return (
     <div>
       <form onSubmit={submitData}>
-        <h1>New Draft</h1>
+        <h1>New To-Do</h1>
         <input
           autoFocus
           onChange={(e) => setTitle(e.target.value)}
@@ -41,7 +43,7 @@ const Create = () => {
           value={content}
         />
         <input disabled={!content || !title} type="submit" value="Create" />
-        <a className="back" href="#" onClick={() => redirect("/")}>
+        <a className="back" href="#" onClick={() => router.push("/")}>
           or Cancel
         </a>
       </form>
