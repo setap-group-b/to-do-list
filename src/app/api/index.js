@@ -1,2 +1,2 @@
 export * from "./auth/[...nextauth]/route";
-export * from "./post/route";
+export * from "./todo/post/route";

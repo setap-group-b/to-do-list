@@ -1,7 +1,8 @@
-import { authOptions } from "@/app/api";
 import prisma from "lib/prisma";
+import { authOptions } from "@/app/api";
 import { getServerSession } from "next-auth";
 
+// TODO: check if NextResponse can be used instead of Response
 export async function POST(request) {
   const { title, content } = await request.json();
 
@@ -13,11 +14,11 @@ export async function POST(request) {
     });
   }
 
-  const result = await prisma.post.create({
+  const result = await prisma.todo.create({
     data: {
       title: title,
       content: content,
-      author: { connect: { email: session?.user?.email } },
+      user: { connect: { email: session?.user?.email } },
     },
   });
 

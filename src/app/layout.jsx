@@ -1,7 +1,9 @@
 import { Roboto } from "next/font/google";
 import { getServerSession } from "next-auth";
+
 import { authOptions } from "@/app/api";
-import { NavMenu, SessionWrapper } from "@/components";
+import { Nav, SessionWrapper } from "@/components";
+
 import "./globals.css";
 
 const roboto = Roboto({
@@ -12,7 +14,7 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-  title: "team-b-to-list",
+  title: "Team B To Do List",
   description: "A to-do app.",
 };
 
@@ -23,7 +25,7 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={roboto.className}>
         <SessionWrapper session={session}>
-          <NavMenu />
+          <Nav />
           {children}
         </SessionWrapper>
       </body>

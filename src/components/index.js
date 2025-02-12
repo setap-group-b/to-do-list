@@ -1,5 +1,5 @@
-export * from "./Posts";
-export * from "./Post";
-export * from "./NavMenu";
+export * from "./Todos";
+export * from "./Todo";
+export * from "./Nav";
 
 export * from "./SessionWrapper";

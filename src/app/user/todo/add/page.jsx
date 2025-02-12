@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const Create = () => {
+export default function UserTodoAdd() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const router = useRouter();
@@ -13,12 +13,12 @@ const Create = () => {
     e.preventDefault();
     try {
       const body = { title, content };
-      await fetch("/api/post", {
+      await fetch("/api/todo/post", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      router.push("/");
+      router.push("/user/todo");
     } catch (error) {
       console.error(error);
     }
@@ -27,14 +27,16 @@ const Create = () => {
   return (
     <div>
       <form onSubmit={submitData}>
-        <h1>New To-Do</h1>
-        <input
-          autoFocus
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Title"
-          type="text"
-          value={title}
-        />
+        <h1>New To Do</h1>
+        <section>
+          <input
+            autoFocus
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Title"
+            type="text"
+            value={title}
+          />
+        </section>
         <textarea
           cols={50}
           onChange={(e) => setContent(e.target.value)}
@@ -42,13 +44,17 @@ const Create = () => {
           rows={8}
           value={content}
         />
-        <input disabled={!content || !title} type="submit" value="Create" />
-        <a className="back" href="#" onClick={() => router.push("/")}>
-          or Cancel
-        </a>
+        <section>
+          <input disabled={!content || !title} type="submit" value="Add" />
+          <a
+            className="back"
+            href="#"
+            onClick={() => router.push("/user/todo")}
+          >
+            or Cancel
+          </a>
+        </section>
       </form>
     </div>
   );
-};
-
-export default Create;
+}
