@@ -1,12 +1,11 @@
 import prisma from "lib/prisma";
-import { authOptions } from "@/app/api";
-import { getServerSession } from "next-auth";
+import { getServerSessionWrapper } from "@/utils";
 
 // TODO: check if NextResponse can be used instead of Response
 export async function POST(request) {
   const { title, content } = await request.json();
 
-  const session = await getServerSession(authOptions);
+  const session = await getServerSessionWrapper();
 
   if (!session) {
     return new Response(JSON.stringify({ error: "Unauthorized" }), {

@@ -1,13 +1,7 @@
-// import { unstable_cache } from "next/cache";
-import { authOptions } from "@/app/api";
-import { getServerSession } from "next-auth";
-
-import prisma from "lib/prisma";
+import { getServerSessionWrapper, getUserTodo } from "@/utils";
 
 export default async function UserTodo({ params }) {
-  // TODO: add error handling for invald routes
-  // TODO invalidate the cache with revalidate on edit
-  const session = await getServerSession(authOptions);
+  const session = await getServerSessionWrapper();
 
   if (!session) {
     return <section>Please sign in!</section>;
@@ -15,25 +9,7 @@ export default async function UserTodo({ params }) {
 
   const { id } = await params;
 
-  const getUserTodo = () => {
-    return prisma.todo.findUnique({
-      where: {
-        id: id,
-        user: session.user,
-      },
-    });
-  };
-
-  // const getCachedUserTodo = unstable_cache(
-  //   async () => await getUserTodo(),
-  //   ["todo"],
-  //   {
-  //     revalidate: 10,
-  //     tags: ["todo"],
-  //   },
-  // );
-
-  const userTodo = await getUserTodo();
+  const userTodo = await getUserTodo(session.user, id);
 
   if (!userTodo) {
     return <>Not found!</>;
