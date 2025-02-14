@@ -14,7 +14,7 @@ const todoSchema = z.object({
 });
 
 export async function createTodo(formState, formData) {
-  const session = getServerSessionWrapper();
+  const session = await getServerSessionWrapper();
 
   // TODO: respond better
   if (!session) {
@@ -34,9 +34,8 @@ export async function createTodo(formState, formData) {
     };
   }
 
-  let todo;
   try {
-    todo = await prisma.post.create({
+    await prisma.todo.create({
       data: {
         title: result.data.title,
         content: result.data.content,
@@ -82,9 +81,8 @@ export async function updateTodo(id, formState, formData) {
     };
   }
 
-  let post;
   try {
-    post = await prisma.post.update({
+    await prisma.todo.update({
       where: { id, user: session.user },
       data: {
         title: result.data.title,
@@ -107,11 +105,11 @@ export async function updateTodo(id, formState, formData) {
     }
   }
 
-  revalidatePath("/user/todo"); // purge cached data
-  redirect("/user/todo");
+  revalidatePath(`/user/todo/${id}`); // purge cached data
+  redirect(`/user/todo/${id}`);
 }
 
-export async function deletePost(id) {
+export async function deleteTodo(id) {
   const session = getServerSessionWrapper();
 
   // TODO: respond better
@@ -119,9 +117,8 @@ export async function deletePost(id) {
     return;
   }
 
-  let post;
   try {
-    post = await prisma.post.delete({
+    await prisma.todo.delete({
       where: { id, user: session.user },
     });
   } catch (error) {
@@ -140,6 +137,6 @@ export async function deletePost(id) {
     }
   }
 
-  revalidatePath("/"); // purge cached data
-  redirect("/");
+  revalidatePath("/user/todo"); // purge cached data
+  redirect("/user/todo");
 }
