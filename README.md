@@ -1,4 +1,4 @@
-# team-b-to-do-list
+# To Do List
 
 ## Students
 
