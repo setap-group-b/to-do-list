@@ -5,13 +5,13 @@ export const Todos = async () => {
   const session = await getServerSessionWrapper();
 
   if (!session) {
-    return <section>Please sign in to see your to-do's!</section>;
+    return <section>Please sign in to see your To-do list!</section>;
   }
 
   const userTodos = await getUserTodos(session.user);
 
   if (!userTodos) {
-    return <>Create some to-dos!</>;
+    return <>Create a To-do to get started!</>;
   }
 
   return (

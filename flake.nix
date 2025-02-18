@@ -1,5 +1,5 @@
 {
-  description = "team-b-to-do-list";
+  description = "to-do-list";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 

@@ -13,8 +13,8 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-  title: "Team B To Do List",
-  description: "A to-do app.",
+  title: "To-do List",
+  description: "A To-do app.",
 };
 
 export default async function RootLayout({ children }) {
