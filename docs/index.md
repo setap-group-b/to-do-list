@@ -32,18 +32,25 @@ GITHUB_ID="" # the GitHub client id
 GITHUB_SECRET="" # the GitHub client secret
 ```
 
-Setting Up Email Sign-Up / Sign-In:
+### Email Sign-Up / Sign-In
+
+To include email signup and signin feature:
 
 1. You'll need an email service that provides SMTP access, such as: SendGrid, Brevo etc
 
 2. Configure Environment Variables
    Add the following to your .env file:
 
+```text
    EMAIL_SERVER_USER # SMTP server login
    EMAIL_SERVER_PASSWORD # SMTP server password
    EMAIL_SERVER_HOST # smtp.example.com
    EMAIL_SERVER_PORT # 465 or 587
    EMAIL_FROM=your-email@example.com # Default "from" address
+```
 
 3. Install nodemailer
-   run "npm install nodemailer"
+
+```bash
+   npm install nodemailer
+```
