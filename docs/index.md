@@ -48,9 +48,3 @@ To include email signup and signin feature:
    EMAIL_SERVER_PORT # 465 or 587
    EMAIL_FROM=your-email@example.com # Default "from" address
 ```
-
-3. Install nodemailer
-
-```bash
-   npm install nodemailer
-```
