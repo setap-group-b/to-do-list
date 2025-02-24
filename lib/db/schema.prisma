@@ -8,6 +8,15 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
+model List {
+  id               String  @id @default(cuid())
+  title            String
+  backgroundColour String
+  todos            Todo[]
+  user             User?   @relation(fields: [userId], references: [id])
+  userId           String?
+}
+
 model Todo {
   id        String  @id @default(cuid())
   title     String
@@ -71,13 +80,4 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-}
-
-model List {
-  id               String  @id
-  title            String
-  backgroundColour String
-  userId           String?
-  users            User?   @relation(fields: [userId], references: [id])
-  Todo             Todo[]
 }
