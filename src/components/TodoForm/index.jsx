@@ -19,6 +19,7 @@ export const TodoForm = ({ formAction, initialData }) => {
             id="title"
             name="title"
             defaultValue={initialData.title}
+            className="text-black bg-white"
           />
           {formState.errors.title && (
             <p>{formState.errors.title?.join(", ")}</p>
@@ -30,6 +31,7 @@ export const TodoForm = ({ formAction, initialData }) => {
             id="content"
             name="content"
             defaultValue={initialData.content}
+            className="text-black bg-white"
           ></textarea>
           {formState.errors.content && (
             <div>
