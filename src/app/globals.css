@@ -1,13 +1,19 @@
 @import "tailwindcss";
 
 @layer base {
+
   /* LIGHT MODE */
   :root {
-    --background: 247, 246, 246; /* Grey background */
-    --foreground: 255, 255, 255; /* White background */
-    --icon-fill: 255, 255, 255, 0; /* Transparent */
-    --sidebar-background: 255, 255, 255; /* White */
-    --badge: 254, 156, 156; /* Light red for sidebar notification badge */
+    --background: 247, 246, 246;
+    /* Grey background */
+    --foreground: 255, 255, 255;
+    /* White background */
+    --icon-fill: 255, 255, 255, 0;
+    /* Transparent */
+    --sidebar-background: 255, 255, 255;
+    /* White */
+    --badge: 254, 156, 156;
+    /* Light red for sidebar notification badge */
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
