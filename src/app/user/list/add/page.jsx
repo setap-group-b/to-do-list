@@ -1,8 +1,9 @@
 "use client";
+
 import { ListForm } from "@/components";
 import { createList } from "@/app/actions/list";
 
-export default function UserTodoAdd() {
+export default function UserListAdd() {
   return (
     <ListForm
       formAction={createList}
