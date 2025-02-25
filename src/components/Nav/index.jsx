@@ -28,7 +28,8 @@ export const Nav = () => {
     <nav>
       <section>
         <Link href="/">Home</Link>
-        <Link href="/user/todo">Todo</Link>
+        <Link href="/user/list">Lists</Link>
+        <Link href="/user/todo">Todos</Link>
       </section>
       <section>
         <AuthButton />
