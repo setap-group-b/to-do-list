@@ -20,8 +20,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Notify GitHub Deployment Start
+        uses: bobheadxi/deployments@v1
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: production
+
       - name: Deploy to Render
         uses: johnbeynon/render-deploy-action@v0.0.8
         with:
-          render_api_key: ${{ secrets.RENDER_API_KEY}}
+          render_api_key: ${{ secrets.RENDER_API_KEY }}
           render_service_id: ${{ secrets.RENDER_SERVICE_ID }}
+
+      - name: Notify GitHub Deployment Success
+        if: success()
+        uses: bobheadxi/deployments@v1
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: production
+          status: success
+
+      - name: Notify GitHub Deployment Failure
+        if: failure()
+        uses: bobheadxi/deployments@v1
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: production
+          status: failure
