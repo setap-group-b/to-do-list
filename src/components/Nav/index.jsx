@@ -17,7 +17,7 @@ const AuthButton = () => {
 
   return (
     <>
-      Not signed in
+      Not signed in <br></br>
       <button onClick={() => signIn()}>Sign in</button>
     </>
   );
@@ -28,6 +28,7 @@ export const Nav = () => {
     <nav>
       <section>
         <Link href="/">Home</Link>
+        <br></br>
         <Link href="/user/todo">Todo</Link>
       </section>
       <section>
