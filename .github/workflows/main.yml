@@ -19,7 +19,7 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       actions: read
       checks: write
     steps:
