@@ -18,10 +18,14 @@ jobs:
   deploy:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      checks: write
     steps:
       - uses: actions/checkout@v4
 
-      - name: Notify GitHub Deployment Start
+      - name: start deployment
         uses: bobheadxi/deployments@v1
         id: deployment
         with:
@@ -29,13 +33,13 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           env: production
 
-      - name: Deploy to Render
+      - name: deploy to render
         uses: johnbeynon/render-deploy-action@v0.0.8
         with:
           render_api_key: ${{ secrets.RENDER_API_KEY }}
           render_service_id: ${{ secrets.RENDER_SERVICE_ID }}
 
-      - name: Notify GitHub Deployment Status
+      - name: update deployment status
         uses: bobheadxi/deployments@v1
         if: always()
         with:
