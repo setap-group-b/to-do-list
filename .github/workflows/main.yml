@@ -23,6 +23,7 @@ jobs:
 
       - name: Notify GitHub Deployment Start
         uses: bobheadxi/deployments@v1
+        id: deployment
         with:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -34,20 +35,12 @@ jobs:
           render_api_key: ${{ secrets.RENDER_API_KEY }}
           render_service_id: ${{ secrets.RENDER_SERVICE_ID }}
 
-      - name: Notify GitHub Deployment Success
-        if: success()
+      - name: Notify GitHub Deployment Status
         uses: bobheadxi/deployments@v1
+        if: always()
         with:
           step: finish
           token: ${{ secrets.GITHUB_TOKEN }}
-          env: production
-          status: success
-
-      - name: Notify GitHub Deployment Failure
-        if: failure()
-        uses: bobheadxi/deployments@v1
-        with:
-          step: finish
-          token: ${{ secrets.GITHUB_TOKEN }}
-          env: production
-          status: failure
+          status: ${{ job.status }}
+          env: ${{ steps.deployment.outputs.env }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
