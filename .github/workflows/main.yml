@@ -6,10 +6,13 @@ on:
     types: [opened, reopened, synchronize]
   push:
     branches: ["main"]
-
+permissions:
+  contents: read
+  actions: read
+  checks: write
 jobs:
   build:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,10 +21,6 @@ jobs:
   deploy:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      actions: read
-      checks: write
     steps:
       - uses: actions/checkout@v4
 
@@ -30,7 +29,7 @@ jobs:
         id: deployment
         with:
           step: start
-          token: ${{ secrets.GITHUB_TOKEN }}
+          reop-token: ${{ secrets.GITHUB_TOKEN }}
           env: production
 
       - name: deploy to render
@@ -44,7 +43,7 @@ jobs:
         if: always()
         with:
           step: finish
-          token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ job.status }}
           env: ${{ steps.deployment.outputs.env }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
