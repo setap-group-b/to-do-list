@@ -4,8 +4,8 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Todo {
@@ -13,8 +13,10 @@ model Todo {
   title     String
   content   String?
   published Boolean @default(false)
-  user      User?   @relation(fields: [userId], references: [id])
   userId    String?
+  listId    String?
+  List      List?   @relation(fields: [listId], references: [id])
+  user      User?   @relation(fields: [userId], references: [id])
 }
 
 model Account {
@@ -32,8 +34,7 @@ model Account {
   session_state      String?
   oauth_token_secret String?
   oauth_token        String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -52,13 +53,14 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  todos         Todo[]
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
   Account       Account[]
+  List          List[]
   Session       Session[]
+  todos         Todo[]
 
-  @@map(name: "users")
+  @@map("users")
 }
 
 model VerificationToken {
@@ -68,4 +70,13 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model List {
+  id               String  @id
+  title            String
+  backgroundColour String
+  userId           String?
+  users            User?   @relation(fields: [userId], references: [id])
+  Todo             Todo[]
 }
