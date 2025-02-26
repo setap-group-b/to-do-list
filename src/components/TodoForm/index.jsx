@@ -22,7 +22,7 @@ export const TodoForm = ({ formAction, initialData }) => {
 
   return (
     <>
-      <h1>{initialData.title ? "Update" : "Create"} Post</h1>
+      <h1>{initialData.title ? "Update" : "Create"} Post!</h1>
       <form action={action}>
 
       <section> {/** upon clicking, the button adheres to cyclePriority, overwriting the default value */}
@@ -36,6 +36,7 @@ export const TodoForm = ({ formAction, initialData }) => {
 
         <section>
           <label htmlFor="title">Title</label>
+          <br></br>
           <input
             type="text"
             id="title"
