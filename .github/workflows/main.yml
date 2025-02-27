@@ -10,6 +10,7 @@ permissions:
   contents: read
   actions: read
   checks: write
+  deployments: write
 jobs:
   build:
     if: github.event_name == 'push'
@@ -24,12 +25,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Debug GitHub Token
+        run: |
+          echo "Testing GitHub Token Permissions..."
+          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+               -H "Accept: application/vnd.github.v3+json" \
+               https://api.github.com/repos/${{ github.repository }}
+
       - name: start deployment
         uses: bobheadxi/deployments@v1
         id: deployment
         with:
           step: start
-          reop-token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           env: production
 
       - name: deploy to render
@@ -43,7 +51,7 @@ jobs:
         if: always()
         with:
           step: finish
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ job.status }}
           env: ${{ steps.deployment.outputs.env }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
