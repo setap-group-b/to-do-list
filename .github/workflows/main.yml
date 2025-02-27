@@ -34,6 +34,7 @@ jobs:
           env: production
 
       - name: deploy to render
+        id: render
         uses: johnbeynon/render-deploy-action@v0.0.8
         with:
           api_key: ${{ secrets.RENDER_API_KEY }}
@@ -48,3 +49,4 @@ jobs:
           status: ${{ job.status }}
           env: ${{ steps.deployment.outputs.env }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env_url: ${{ steps.render.outputs.service-url }}
