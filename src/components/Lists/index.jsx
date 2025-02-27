@@ -1,5 +1,4 @@
-// import { List } from "@/components"; // TODO: find out why this errors
-import { List } from "../List";
+import { List } from "@/components/List";
 import { getServerSessionWrapper, getUserLists } from "@/utils";
 
 export const Lists = async () => {

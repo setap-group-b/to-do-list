@@ -9,9 +9,9 @@ export default async function UserTodo({ params }) {
     return <section>Please sign in!</section>;
   }
 
-  const { id } = await params;
+  const { todoId } = await params;
 
-  const userTodo = await getUserTodo(session.user, id);
+  const userTodo = await getUserTodo(session.user, todoId);
 
   if (!userTodo) {
     return <>Not found!</>;
@@ -21,8 +21,8 @@ export default async function UserTodo({ params }) {
     <>
       <h1>{userTodo.title}</h1>
       <p>{userTodo.content}</p>
-      <Link href={`/user/todo/${id}/edit`}>Edit</Link>
-      <TodoDelete id={id} />
+      <Link href={`/user/todo/${todoId}/edit`}>Edit</Link>
+      <TodoDelete id={todoId} />
     </>
   );
 }
