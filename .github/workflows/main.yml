@@ -40,6 +40,9 @@ jobs:
           api-key: ${{ secrets.RENDER_API_KEY }}
           service-id: ${{ secrets.RENDER_SERVICE_ID }}
 
+      - name: inspect render deployment outputs
+        run: echo "${{ toJson(steps.render.outputs) }}"
+
       - name: update deployment status
         uses: bobheadxi/deployments@v1
         if: always()
