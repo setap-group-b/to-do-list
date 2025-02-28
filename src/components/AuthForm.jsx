@@ -1,9 +1,6 @@
 "use client";
 
-import { cn } from "@/utils/utils";
-import { authOptions } from "lib/auth";
-import { getServerSession } from "next-auth/next";
-import { getProviders, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import {
   Form,
   FormControl,
@@ -20,18 +17,6 @@ import { AuthSchema } from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { displayErrorMessage } from "@/utils/displayError";
 import { GithubSignInButton, GoogleSignInButton } from "./AuthButtons";
-
-// export async function getServerSideProps(context) {
-//   const session = await getServerSession(context.req, context.res, authOptions);
-//   // If the user is already logged in, redirect.
-//   if (session) {
-//     return { redirect: { destination: "/" } };
-//   }
-//   const providers = await getProviders();
-//   return {
-//     props: { providers: providers ?? [] },
-//   };
-// }
 
 const AuthForm = ({ className, authType }) => {
   const form = useForm({

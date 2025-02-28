@@ -1,9 +1,6 @@
 import { Roboto } from "next/font/google";
-import { SessionWrapper } from "@/components";
-import { getServerSessionWrapper } from "@/utils";
 
 import "./globals.css";
-import { Toaster } from "react-hot-toast";
 import { cn } from "@/utils/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import ThemeToggle from "@/components/ThemeToogle";
@@ -20,23 +17,19 @@ export const metadata = {
   description: "A To-do app.",
 };
 
-export default async function RootLayout({ children }) {
-  const session = await getServerSessionWrapper();
-
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={cn(roboto.className)}>
-        <SessionWrapper session={session}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <ThemeToggle />
-          </ThemeProvider>
-        </SessionWrapper>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <ThemeToggle />
+        </ThemeProvider>
         {/* <Toaster position="top-right" /> */}
       </body>
     </html>
