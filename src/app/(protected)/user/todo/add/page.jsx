@@ -1,4 +1,3 @@
-"use client";
 import { TodoForm } from "@/components";
 import { createTodo } from "@/app/actions/todo";
 

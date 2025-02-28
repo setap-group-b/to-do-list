@@ -1,5 +1,3 @@
-"use server";
-
 import { hash } from "bcrypt";
 import prisma from "lib/prisma";
 import { SignUpSchema } from "lib/schema";
