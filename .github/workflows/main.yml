@@ -40,24 +40,13 @@ jobs:
           api-key: ${{ secrets.RENDER_API_KEY }}
           service-id: ${{ secrets.RENDER_SERVICE_ID }}
 
-      - name: check if render deployment succeeded
-        id: check_render_status
-        run: |
-          if [[ "${{ steps.render.outputs.status }}" != "success" ]]; then
-            echo "Render deployment failed"
-            echo "::set-output name=deployment_status::failure"
-           exit 1
-          else
-            echo "::set-output name=deployment_status::success"
-          fi
-
       - name: update deployment status
         uses: bobheadxi/deployments@v1
         if: always()
         with:
           step: finish
           token: ${{ secrets.GITHUB_TOKEN }}
-          status: ${{ steps.check_render_status.outputs.deployment_status }}
+          status: ${{ steps.render.outputs.status }}
           env: ${{ steps.deployment.outputs.env }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
           env_url: ${{ steps.render.outputs.service-url }}
