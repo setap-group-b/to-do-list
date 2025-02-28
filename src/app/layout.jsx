@@ -1,9 +1,12 @@
 import { Roboto } from "next/font/google";
+import { SessionWrapper } from "@/components";
 import { getServerSessionWrapper } from "@/utils";
 
-import { Nav, SessionWrapper } from "@/components";
-
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
+import { cn } from "@/utils/utils";
+import { ThemeProvider } from "@/components/theme-provider";
+import ThemeToggle from "@/components/ThemeToogle";
 
 const roboto = Roboto({
   weight: ["100", "400", "500", "700", "900"],
@@ -22,11 +25,19 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={roboto.className}>
+      <body className={cn(roboto.className)}>
         <SessionWrapper session={session}>
-          <Nav />
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <ThemeToggle />
+          </ThemeProvider>
         </SessionWrapper>
+        {/* <Toaster position="top-right" /> */}
       </body>
     </html>
   );
