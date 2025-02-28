@@ -13,7 +13,7 @@ export default async function AuthFormLayout({ children }) {
   return (
     <SessionWrapper session={session}>
       <div className="flex flex-col items-center justify-center min-h-dvh">
-        <div className="flex items-center gap-2 self-start mt-5 ml-4 font-bold text-xl sm:fixed sm:m-0 sm:left-4 sm:top-5 z-50">
+        <div className="flex items-center gap-2 self-start mt-5 mb-10 ml-4 font-bold text-xl sm:fixed sm:m-0 sm:left-4 sm:top-5 z-50">
           <LuListTodo size={22} />
           <p>To-do-list</p>
         </div>

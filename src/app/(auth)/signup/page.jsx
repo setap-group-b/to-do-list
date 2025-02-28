@@ -15,7 +15,7 @@ const Register = () => {
       <CardHeader>
         <CardTitle className="text-xl text-center">Welcome</CardTitle>
         <CardDescription className={"text-center"}>
-          Enter your email below to create an account
+          Enter your details below to create an account
         </CardDescription>
       </CardHeader>
       <CardContent>
