@@ -1,9 +1,10 @@
 import { Roboto } from "next/font/google";
 
 import "./globals.css";
-import { cn } from "@/utils/utils";
+import { cn } from "lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import ThemeToggle from "@/components/ThemeToogle";
+import { Toaster } from "react-hot-toast";
 
 const roboto = Roboto({
   weight: ["100", "400", "500", "700", "900"],
@@ -30,7 +31,7 @@ export default function RootLayout({ children }) {
           {children}
           <ThemeToggle />
         </ThemeProvider>
-        {/* <Toaster position="top-right" /> */}
+        <Toaster position="top-right" />
       </body>
     </html>
   );

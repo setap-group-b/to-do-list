@@ -1,6 +1,6 @@
 import Spinner from "./spinner";
 import { Button } from "./button";
-import { cn } from "@/utils/utils";
+import { cn } from "lib/utils";
 
 const ReusableButton = ({
   children,

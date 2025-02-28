@@ -9,6 +9,7 @@ export default async function AuthLayout({ children }) {
   if (!session) {
     redirect("/login"); // Immediately redirects unauthenticated users
   }
+
   return (
     <SessionWrapper session={session}>
       <main>

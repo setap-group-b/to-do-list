@@ -19,7 +19,7 @@ const Register = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <AuthForm authType={"signup"} />
+        <AuthForm isSignUp />
       </CardContent>
       <CardFooter>
         <p className="text-sm text-gray-500 text-center w-full">

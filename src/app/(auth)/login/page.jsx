@@ -19,7 +19,7 @@ const Login = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <AuthForm authType={"login"} />
+        <AuthForm />
       </CardContent>
       <CardFooter>
         <p className="text-sm text-gray-500 text-center w-full">

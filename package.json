@@ -7,7 +7,13 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
+    "db:migrate": "npx prisma migrate dev",
+    "db:studio": "npx prisma studio",
+    "db:reset": "prisma migrate reset && npx prisma migrate dev",
     "postinstall": "prisma generate"
+  },
+  "prisma": {
+    "schema": "lib/db/schema.prisma"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.2",
@@ -17,6 +23,7 @@
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.2",
     "@tailwindcss/postcss": "^4.0.6",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.476.0",
