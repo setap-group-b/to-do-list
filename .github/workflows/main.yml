@@ -37,8 +37,8 @@ jobs:
         id: render
         uses: johnbeynon/render-deploy-action@v0.0.8
         with:
-          api_key: ${{ secrets.RENDER_API_KEY }}
-          service_id: ${{ secrets.RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
+          service-id: ${{ secrets.RENDER_SERVICE_ID }}
 
       - name: update deployment status
         uses: bobheadxi/deployments@v1
