@@ -39,9 +39,7 @@ jobs:
         with:
           api-key: ${{ secrets.RENDER_API_KEY }}
           service-id: ${{ secrets.RENDER_SERVICE_ID }}
-
-      - name: inspect render deployment outputs
-        run: echo "${{ toJson(steps.render.outputs) }}"
+          wait-for-success: true
 
       - name: update deployment status
         uses: bobheadxi/deployments@v1
@@ -49,7 +47,6 @@ jobs:
         with:
           step: finish
           token: ${{ secrets.GITHUB_TOKEN }}
-          status: ${{ steps.render.outputs.status }}
+          status: ${{ job.status }}
           env: ${{ steps.deployment.outputs.env }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-          env_url: ${{ steps.render.outputs.service-url }}
