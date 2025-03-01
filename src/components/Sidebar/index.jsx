@@ -19,10 +19,7 @@ import Groups from "./Groups";
 
 const Sidebar = () => {
   return (
-    <ShadSidebar
-      collapsible="icon"
-      className={"!bg-background shadow-lg !border-0"}
-    >
+    <ShadSidebar className={"!bg-background shadow-lg !border-0"}>
       <SidebarHeader
         className={"flex flex-row items-center gap-4 justify-between"}
       >

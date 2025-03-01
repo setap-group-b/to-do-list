@@ -107,7 +107,7 @@ const Groups = () => {
               <SidebarMenuItem key={group.name} className={"h-full"}>
                 <SidebarMenuButton
                   className={
-                    "min-h-32 h-full gap-4 pt-5 pb-3 flex items-start flex-col overflow-hidden"
+                    "min-h-32 h-full gap-4 pt-5 pb-3 flex items-start flex-col overflow-hidden bg-accent"
                   }
                 >
                   {group.people.length ? (
