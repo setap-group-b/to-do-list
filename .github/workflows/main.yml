@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci
+      - run: npm ci --force
 
   deploy:
     if: github.event_name == 'push'
@@ -35,11 +35,10 @@ jobs:
 
       - name: deploy to render
         id: render
-        uses: johnbeynon/render-deploy-action
+        uses: johnbeynon/render-deploy-action@v0.0.8
         with:
           api-key: ${{ secrets.RENDER_API_KEY }}
           service-id: ${{ secrets.RENDER_SERVICE_ID }}
-          wait-for-success: true
 
       - name: update deployment status
         uses: bobheadxi/deployments@v1
