@@ -1,4 +1,4 @@
-import { cn } from "lib/utils";
+import { cn } from "@/lib/utils";
 import { ImSpinner2 } from "react-icons/im";
 
 const Spinner = ({ className, containerStyle, size, ...props }) => {

@@ -1,7 +1,8 @@
+import Logo from "@/components/Logo";
+import { redirect } from "next/navigation";
 import { SessionWrapper } from "@/components";
 import { getServerSessionWrapper } from "@/utils";
-import { redirect } from "next/navigation";
-import { LuListTodo } from "react-icons/lu";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default async function AuthFormLayout({ children }) {
   const session = await getServerSessionWrapper();
@@ -12,12 +13,12 @@ export default async function AuthFormLayout({ children }) {
 
   return (
     <SessionWrapper session={session}>
-      <div className="flex flex-col items-center justify-center min-h-dvh">
-        <div className="flex items-center gap-2 self-start mt-5 mb-10 ml-4 font-bold text-xl sm:fixed sm:m-0 sm:left-4 sm:top-5 z-50">
-          <LuListTodo size={22} />
-          <p>To-do-list</p>
+      <div className="flex flex-col gap-10 items-center justify-center min-h-dvh">
+        <div className="p-4 w-full justify-between flex items-center gap-6">
+          <Logo />
+          <ThemeToggle />
         </div>
-        <div className="flex flex-1 items-center justify-center m-auto w-full">
+        <div className="flex flex-1 items-center justify-center w-full">
           {children}
         </div>
       </div>

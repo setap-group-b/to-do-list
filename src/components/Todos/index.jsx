@@ -8,7 +8,7 @@ export const Todos = async () => {
     return <section>Please sign in to see your To-do list!</section>;
   }
 
-  const userTodos = await getUserTodos(session.user);
+  const userTodos = await getUserTodos(session?.user);
 
   if (!userTodos) {
     return <>Create a To-do to get started!</>;

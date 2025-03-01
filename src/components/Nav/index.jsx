@@ -1,38 +1,19 @@
 "use client";
 
-import { signIn, signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-
-const AuthButton = () => {
-  const { data: session } = useSession();
-
-  if (session) {
-    return (
-      <>
-        {session?.user?.name}
-        <button onClick={() => signOut()}>Sign out</button>
-      </>
-    );
-  }
-
-  return (
-    <>
-      Not signed in
-      <button onClick={() => signIn()}>Sign in</button>
-    </>
-  );
-};
+import ThemeToggle from "../ThemeToggle";
+import SettingsDropdown from "./SettingsDropdown";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export const Nav = () => {
   return (
-    <nav>
-      <section>
-        <Link href="/">Home</Link>
-        <Link href="/user/todo">Todo</Link>
-      </section>
-      <section>
-        <AuthButton />
-      </section>
-    </nav>
+    <div className="p-4 flex items-center justify-between gap-4 shadow-lg bg-sidebar">
+      <div className="flex items-center gap-2">
+        <SidebarTrigger className={"size-8 text-lg"} />
+        {/* <BreadCrumb className="sm:block hidden" /> */}
+      </div>
+      <div className="flex items-center gap-4">
+        <SettingsDropdown />
+      </div>
+    </div>
   );
 };

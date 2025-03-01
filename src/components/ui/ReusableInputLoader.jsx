@@ -1,5 +1,5 @@
 import Spinner from "./spinner";
-import { cn } from "lib/utils";
+import { cn } from "@/lib/utils";
 
 const ReusableInputLoader = ({ className, spinnerClassName }) => {
   return (
