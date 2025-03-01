@@ -46,8 +46,8 @@ const ReusableButton = ({
       className={cn(
         {
           "bg-red-600": isDanger,
-          "bg-pc4/10 !text-pc4": isLightDanger,
-          "border !text-pc1 border-gray-300": isBordered,
+          "bg-red-600/10 !text-pc4": isLightDanger,
+          "border !text-foreground border-gray-300": isBordered,
         },
         "text-base font-semibold text-center rounded-lg font-inter leading-snug py-6 px-4",
         "inline-flex items-center justify-center",

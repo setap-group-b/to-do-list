@@ -153,9 +153,7 @@ const AuthForm = ({ className, isSignUp }) => {
         />
       </form>
       <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border my-6">
-        <span className="relative z-10 bg-background px-2 text-muted-foreground">
-          Or
-        </span>
+        <span className="relative z-10 px-2 text-muted-foreground">Or</span>
       </div>
       <div className="flex flex-col gap-4">
         <GoogleSignInButton />
