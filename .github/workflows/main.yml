@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci --force
+      - run: npm ci
 
   deploy:
     if: github.event_name == 'push'
