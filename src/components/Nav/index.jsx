@@ -16,9 +16,9 @@ import { usePathname } from "next/navigation";
 export const Nav = () => {
   const pathname = usePathname();
   return (
-    <div className="p-4 flex items-center justify-between gap-4 shadow-lg bg-sidebar">
+    <nav className="md:px-6 px-4 py-5 flex items-center justify-between gap-4 z-10 bg-sidebar shadow-[box-shadow:_rgba(33,_35,_38,_0.1)_0px_10px_10px_-10px]">
       <div className="flex items-center gap-2">
-        <SidebarTrigger className={"size-8 text-lg md:hidden"} />
+        <SidebarTrigger className={"size-8 text-lg"} />
         <Breadcrumb>
           <BreadcrumbList>
             {pathname
@@ -46,6 +46,6 @@ export const Nav = () => {
       <div className="flex items-center gap-4">
         <SettingsDropdown />
       </div>
-    </div>
+    </nav>
   );
 };

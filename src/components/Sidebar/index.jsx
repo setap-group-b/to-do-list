@@ -19,12 +19,12 @@ import Groups from "./Groups";
 
 const Sidebar = () => {
   return (
-    <ShadSidebar className={"!bg-background shadow-lg !border-0"}>
+    <ShadSidebar collapsible="icon" className={"shadow-lg !border-0 z-20"}>
       <SidebarHeader
-        className={"flex flex-row items-center gap-4 justify-between"}
+        className={"flex flex-row items-center gap-4 pt-5 justify-between"}
       >
         <SidebarMenuButton size="lg" className="">
-          <Logo className={"text-base gap-2"} />
+          <Logo className={"gap-4 ml-1"} />
         </SidebarMenuButton>
       </SidebarHeader>
       <SidebarContent>

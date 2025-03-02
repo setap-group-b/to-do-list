@@ -13,7 +13,7 @@ export default async function AuthFormLayout({ children }) {
 
   return (
     <SessionWrapper session={session}>
-      <div className="flex flex-col gap-10 items-center justify-center min-h-dvh">
+      <div className="flex flex-col gap-10 items-center justify-center min-h-dvh bg-secondary">
         <div className="p-4 w-full justify-between flex items-center gap-6">
           <Logo />
           <ThemeToggle />

@@ -7,13 +7,16 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "../ui/sidebar";
 import { cn } from "@/lib/utils";
 import { MoreHorizontal, Plus } from "lucide-react";
 import UserAvatar from "../UserAvatar";
 import ReusableButton from "../ui/ReusableButton";
+import Link from "next/link";
 
 const Groups = () => {
+  const { state } = useSidebar();
   const groups = [
     {
       name: "Home",
@@ -99,76 +102,89 @@ const Groups = () => {
   return (
     <SidebarGroup className={"flex flex-col gap-3"}>
       <SidebarGroupLabel className={"text-lg"}>Groups</SidebarGroupLabel>
-
+      <SidebarGroupAction title="Create new group">
+        <Plus />
+        <span className="sr-only">Create new group</span>
+      </SidebarGroupAction>
       <SidebarGroupContent>
-        <SidebarMenu className={"grid grid-cols-2 gap-2"}>
-          {groups.map((group) => {
-            return (
-              <SidebarMenuItem key={group.name} className={"h-full"}>
-                <SidebarMenuButton
-                  className={
-                    "min-h-32 h-full gap-4 pt-5 pb-3 flex items-start flex-col overflow-hidden bg-accent"
-                  }
-                >
-                  {group.people.length ? (
-                    <div className="flex flex-wrap items-center justify-center -space-x-2 mr-2">
-                      {group.people.slice(0, 5).map((item, i) => {
-                        return (
-                          <UserAvatar
-                            key={i}
-                            className={cn(
-                              "text-accent size-10",
-                              i >= 3 ? "-mt-2.5" : ""
-                            )}
-                            image={item.image}
-                            name={item.name}
-                          />
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <p className="text-center flex items-center justify-center w-full flex-1">
-                      No one yet
-                    </p>
-                  )}
-                  <span className="flex flex-col gap-1">
-                    <span className="flex gap-2 items-center">
-                      <p>{group.icon}</p>
-                      <p className="text-wrap line-clamp-1">{group.name}</p>
-                    </span>
-                    <p className="text-[.85rem] text-neutral-400">
-                      {group.people.length} people{" "}
-                    </p>
-                  </span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            );
-          })}
+        <SidebarMenu
+          className={cn(state === "expanded" ? "grid grid-cols-2 gap-2" : "")}
+        >
+          {state === "expanded"
+            ? groups.map((group) => {
+                return (
+                  <SidebarMenuItem key={group.name} className={"h-full"}>
+                    <SidebarMenuButton
+                      className={
+                        "min-h-32 h-full gap-4 pt-5 pb-3 flex items-start flex-col overflow-hidden bg-accent"
+                      }
+                    >
+                      {group.people.length ? (
+                        <div className="flex flex-wrap items-center justify-center -space-x-2 mr-2">
+                          {group.people.slice(0, 5).map((item, i) => {
+                            return (
+                              <UserAvatar
+                                key={i}
+                                className={cn(
+                                  "text-accent size-10",
+                                  i >= 3 ? "-mt-2.5" : ""
+                                )}
+                                image={item.image}
+                                name={item.name}
+                              />
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <p className="text-center flex items-center justify-center w-full flex-1">
+                          No one yet
+                        </p>
+                      )}
+                      <span className="flex flex-col gap-1">
+                        <span className="flex gap-2 items-center">
+                          <p>{group.icon}</p>
+                          <p className="text-wrap line-clamp-1">{group.name}</p>
+                        </span>
+                        <p className="text-[.85rem] text-neutral-400">
+                          {group.people.length} people{" "}
+                        </p>
+                      </span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })
+            : groups.map((group) => {
+                return (
+                  <SidebarMenuItem key={group.name}>
+                    <SidebarMenuButton
+                      size="l"
+                      className={"p-2 flex items-center gap-4 justify-between"}
+                    >
+                      <Link
+                        href={group.url}
+                        className="flex items-center gap-4"
+                      >
+                        <span className="text-lg">{group.icon}</span>
+                        <span>{group.name}</span>
+                      </Link>
+                      <p className="text-[.85rem] text-neutral-400">
+                        {group.people.length} people{" "}
+                      </p>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+
           {groups.length >= 2 && (
             <SidebarMenuItem className={"col-span-2"}>
               <SidebarMenuButton className="text-sidebar-foreground/70">
                 <MoreHorizontal />
-                <span>View More</span>
+                <span>View all</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           )}
         </SidebarMenu>
       </SidebarGroupContent>
-      <ReusableButton
-        className={
-          "rounded-xl gap-1 flex items-center justify-between text-sm bg-accent text-accent-foreground *:flex *:items-center *:gap-2 hover:bg-accent cursor-pointer"
-        }
-      >
-        <span>
-          <Plus />
-          <p>Create new group</p>
-        </span>
-
-        <span>
-          <p>⌘</p>
-          <p>G</p>
-        </span>
-      </ReusableButton>
     </SidebarGroup>
   );
 };
