@@ -16,19 +16,19 @@ export default async function AuthLayout({ children }) {
   return (
     <SessionWrapper session={session}>
       <SidebarProvider>
-        <main className="flex !overflow-hidden w-screen h-[100dvh]">
+        <main className="flex !overflow-hidden w-screen h-[100dvh] bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-950/30 dark:via-purple-950/30 dark:to-pink-950/30">
           <Sidebar />
-          <SidebarInset>
+          <SidebarInset className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-md">
             <div className="flex-1 flex flex-col h-full">
               <Nav />
-              <div className="lg:p-10 md:p-6 p-4 bg-secondary *:h-full *:overflow-y-auto overflow-hidden flex-1">
-                {children}
+              <div className="p-4 md:p-6 lg:p-8 overflow-hidden flex-1 transition-all">
+                <div className="h-full overflow-y-auto p-4 md:p-6 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-indigo-100 dark:border-indigo-900/40">
+                  {children}
+                </div>
               </div>
             </div>
             <ThemeToggle
-              className={
-                "fixed bottom-8 right-8 hover:bg-background cursor-pointer"
-              }
+              className="fixed bottom-8 right-8 bg-white dark:bg-gray-800 shadow-lg rounded-full p-3 hover:shadow-indigo-200 dark:hover:shadow-indigo-900 cursor-pointer transition-all hover:scale-105"
             />
           </SidebarInset>
         </main>
