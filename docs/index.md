@@ -58,3 +58,49 @@ To include email signup and signin feature:
    EMAIL_SERVER_PORT # 465 or 587
    EMAIL_FROM=your-email@example.com # Default "from" address
 ```
+
+## Iteration 2 Checklist
+
+### Chapter 1: Specification (5%)
+
+   1. Report any changes made to your user requirements
+
+   2. If no changes have been made, mention that.
+
+### Chapter 2: Design (5%)
+
+   1. Redraw your architectural model if different from the first one submitted. 
+
+   2. If the model is identical, mention that. 
+
+### Chapter 3: Implementation (40%)
+
+   1. 3-5 minute demo of the prototype
+
+   2. Link to Github repository including code + code documentation
+
+   3. 1 page discussion of implementation issues met
+
+### Chapter 4: Testing (40%)
+
+   1. Unit testing available on GitHub for all units of code 
+
+   2. Complete test plan covering all functional requirements
+
+### Chapter 5: Analysis (10%)
+
+   1. Leadership
+
+   2. Progress Monitoring
+
+   3. Conflict Resolution
+
+### Contributions Table
+| chapter | Harvey | Saqib | Will | Chloe | Azad | Harry | Gary |
+| ------- | ------ | ----- | ---- | ----- | ---- | ----- | ---- |
+|    1    |  y/n   |  y/n  | y/n  |  y/n  | y/n  |  y/n  | y/n  |
+|    2    |  y/n   |  y/n  | y/n  |  y/n  | y/n  |  y/n  | y/n  |
+|    3    |  y/n   |  y/n  | y/n  |  y/n  | y/n  |  y/n  | y/n  |
+|    4    |  y/n   |  y/n  | y/n  |  y/n  | y/n  |  y/n  | y/n  |
+|    5    |  y/n   |  y/n  | y/n  |  y/n  | y/n  |  y/n  | y/n  |
+
