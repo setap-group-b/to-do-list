@@ -35,7 +35,7 @@ export const TodoForm = ({ formAction, initialData }) => {
           ></textarea>
           {formState.errors.content && (
             <div>
-              {formState.errors.content?.join(", ")} // Display form errors
+              {formState.errors.content?.join(", ")}
               related to the content field
             </div>
           )}

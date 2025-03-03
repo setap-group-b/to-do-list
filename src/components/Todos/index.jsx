@@ -1,24 +1,24 @@
 import { Todo } from "@/components";
 import { getServerSessionWrapper, getUserTodos } from "@/utils";
 
-export const Todos = async () => {
+export const Todos = async ({ listId }) => {
   const session = await getServerSessionWrapper();
 
   if (!session) {
     return <section>Please sign in to see your To-do list!</section>;
   }
 
-  const userTodos = await getUserTodos(session?.user);
+  const userTodos = await getUserTodos(session?.user, listId);
 
   if (!userTodos) {
-    return <>Create a To-do to get started!</>;
+    return <p>Create a To-do to get started!</p>;
   }
 
   return (
     <>
       {userTodos.map((todo) => (
         <div key={todo.id}>
-          <Todo todo={todo} />
+          <Todo todo={todo} listId={listId} />
         </div>
       ))}
     </>
