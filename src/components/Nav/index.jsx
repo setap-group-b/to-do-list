@@ -5,13 +5,12 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
 import SettingsDropdown from "./SettingsDropdown";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
+import { CalendarDays, Clock, Search } from "lucide-react";
 
 export const Nav = () => {
   const pathname = usePathname();
