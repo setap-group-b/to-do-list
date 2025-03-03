@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -11,9 +10,10 @@ const TASK_STATES = {
   FINISHED: "finished",
 };
 
-export const Todo = ({ todo }) => {
-  
-  const [taskState, setTaskState] = useState(todo.state || TASK_STATES.UNFINISHED);
+export const Todo = ({ listId, todo }) => {
+  const [taskState, setTaskState] = useState(
+    todo.state || TASK_STATES.UNFINISHED,
+  );
 
   // Function to cycle through the three states
   const handleCheckboxChange = () => {
@@ -29,9 +29,6 @@ export const Todo = ({ todo }) => {
           return TASK_STATES.UNFINISHED;
       }
     });
-
-    
-    console.log("Updated task state:", taskState);
   };
 
   // checkbox appearance based on the state
@@ -46,7 +43,7 @@ export const Todo = ({ todo }) => {
     }
   };
 
-  //small styling for box 
+  //small styling for box
 
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -66,7 +63,7 @@ export const Todo = ({ todo }) => {
       </div>
       <Link
         href={{
-          pathname: `/user/todo/${todo.id}`,
+          pathname: `/user/list/${listId}/todo/${todo.id}`,
         }}
       >
         <h2>{todo.title}</h2>
@@ -74,4 +71,3 @@ export const Todo = ({ todo }) => {
     </div>
   );
 };
-

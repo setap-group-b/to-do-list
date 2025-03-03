@@ -13,7 +13,7 @@ const todoSchema = z.object({
   content: z.string().min(1).max(4000),
 });
 
-export async function createTodo(formState, formData) {
+export async function createTodo(listId, formState, formData) {
   const session = await getServerSessionWrapper();
 
   // TODO: respond better
@@ -39,10 +39,12 @@ export async function createTodo(formState, formData) {
       data: {
         title: result.data.title,
         content: result.data.content,
+        List: { connect: { id: listId } },
         user: { connect: { email: session?.user?.email } },
       },
     });
   } catch (error) {
+    console.log(error);
     if (error instanceof Error) {
       return {
         errors: {
@@ -58,11 +60,11 @@ export async function createTodo(formState, formData) {
     }
   }
 
-  revalidatePath("/user/todo"); // purge cached data
-  redirect("/user/todo");
+  revalidatePath(`/user/list/${listId}/todo`); // purge cached data
+  redirect(`/user/list/${listId}/todo`);
 }
 
-export async function updateTodo(id, formState, formData) {
+export async function updateTodo(id, listId, formState, formData) {
   const session = getServerSessionWrapper();
 
   // TODO: respond better
@@ -105,11 +107,11 @@ export async function updateTodo(id, formState, formData) {
     }
   }
 
-  revalidatePath(`/user/todo/${id}`); // purge cached data
-  redirect(`/user/todo/${id}`);
+  revalidatePath(`/user/list/${listId}/todo/${id}`); // purge cached data
+  redirect(`/user/list/${listId}/todo/${id}`);
 }
 
-export async function deleteTodo(id) {
+export async function deleteTodo(id, listId) {
   const session = getServerSessionWrapper();
 
   // TODO: respond better
@@ -137,6 +139,6 @@ export async function deleteTodo(id) {
     }
   }
 
-  revalidatePath("/user/todo"); // purge cached data
-  redirect("/user/todo");
+  revalidatePath(`/user/list/${listId}/todo`); // purge cached data
+  redirect(`/user/list/${listId}/todo`);
 }

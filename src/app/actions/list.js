@@ -43,6 +43,7 @@ export async function createList(formState, formData) {
       },
     });
   } catch (error) {
+    console.log(error);
     if (error instanceof Error) {
       return {
         errors: {
