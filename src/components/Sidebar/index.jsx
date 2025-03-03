@@ -1,29 +1,29 @@
+"use client";
+
 import Logo from "../Logo";
 import {
   Sidebar as ShadSidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarGroup,
-  SidebarGroupAction,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
-  SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
   SidebarRail,
-  SidebarTrigger,
 } from "../ui/sidebar";
-import Lists from "./Lists";
+import { PlusIcon } from "lucide-react";
+import { useState } from "react";
 import Groups from "./Groups";
+import Lists from "./Lists";
 
 const Sidebar = () => {
   return (
-    <ShadSidebar collapsible="icon" className={"shadow-lg !border-0 z-20"}>
+    <ShadSidebar
+      collapsible="icon"
+      className={"shadow-lg  z-20 border-sidebar-accent"}
+    >
       <SidebarHeader
         className={"flex flex-row items-center gap-4 pt-5 justify-between"}
       >
-        <SidebarMenuButton size="lg" className="">
+        <SidebarMenuButton size="lg" className="!bg-transparent">
           <Logo className={"gap-4 ml-1"} />
         </SidebarMenuButton>
       </SidebarHeader>
@@ -31,6 +31,7 @@ const Sidebar = () => {
         <Lists />
         <Groups />
       </SidebarContent>
+
       <SidebarRail />
     </ShadSidebar>
   );

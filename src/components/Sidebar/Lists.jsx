@@ -68,7 +68,7 @@ const Lists = () => {
                 >
                   <Link
                     href={collection.url}
-                    className="flex items-center gap-4"
+                    className="flex items-center gap-4 w-full"
                   >
                     <span className="text-lg">{collection.icon}</span>
                     <span>{collection.name}</span>
@@ -81,7 +81,7 @@ const Lists = () => {
             );
           })}
           {collections.length >= 6 && (
-            <SidebarMenuItem>
+            <SidebarMenuItem className={"cursor-pointer"}>
               <SidebarMenuButton className="text-sidebar-foreground/70">
                 <MoreHorizontal />
                 <span>View all</span>
