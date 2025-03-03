@@ -43,7 +43,7 @@ export const ListForm = ({ formAction, initialData }) => {
         </section>
         <section>
           <button type="submit">Save</button>
-          <Link href="/user/todo">Cancel</Link>
+          <Link href="/list">Cancel</Link>
         </section>
       </form>
     </>

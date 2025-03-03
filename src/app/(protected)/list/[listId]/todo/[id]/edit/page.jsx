@@ -26,6 +26,7 @@ export default async function PostsEdit({ params }) {
         title: userTodo?.title ?? "",
         content: userTodo?.content ?? "",
       }}
+      listId={listId}
     />
   );
 }

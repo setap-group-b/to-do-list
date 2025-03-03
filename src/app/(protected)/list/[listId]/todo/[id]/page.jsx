@@ -21,7 +21,7 @@ export default async function UserTodo({ params }) {
     <>
       <h1>{userTodo.title}</h1>
       <p>{userTodo.content}</p>
-      <Link href={`/user/list/${listId}/todo/${id}/edit`}>Edit</Link>
+      <Link href={`/list/${listId}/todo/${id}/edit`}>Edit</Link>
       <TodoDelete id={id} listId={listId} />
     </>
   );

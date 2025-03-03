@@ -63,7 +63,7 @@ export const Todo = ({ listId, todo }) => {
       </div>
       <Link
         href={{
-          pathname: `/user/list/${listId}/todo/${todo.id}`,
+          pathname: `/list/${listId}/todo/${todo.id}`,
         }}
       >
         <h2>{todo.title}</h2>

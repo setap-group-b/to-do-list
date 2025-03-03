@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useActionState } from "react";
 
-export const TodoForm = ({ formAction, initialData }) => {
+export const TodoForm = ({ formAction, initialData, listId }) => {
   const [formState, action] = useActionState(formAction, {
     errors: {},
   });
@@ -42,9 +42,10 @@ export const TodoForm = ({ formAction, initialData }) => {
         </section>
         <section>
           <button type="submit">Save</button>
-          <Link href="/user/todo">Cancel</Link>
+          <Link href={`/list/${listId}/todo`}>Cancel</Link>
         </section>
       </form>
     </>
   );
 };
+// TODO: change Link to have list id

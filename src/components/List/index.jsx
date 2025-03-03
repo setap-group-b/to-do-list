@@ -6,7 +6,7 @@ export const List = ({ list }) => {
   return (
     <Link
       href={{
-        pathname: `/user/list/${list.id}`,
+        pathname: `/list/${list.id}/todo`,
       }}
     >
       <h2>{list.title}</h2>

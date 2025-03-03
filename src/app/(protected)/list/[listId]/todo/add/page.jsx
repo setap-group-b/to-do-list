@@ -10,6 +10,7 @@ export default async function UserTodoAdd({ params }) {
     <TodoForm
       formAction={createAction}
       initialData={{ title: "", content: "" }}
+      listId={listId}
     />
   );
 }

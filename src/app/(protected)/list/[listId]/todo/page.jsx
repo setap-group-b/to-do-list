@@ -13,7 +13,7 @@ export default async function UserList({ params }) {
 
   return (
     <>
-      <Link href={`/user/list/${listId}/todo/add`}>Add To-do</Link>
+      <Link href={`/list/${listId}/todo/add`}>Add To-do</Link>
       <Todos listId={listId} />
     </>
   );

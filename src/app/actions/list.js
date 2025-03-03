@@ -59,6 +59,6 @@ export async function createList(formState, formData) {
     }
   }
 
-  revalidatePath("/user/todo"); // purge cached data
-  redirect("/user/todo");
+  revalidatePath("/list"); // purge cached data
+  redirect("/list");
 }
