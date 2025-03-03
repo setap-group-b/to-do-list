@@ -9,7 +9,7 @@ datasource db {
 }
 
 model List {
-  id               String  @id
+  id               String  @id @default(cuid())
   title            String
   backgroundColour String
   userId           String?
