@@ -43,6 +43,14 @@ export const Nav = () => {
         </Breadcrumb>
       </div>
       <div className="flex items-center gap-4">
+        <div className="relative hidden md:flex items-center">
+          <Search className="absolute left-3 h-4 w-4 text-indigo-500/70 dark:text-indigo-400/70" />
+          <input
+            type="text"
+            placeholder="Search tasks..."
+            className="h-9 w-[180px] rounded-full bg-indigo-50 dark:bg-indigo-900/30 border-none pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 dark:focus:ring-indigo-600/50 placeholder:text-indigo-400/70 dark:placeholder:text-indigo-500/50"
+          />
+        </div>
         <SettingsDropdown />
       </div>
     </nav>
