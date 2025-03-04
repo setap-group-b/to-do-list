@@ -104,7 +104,7 @@ For a better reference, please read the [CW Specification](https://docs.google.c
 
    3. Conflict Resolution
 
-### Contributions Table
+## Contributions Table
 *Could just include a link to an excel sheet for contributions + signatures? We can see*
 | chapter | Harvey | Saqib | Will | Chloe | Azad | Harry | Gary |
 | ------- | ------ | ----- | ---- | ----- | ---- | ----- | ---- |
