@@ -5,7 +5,10 @@ export default function UserListAdd() {
   return (
     <ListForm
       formAction={createList}
-      initialData={{ title: "", backgroundColour: "" }}
+      initialData={{ 
+        title: "", 
+        backgroundColour: "" 
+      }}
     />
   );
 }

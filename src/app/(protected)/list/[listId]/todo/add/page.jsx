@@ -9,7 +9,14 @@ export default async function UserTodoAdd({ params }) {
   return (
     <TodoForm
       formAction={createAction}
-      initialData={{ title: "", content: "" }}
+      initialData={{
+        backgroundColour: "",
+        title: "",
+        state: "",
+        priority: "",
+        content: "",
+        deadline: { getDates },
+      }}
       listId={listId}
     />
   );
