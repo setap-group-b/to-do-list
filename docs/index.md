@@ -60,6 +60,7 @@ To include email signup and signin feature:
 ```
 
 ## Iteration 2 Checklist
+For a better reference, please read the [CW Specification](https://docs.google.com/document/d/1JpylQvh4p1iMy78oo6UDdTD76v2W7c4R/edit?tab=t.0)
 
 ### Chapter 1: Specification (5%)
 
@@ -73,19 +74,27 @@ To include email signup and signin feature:
 
    2. If the model is identical, mention that. 
 
+  You can find a link to our architectural model [Here...](https://placehold.co/600x400)
+
 ### Chapter 3: Implementation (40%)
 
-   1. 3-5 minute demo of the prototype
+   1. 3-5 minute demo of the prototype (15%)
 
-   2. Link to Github repository including code + code documentation
+   2. Link to Github repository including code + code documentation 
+   
+   3. Evidence of version control and code documentation (15%)
 
-   3. 1 page discussion of implementation issues met
+   4. Brief discussion of any implementation issues encountered  and the ways they were overcome
 
 ### Chapter 4: Testing (40%)
 
    1. Unit testing available on GitHub for all units of code 
+   
+   2. Test plan for the system covering all units of code (20%)
 
-   2. Complete test plan covering all functional requirements
+   3. A link to the automated test cases that cover this test plan (20%)
+
+   4. Complete test plan covering all functional requirements
 
 ### Chapter 5: Analysis (10%)
 
@@ -96,6 +105,7 @@ To include email signup and signin feature:
    3. Conflict Resolution
 
 ### Contributions Table
+*Could just include a link to an excel sheet for contributions + signatures? We can see*
 | chapter | Harvey | Saqib | Will | Chloe | Azad | Harry | Gary |
 | ------- | ------ | ----- | ---- | ----- | ---- | ----- | ---- |
 |    1    |  y/n   |  y/n  | y/n  |  y/n  | y/n  |  y/n  | y/n  |
