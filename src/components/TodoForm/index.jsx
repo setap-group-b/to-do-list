@@ -3,35 +3,15 @@
 import Link from "next/link";
 import { useState, useActionState } from "react";
 import { Todo } from "@/components";
+import { SubTask } from "@/components";
 
 
 // setup for cycle priority
-const [priority, setPriority] = useState(todo.priority || "Set Your Priority");
 const priorities = ["No-Priority", "Low-Priority", "Medium-Priority", "High-Priority"];
 
-// finds current priority and increments by one
-const cyclePriority = () => {
-  const currentIndex = priorities.indexOf(priority);
-  const nextIndex = (currentIndex + 1) % priorities.length;
-
-  setPriority(nextIndex);
-}
-
-const getDates = () => {
-  const date = new Date();
-
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const day = date.getDate();
-
-  // getting time units for later use in notification timers etc
-  const hour = date.getHours();
-  const minute = date.getMinutes() % 10;
-  //return (`${year}-${month}-${day}`);
-  return (`${day}-${month}-${year}`);
-}
-
 export const TodoForm = ({ formAction, initialData }) => {
+  const [priority, setPriority] = useState(initialData.priority || "Set Your Priority");
+  const [title, setTitle] = useState(initialData.title || "Set Your Title");
   const [formState, action] = useActionState(formAction, {
     errors: {
       title: "ERROR: Title",
@@ -42,7 +22,28 @@ export const TodoForm = ({ formAction, initialData }) => {
     },
   });
 
-  
+  // finds current priority and increments by one
+  const handlePriority = () => {
+    const currentIndex = priorities.indexOf(priority);
+    const nextIndex = (currentIndex + 1) % priorities.length;
+
+    setPriority(nextIndex);
+  }
+
+  const getDates = () => {
+    const date = new Date();
+
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+
+    // getting time units for later use in notification timers etc
+    const hour = date.getHours();
+    const minute = date.getMinutes() % 10;
+    //return (`${year}-${month}-${day}`);
+    return (`${day}-${month}-${year}`);
+  }
+ 
   // Assuming that height order of elements is [Title, State, Priority, Content, Deadline]
   return (
     <> 
@@ -56,12 +57,25 @@ export const TodoForm = ({ formAction, initialData }) => {
           type="text"
           id="title"
           name="title"
-          defaultValue={ initialData.title }
+          value={ title }
+          onChange={ (e) => { setTitle(e.target.value) } }
           className="text-black bg-white"
         />
         { formState.errors.title && (
           <p>{ formState.errors.title?.join(", ") }</p>
         ) }
+        {/** button that will call the creation of a subtask */}
+        <button
+          htmlFor="subtask_button"
+          type="button"
+          onClick={ () => (
+            <SubTask // In theory, should present
+              formAction={ formAction }
+              initialData={ initialData }
+              parentForm={ title }
+            />
+          )}>
+        </button>
       </section>
 
       <section>
@@ -70,7 +84,7 @@ export const TodoForm = ({ formAction, initialData }) => {
         <button 
           htmlFor="priority" 
           type="button" 
-          onClick={ cyclePriority }
+          onClick={ handlePriority }
           >{ priority }
         </button>
         { formState.errors.priority && (
@@ -115,7 +129,7 @@ export const TodoForm = ({ formAction, initialData }) => {
         </section>
 
         <section>
-          <button type="submit">Save</button>
+          <button type="submit" onClick={ () => console.log("Save Function Placeholder") }>Save</button>
           <Link href="/user/todo">Cancel</Link>
         </section>
 
