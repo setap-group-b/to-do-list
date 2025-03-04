@@ -54,7 +54,9 @@ const Lists = () => {
   return (
     <SidebarGroup className={"flex flex-col gap-3"}>
       <SidebarGroupLabel className={"text-lg"}>Lists</SidebarGroupLabel>
-
+      <SidebarGroupAction title="Create new list">
+        <Plus /> <span className="sr-only">Create new list</span>
+      </SidebarGroupAction>
       <SidebarGroupContent>
         <SidebarMenu>
           {collections.map((collection) => {
@@ -66,7 +68,7 @@ const Lists = () => {
                 >
                   <Link
                     href={collection.url}
-                    className="flex items-center gap-4"
+                    className="flex items-center gap-4 w-full"
                   >
                     <span className="text-lg">{collection.icon}</span>
                     <span>{collection.name}</span>
@@ -79,30 +81,15 @@ const Lists = () => {
             );
           })}
           {collections.length >= 6 && (
-            <SidebarMenuItem>
+            <SidebarMenuItem className={"cursor-pointer"}>
               <SidebarMenuButton className="text-sidebar-foreground/70">
                 <MoreHorizontal />
-                <span>View More</span>
+                <span>View all</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           )}
         </SidebarMenu>
       </SidebarGroupContent>
-      <ReusableButton
-        className={
-          "rounded-xl gap-1 flex items-center justify-between text-sm bg-accent text-accent-foreground *:flex *:items-center *:gap-2 hover:bg-accent cursor-pointer"
-        }
-      >
-        <span>
-          <Plus />
-          <p>Create new list</p>
-        </span>
-
-        <span>
-          <p>⌘</p>
-          <p>L</p>
-        </span>
-      </ReusableButton>
     </SidebarGroup>
   );
 };

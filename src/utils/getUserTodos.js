@@ -1,7 +1,7 @@
 import prisma from "lib/prisma";
 
-export const getUserTodos = (user) => {
+export const getUserTodos = (user, listId) => {
   return prisma.todo.findMany({
-    where: { user: user },
+    where: { user: user, listId: listId },
   });
 };

@@ -24,10 +24,7 @@ const SettingsDropdown = () => {
       actionsContainerClassName="rounded-lg"
       trigger={
         <Button className="!bg-transparent shadow-none w-max p-0">
-          <UserAvatar
-            image={session?.user.image}
-            name={session?.user.name + "chidera oluoha chloe"}
-          />
+          <UserAvatar image={session?.user.image} name={session?.user.name} />
         </Button>
       }
     >

@@ -9,15 +9,15 @@ export default async function PostsEdit({ params }) {
     return <section>Please sign in!</section>;
   }
 
-  const { id } = await params;
+  const { listId, id } = await params;
 
-  const userTodo = await getUserTodo(session.user, id);
+  const userTodo = await getUserTodo(session.user, id, listId);
 
   if (!userTodo) {
     return <>Not found!</>;
   }
 
-  const updateAction = updateTodo.bind(null, id);
+  const updateAction = updateTodo.bind(null, id, listId);
 
   return (
     <TodoForm
@@ -26,6 +26,7 @@ export default async function PostsEdit({ params }) {
         title: userTodo?.title ?? "",
         content: userTodo?.content ?? "",
       }}
+      listId={listId}
     />
   );
 }

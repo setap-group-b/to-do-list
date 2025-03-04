@@ -130,10 +130,11 @@ export const TodoForm = ({ formAction, initialData }) => {
 
         <section>
           <button type="submit" onClick={ () => console.log("Save Function Placeholder") }>Save</button>
-          <Link href="/user/todo">Cancel</Link>
+          <Link href={`/list/${listId}/todo`}>Cancel</Link>
         </section>
 
       </form>
     </>
   );
 };
+// TODO: change Link to have list id

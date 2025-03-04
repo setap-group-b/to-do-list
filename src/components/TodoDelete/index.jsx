@@ -2,10 +2,10 @@
 
 import { deleteTodo } from "@/app/actions/todo";
 
-export const TodoDelete = ({ id }) => {
+export const TodoDelete = ({ id, listId }) => {
   const deleteAction = (event) => {
     event.preventDefault(); // Prevent the form from being submitted in the traditional way.
-    deleteTodo(id); // Delete the post with the given ID.
+    deleteTodo(id, listId); // Delete the post with the given ID.
   };
 
   return (
