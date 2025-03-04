@@ -62,13 +62,13 @@ To include email signup and signin feature:
 ## Iteration 2 Checklist
 For a better reference, please read the [CW Specification](https://docs.google.com/document/d/1JpylQvh4p1iMy78oo6UDdTD76v2W7c4R/edit?tab=t.0)
 
-### Chapter 1: Specification (5%)
+### Chapter 1: Specification **(5%)**
 
    1. Report any changes made to your user requirements
 
    2. If no changes have been made, mention that.
 
-### Chapter 2: Design (5%)
+### Chapter 2: Design **(5%)**
 
    1. Redraw your architectural model if different from the first one submitted. 
 
@@ -76,27 +76,27 @@ For a better reference, please read the [CW Specification](https://docs.google.c
 
   You can find a link to our architectural model [Here...](https://placehold.co/600x400)
 
-### Chapter 3: Implementation (40%)
+### Chapter 3: Implementation **(40%)**
 
-   1. 3-5 minute demo of the prototype (15%)
+   1. 3-5 minute demo of the prototype **(15%)**
 
    2. Link to Github repository including code + code documentation 
    
-   3. Evidence of version control and code documentation (15%)
+   3. Evidence of version control and code documentation **(15%)**
 
    4. Brief discussion of any implementation issues encountered  and the ways they were overcome
 
-### Chapter 4: Testing (40%)
+### Chapter 4: Testing **(40%)**
 
    1. Unit testing available on GitHub for all units of code 
    
-   2. Test plan for the system covering all units of code (20%)
+   2. Test plan for the system covering all units of code **(20%)**
 
-   3. A link to the automated test cases that cover this test plan (20%)
+   3. A link to the automated test cases that cover this test plan **(20%)**
 
    4. Complete test plan covering all functional requirements
 
-### Chapter 5: Analysis (10%)
+### Chapter 5: Analysis **(10%)**
 
    1. Leadership
 
