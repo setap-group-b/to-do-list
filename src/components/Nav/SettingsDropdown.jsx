@@ -1,3 +1,5 @@
+"use client"; // Ensure this is a client component
+
 import { Button } from "@/components/ui/button";
 import ReusablePopover from "@/components/ui/ReusablePopover";
 import {
@@ -8,15 +10,28 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import { signOut, useSession } from "next-auth/react";
-import toast from "react-hot-toast";
-import { LogOutIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation"; // Ensure the correct import
+import { LogOutIcon, SettingsIcon } from "lucide-react";
 import UserAvatar from "../UserAvatar";
 
 const SettingsDropdown = () => {
   const { data: session } = useSession();
+  const [mounted, setMounted] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleLogout = () => {
     signOut();
+  };
+
+  const navigateToSettings = () => {
+    if (mounted) {
+      router.push("/settings");
+    }
   };
 
   return (
@@ -30,25 +45,21 @@ const SettingsDropdown = () => {
     >
       <Command className="w-44">
         <CommandItem className="flex flex-col space-y-1 p-3 items-start hover:!bg-transparent data-[selected=true]:bg-transparent">
-          <p className="font-medium  capitalize">
+          <p className="font-medium capitalize">
             {session?.user?.name.split(" ").slice(0, 2).join(" ")}
           </p>
-          <p className="]">{session?.user?.email}</p>
+          <p>{session?.user?.email}</p>
         </CommandItem>
 
         <CommandSeparator />
         <CommandList className="hover:!bg-transparent">
           <CommandGroup>
-            <CommandItem
-            //   onSelect={() => navigate("/settings?tab=profile")}
-            >
-              Profile
+            <CommandItem onSelect={navigateToSettings}>
+              <SettingsIcon size={"1.1rem"} className="mr-2" />
+              Settings
             </CommandItem>
-            <CommandItem
-            //   onSelect={() => navigate("/settings?tab=security")}
-            >
-              Security
-            </CommandItem>
+            <CommandItem>Profile</CommandItem>
+            <CommandItem>Security</CommandItem>
           </CommandGroup>
           <CommandGroup>
             <CommandItem
@@ -56,7 +67,6 @@ const SettingsDropdown = () => {
               onSelect={handleLogout}
             >
               <p>Log out</p>
-
               <LogOutIcon size={"1.1rem"} />
             </CommandItem>
           </CommandGroup>
