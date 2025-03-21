@@ -25,6 +25,8 @@ export default async function PostsEdit({ params }) {
       initialData={{
         title: userTodo?.title ?? "",
         content: userTodo?.content ?? "",
+        priority: userTodo?.priority ?? "",
+        deadline: userTodo?.deadline ?? ""
       }}
       listId={listId}
     />
