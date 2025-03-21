@@ -8,23 +8,22 @@ const getDate = () => {
   const hour = date.getHours();
   const minute = Math.round(date.getMinutes() / 10) * 10;
 
-  return (date);
-}
+  return date;
+};
 
 export default async function UserTodoAdd({ params }) {
   const { listId } = await params;
 
   const createAction = createTodo.bind(null, listId);
 
-  
   return (
     <TodoForm
       formAction={createAction}
-      initialData={{ 
-        title: "", 
+      initialData={{
+        title: "",
         content: "",
         priority: "Set Priority Here",
-        deadline: { getDate }
+        // deadline: { getDate }
       }}
       listId={listId}
     />
