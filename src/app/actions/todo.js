@@ -59,8 +59,8 @@ export async function createTodo(listId, formState, formData) {
     }
   }
 
-  revalidatePath(`/list/${listId}/todo`); // purge cached data
-  redirect(`/list/${listId}/todo`);
+  revalidatePath(`/dashboard/list/${listId}/todo`); // purge cached data
+  redirect(`/dashboard/list/${listId}/todo`);
 }
 
 export async function updateTodo(id, listId, formState, formData) {
@@ -106,8 +106,8 @@ export async function updateTodo(id, listId, formState, formData) {
     }
   }
 
-  revalidatePath(`/list/${listId}/todo/${id}`); // purge cached data
-  redirect(`/list/${listId}/todo/${id}`);
+  revalidatePath(`/dashboard/list/${listId}/todo/${id}`); // purge cached data
+  redirect(`/dashboard/list/${listId}/todo/${id}`);
 }
 
 export async function deleteTodo(id, listId) {
@@ -138,6 +138,6 @@ export async function deleteTodo(id, listId) {
     }
   }
 
-  revalidatePath(`/list/${listId}/todo`); // purge cached data
-  redirect(`/list/${listId}/todo`);
+  revalidatePath(`/dashboard//list/${listId}/todo`); // purge cached data
+  redirect(`/dashboard/list/${listId}/todo`);
 }

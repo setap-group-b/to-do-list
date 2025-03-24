@@ -1,4 +1,4 @@
-import { List } from "@/components/List";
+import List from "@/components/List";
 import { getServerSessionWrapper, getUserLists } from "@/utils";
 
 export const Lists = async () => {
@@ -14,13 +14,16 @@ export const Lists = async () => {
     return <>Create a list to get started!</>;
   }
 
-  return (
-    <>
+  return userLists?.length ? (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {userLists.map((list) => (
-        <div key={list.id}>
-          <List list={list} />
-        </div>
+        <List key={list.id} list={list} />
       ))}
-    </>
+    </div>
+  ) : (
+    <div className="flex-1 h-full flex items-center justify-center">
+      {" "}
+      No Lists yet
+    </div>
   );
 };

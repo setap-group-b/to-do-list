@@ -9,6 +9,8 @@ import React from "react";
 export default async function AuthLayout({ children }) {
   const session = await getServerSessionWrapper();
 
+  console.log({ session });
+
   if (!session) {
     redirect("/login"); // Immediately redirects unauthenticated users
   }
@@ -27,9 +29,7 @@ export default async function AuthLayout({ children }) {
                 </div>
               </div>
             </div>
-            <ThemeToggle
-              className="fixed bottom-8 right-8 bg-white dark:bg-gray-800 shadow-lg rounded-full p-3 hover:shadow-indigo-200 dark:hover:shadow-indigo-900 cursor-pointer transition-all hover:scale-105"
-            />
+            <ThemeToggle className="fixed bottom-8 right-8 bg-white dark:bg-gray-800 shadow-lg rounded-full p-3 hover:shadow-indigo-200 dark:hover:shadow-indigo-900 cursor-pointer transition-all hover:scale-105" />
           </SidebarInset>
         </main>
       </SidebarProvider>

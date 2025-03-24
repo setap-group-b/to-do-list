@@ -16,11 +16,15 @@ export const Todos = async ({ listId }) => {
 
   return (
     <>
-      {userTodos.map((todo) => (
-        <div key={todo.id}>
-          <Todo todo={todo} listId={listId} />
-        </div>
-      ))}
+      {userTodos.length ? (
+        userTodos.map((todo) => (
+          <div key={todo.id}>
+            <Todo todo={todo} listId={listId} />
+          </div>
+        ))
+      ) : (
+        <p className="m-auto"> No tasks yet </p>
+      )}
     </>
   );
 };

@@ -9,85 +9,57 @@ import {
 } from "../ui/sidebar";
 import Link from "next/link";
 import { MoreHorizontal, Plus } from "lucide-react";
-import ReusableButton from "../ui/ReusableButton";
+import { getServerSessionWrapper, getUserLists } from "@/utils";
 
-const Lists = () => {
-  const collections = [
-    {
-      name: "Home",
-      icon: "🏠",
-      noOfTasks: Math.trunc(Math.random() * 10),
-      url: "",
-    },
-    {
-      name: "Books to read",
-      icon: "📚",
-      noOfTasks: Math.trunc(Math.random() * 10),
-      url: "",
-    },
-    {
-      name: "Completed",
-      icon: "✅",
-      noOfTasks: Math.trunc(Math.random() * 10),
-      url: "",
-    },
-    {
-      name: "Workout",
-      icon: "💪",
-      noOfTasks: Math.trunc(Math.random() * 10),
-      url: "",
-    },
-    {
-      name: "Diet",
-      icon: "🍽️",
-      noOfTasks: Math.trunc(Math.random() * 10),
-      url: "",
-    },
-    {
-      name: "Road trip",
-      icon: "🚗",
-      noOfTasks: Math.trunc(Math.random() * 10),
-      url: "",
-    },
-  ];
+const Lists = async () => {
+  const session = await getServerSessionWrapper();
+  const userLists = await getUserLists(session.user);
+  console.log({ userLists });
 
   return (
     <SidebarGroup className={"flex flex-col gap-3"}>
       <SidebarGroupLabel className={"text-lg"}>Lists</SidebarGroupLabel>
       <SidebarGroupAction title="Create new list">
-        <Plus /> <span className="sr-only">Create new list</span>
+        <Link href={"/dashboard/list/add"}>
+          <Plus size={18} />
+        </Link>{" "}
+        <span className="sr-only">Create new list</span>
       </SidebarGroupAction>
       <SidebarGroupContent>
         <SidebarMenu>
-          {collections.map((collection) => {
+          {userLists.slice(0, 5).map((list, idx) => {
             return (
-              <SidebarMenuItem key={collection.name}>
+              <SidebarMenuItem key={idx}>
                 <SidebarMenuButton
                   size="l"
                   className={"p-2 flex items-center gap-4 justify-between"}
                 >
                   <Link
-                    href={collection.url}
-                    className="flex items-center gap-4 w-full"
+                    href={`/dashboard/list/${list.id}/todo`}
+                    className="flex items-center gap-4 w-full capitalize"
                   >
-                    <span className="text-lg">{collection.icon}</span>
-                    <span>{collection.name}</span>
+                    <span className="text-lg">✅</span>
+                    <span>{list.title}</span>
                   </Link>
                   <span className="bg-accent p-2 rounded-sm h-5 w-6 flex items-center justify-center">
-                    {collection.noOfTasks}
+                    {list?.todo?.length || 0}
                   </span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             );
           })}
-          {collections.length >= 6 && (
-            <SidebarMenuItem className={"cursor-pointer"}>
-              <SidebarMenuButton className="text-sidebar-foreground/70">
+
+          <SidebarMenuItem className={"cursor-pointer"}>
+            <SidebarMenuButton className="text-sidebar-foreground/70">
+              <Link
+                href={`/dashboard/list`}
+                className="flex items-center gap-4 w-full"
+              >
                 <MoreHorizontal />
                 <span>View all</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          )}
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

@@ -12,7 +12,7 @@ const TASK_STATES = {
 
 export const Todo = ({ listId, todo }) => {
   const [taskState, setTaskState] = useState(
-    todo.state || TASK_STATES.UNFINISHED,
+    todo.state || TASK_STATES.UNFINISHED
   );
 
   // Function to cycle through the three states
@@ -63,7 +63,7 @@ export const Todo = ({ listId, todo }) => {
       </div>
       <Link
         href={{
-          pathname: `/list/${listId}/todo/${todo.id}`,
+          pathname: `/dashboard/list/${listId}/todo/${todo.id}`,
         }}
       >
         <h2>{todo.title}</h2>

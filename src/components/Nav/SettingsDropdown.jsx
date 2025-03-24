@@ -30,7 +30,7 @@ const SettingsDropdown = () => {
 
   const navigateToSettings = () => {
     if (mounted) {
-      router.push("/settings");
+      router.push("/dashboard/settings");
     }
   };
 
@@ -44,7 +44,7 @@ const SettingsDropdown = () => {
       }
     >
       <Command className="w-44">
-        <CommandItem className="flex flex-col space-y-1 p-3 items-start hover:!bg-transparent data-[selected=true]:bg-transparent">
+        <CommandItem className="flex flex-col space-y-1 p-3 items-start hover:!bg-transparent data-[selected=true]:bg-transparent max-w-max">
           <p className="font-medium capitalize">
             {session?.user?.name.split(" ").slice(0, 2).join(" ")}
           </p>

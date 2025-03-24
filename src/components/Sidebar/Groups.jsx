@@ -48,7 +48,7 @@ const Groups = () => {
         //   email: "ethan@example.com",
         // },
       ],
-      url: "",
+      url: "list",
     },
     {
       name: "Books to read",
@@ -95,7 +95,7 @@ const Groups = () => {
           email: "jackie@example.com",
         },
       ],
-      url: "",
+      url: "list",
     },
   ];
 
@@ -103,7 +103,9 @@ const Groups = () => {
     <SidebarGroup className={"flex flex-col gap-3"}>
       <SidebarGroupLabel className={"text-lg"}>Groups</SidebarGroupLabel>
       <SidebarGroupAction title="Create new group">
-        <Plus />
+        <Link href={"/list"}>
+          <Plus size={18} />
+        </Link>{" "}
         <span className="sr-only">Create new group</span>
       </SidebarGroupAction>
       <SidebarGroupContent>

@@ -49,7 +49,7 @@ const ReusableButton = ({
           "bg-red-600/10 !text-pc4": isLightDanger,
           "border !text-foreground border-gray-300": isBordered,
         },
-        "text-base font-semibold text-center rounded-lg font-inter leading-snug py-5 px-4",
+        "text-base text-center leading-snug py-5 px-4",
         "inline-flex items-center justify-center",
         className
       )}

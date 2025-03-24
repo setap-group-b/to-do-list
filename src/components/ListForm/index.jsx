@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
+import ReusableButton from "../ui/ReusableButton";
+import PageHeader from "../PageHeader";
 
 export const ListForm = ({ formAction, initialData }) => {
   const [formState, action] = useActionState(formAction, {
@@ -9,9 +11,9 @@ export const ListForm = ({ formAction, initialData }) => {
   });
 
   return (
-    <>
-      <h1>{initialData.title ? "Update" : "Create"} List</h1>
-      <form action={action}>
+    <div className="h-full flex flex-col gap-4">
+      <PageHeader title={`${initialData.title ? "Update" : "Create"} List`} />
+      <form action={action} className="flex flex-col gap-5">
         <section>
           <label htmlFor="title">Title</label>
           <input
@@ -41,11 +43,13 @@ export const ListForm = ({ formAction, initialData }) => {
             </div>
           )}
         </section>
-        <section>
-          <button type="submit">Save</button>
-          <Link href="/list">Cancel</Link>
+        <section className="*:min-w-32 flex items-center gap-4">
+          <ReusableButton type="submit">Save</ReusableButton>
+          <ReusableButton type="button">
+            <Link href={`/dashboard/list`}>Cancel</Link>
+          </ReusableButton>
         </section>
       </form>
-    </>
+    </div>
   );
 };
