@@ -178,9 +178,11 @@ const Groups = () => {
               })}
 
           {groups.length >= 2 && (
-            <SidebarMenuItem className={"col-span-2"}>
+            <SidebarMenuItem>
               <SidebarMenuButton className="text-sidebar-foreground/70">
-                <MoreHorizontal />
+                <MoreHorizontal
+                  className={cn(state === "expanded" ? "!size-6" : "!size-5")}
+                />
                 <span>View all</span>
               </SidebarMenuButton>
             </SidebarMenuItem>

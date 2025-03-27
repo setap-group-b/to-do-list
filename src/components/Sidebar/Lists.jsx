@@ -42,7 +42,7 @@ const Lists = async () => {
                     <span>{list.title}</span>
                   </Link>
                   <span className="bg-accent p-2 rounded-sm h-5 w-6 flex items-center justify-center">
-                    {list?.todo?.length || 0}
+                    {list?.Todo?.length || 0}
                   </span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -53,7 +53,7 @@ const Lists = async () => {
             <SidebarMenuButton className="text-sidebar-foreground/70">
               <Link
                 href={`/dashboard/list`}
-                className="flex items-center gap-4 w-full"
+                className="flex items-center gap-4"
               >
                 <MoreHorizontal />
                 <span>View all</span>
