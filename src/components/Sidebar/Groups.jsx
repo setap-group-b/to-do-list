@@ -177,16 +177,16 @@ const Groups = () => {
                 );
               })}
 
-          {groups.length >= 2 && (
-            <SidebarMenuItem>
-              <SidebarMenuButton className="text-sidebar-foreground/70">
-                <MoreHorizontal
-                  className={cn(state === "expanded" ? "!size-6" : "!size-5")}
-                />
-                <span>View all</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          )}
+          <SidebarMenuItem
+            className={cn(state === "expanded" ? "col-span-2" : "")}
+          >
+            <SidebarMenuButton className="text-sidebar-foreground/70">
+              <MoreHorizontal
+                className={cn(state === "expanded" ? "!size-6" : "!size-5")}
+              />
+              <span>View all</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

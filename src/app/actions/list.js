@@ -42,9 +42,7 @@ export async function createList(formState, formData) {
         user: { connect: { email: session?.user?.email } },
       },
     });
-    console.log({ res });
   } catch (error) {
-    console.log({ ...error }, error.message);
     if (error instanceof Error) {
       return {
         errors: {

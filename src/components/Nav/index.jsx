@@ -26,7 +26,7 @@ export const Nav = () => {
             {pathList.map((path, i) => {
               if (
                 (!path && i > 0) ||
-                ["list", "group"].includes(
+                ["list", "group", "todo"].includes(
                   (pathList[i - 1] || "").toLowerCase()
                 )
               )

@@ -23,6 +23,7 @@ export default async function UserTodoAdd({ params }) {
         title: "",
         content: "",
         priority: "Set Priority Here",
+        status: "",
         // deadline: { getDate }
       }}
       listId={listId}

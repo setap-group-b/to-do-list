@@ -37,10 +37,8 @@ export default async function UserList({ params }) {
           </Button>
         </div>
       </div>
-      <div className="flex-1 flex flex-col">
-        <Todos listId={listId} />
-        <ListDelete listId={listId} />
-      </div>
+      <Todos listId={listId} />
+      <ListDelete listId={listId} />
     </div>
   );
 }
