@@ -8,6 +8,18 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
+enum Status {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum Priority {
+  HIGH
+  MEDIUM
+  LOW
+}
+
 model List {
   id               String  @id @default(cuid())
   title            String
@@ -18,17 +30,17 @@ model List {
 }
 
 model Todo {
-  id        String  @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  userId    String?
-  listId    String?
-  List      List?   @relation(fields: [listId], references: [id])
-  user      User?   @relation(fields: [userId], references: [id])
-  priortiy String?
-  deadline DateTime?
+  id           String    @id @default(cuid())
+  title        String
+  content      String?
+  userId       String?
+  listId       String?
+  priority     Priority  @default(LOW)
+  status       Status    @default(PENDING)
+  deadline     DateTime?
   notification String?
+  List         List?     @relation(fields: [listId], references: [id])
+  User         User?     @relation(fields: [userId], references: [id])
 }
 
 model Account {

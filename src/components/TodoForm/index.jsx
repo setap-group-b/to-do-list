@@ -1,29 +1,50 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useActionState } from "react";
+import { useState, useActionState, useRef } from "react";
 import { cyclePriority } from "@/utils/cyclePriority";
 import PageHeader from "../PageHeader";
 import ReusableButton from "../ui/ReusableButton";
+import ReusableDropdown from "../ui/ReusableDropdown";
+import { priorityObject } from "@/utils/constants";
 
 export const TodoForm = ({ formAction, initialData, listId }) => {
-  const [formState, action] = useActionState(formAction, {
+  const formRef = useRef(null);
+  async function submitForm(prevState, formData) {
+    const result = await formAction(prevState, formData);
+    if (result.success && formRef.current) {
+      formRef.current.reset();
+    }
+    return result;
+  }
+  const [formState, action] = useActionState(submitForm, {
     errors: {},
   });
 
+  const [notification, setNotification] = useState("");
   //setup for cyclePriority
-  const [priority, setPriority] = useState("Set Priority");
-  const priorities = [
-    "No-Priority",
-    "Low-Priority",
-    "Medium-Priority",
-    "High-Priority",
+  const [priority, setPriority] = useState({
+    label: "Click to set priority",
+    value: 0,
+  });
+  const priorities = Object.entries(priorityObject).map(([key, value]) => ({
+    label: value,
+    value: key,
+  }));
+  const notificationOptions = [
+    { label: "1 day before deadline", value: "1 day" },
+    { label: "1 week before deadline", value: "1 week" },
+    { label: "1 month before deadline", value: "1 month" },
   ];
 
   return (
     <div className="flex flex-col h-full gap-6">
       <PageHeader title={`${initialData?.title ? "Update" : "Create"} Task`} />
-      <form action={action} className="flex flex-1 flex-col gap-4">
+      <form
+        ref={formRef}
+        action={action}
+        className="flex flex-1 flex-col gap-4"
+      >
         <div className="flex-1">
           {/* Title Field */}
           <section style={{ marginBottom: "5px" }}>
@@ -44,12 +65,19 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
 
           {/* Priority Field */}
           <section style={{ marginBottom: "5px" }}>
+            <label htmlFor="priority" style={{ marginRight: "5px" }}>
+              Priority:
+            </label>
             <button
+              id="priority"
+              name="priority"
               type="button"
+              value={priority.value}
               onClick={() => cyclePriority(priority, priorities, setPriority)}
             >
-              {priority}
+              {priority.label}
             </button>
+            <input type="hidden" name="priority" value={priority.value} />
           </section>
 
           {/* Content Field */}
@@ -75,7 +103,7 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
               Deadline:
             </label>
             <input
-              type="date"
+              type="datetime-local"
               id="deadline"
               name="deadline"
               defaultValue={initialData?.deadline || ""}
@@ -88,18 +116,22 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
 
           {/* Notification Field */}
           <section>
-            <label htmlFor="notification">Notification:</label>
-            <select
-              id="notification"
-              name="notification"
+            <ReusableDropdown
+              autoModifyOptions={false}
               defaultValue={initialData?.notification || ""}
-              className="text-black bg-white"
-            >
-              <option value="">Select notification time</option>
-              <option value="1 day">1 day before deadline</option>
-              <option value="1 week">1 week before deadline</option>
-              <option value="1 month">1 month before deadline</option>
-            </select>
+              placeholder={"Select notification time"}
+              name="notification"
+              id="notification"
+              value={notification}
+              label={"Notification:"}
+              onChange={(value) => {
+                setNotification(value);
+              }}
+              options={notificationOptions}
+            />
+
+            <input type="hidden" name="notification" value={notification} />
+
             {formState.errors.notification && (
               <p>{formState.errors.notification?.join(", ")}</p>
             )}

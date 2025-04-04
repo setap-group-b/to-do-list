@@ -43,6 +43,9 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.87 0 0);
+  --high-priority: 50% 0.3 25;
+  --medium-priority: 85% 0.3 70;
+  --low-priority: 55% 0.25 140;
 }
 
 .dark {
@@ -60,7 +63,7 @@
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
+  --destructive: oklch(0.36 0.25 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
   --border: oklch(0.269 0 0);
   --input: oklch(0.269 0 0);
@@ -78,6 +81,9 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+  --high-priority: 30% 0.4 90;
+  --medium-priority: 70% 0.2 70;
+  --low-priority: 40% 0.3 140;
 }
 
 @theme inline {
@@ -117,6 +123,9 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-priority-high: oklch(var(--high-priority), <alpha-value>);
+  --color-priority-medium: oklch(var(--medium-priority), <alpha-value>);
+  --color-priority-low: oklch(var(--low-priority), <alpha-value>);
 }
 
 @layer base {

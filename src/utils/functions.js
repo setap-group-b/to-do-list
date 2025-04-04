@@ -19,8 +19,22 @@ export function dateFormatter(date, options) {
     const formatter = new Intl.DateTimeFormat("en-GB", {
       dateStyle: "full",
       timeStyle: "medium",
+      ...options,
     });
     value = formatter.format(dateValue);
   } catch (error) {}
   return value;
 }
+
+export const capitalizeString = (value) => {
+  return value && value.length > 0
+    ? value[0].toUpperCase().concat(value.slice(1))
+    : value;
+};
+
+export const modifyOptions = (arr, label) => {
+  return arr?.map((value) => ({
+    label: capitalizeString(label || value),
+    value,
+  }));
+};

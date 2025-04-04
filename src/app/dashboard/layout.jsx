@@ -9,8 +9,6 @@ import React from "react";
 export default async function AuthLayout({ children }) {
   const session = await getServerSessionWrapper();
 
-  console.log({ session });
-
   if (!session) {
     redirect("/login"); // Immediately redirects unauthenticated users
   }

@@ -10,7 +10,6 @@ const List = ({ list }) => {
   // const params = useParams();
   const router = useRouter();
   console.log({ list });
-
   return (
     <div className="bg-white flex flex-col dark:bg-gray-800 rounded-2xl shadow-md border border-indigo-100 dark:border-indigo-900/40 overflow-hidden">
       <div className="flex items-center justify-between bg-indigo-50 dark:bg-indigo-900/30 p-4 border-b border-indigo-100 dark:border-indigo-800/30">

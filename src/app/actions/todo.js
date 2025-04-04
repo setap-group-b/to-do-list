@@ -7,10 +7,20 @@ import { redirect } from "next/navigation";
 import { getServerSessionWrapper } from "@/utils";
 
 import { z } from "zod";
+import { priority, status } from "@/utils/constants";
+const priorityEnum = z.enum(priority);
+const statusEnum = z.enum(status);
 
 const todoSchema = z.object({
   title: z.string().min(1).max(255),
-  content: z.string().min(1).max(4000),
+  content: z.string().max(4000).optional(),
+  priority: priorityEnum.default("LOW"),
+  deadline: z.preprocess(
+    (val) => (val ? new Date(val) : undefined),
+    z.date().optional()
+  ),
+  notification: z.string().optional(),
+  status: statusEnum.default("PENDING"),
 });
 
 export async function createTodo(listId, formState, formData) {
@@ -21,10 +31,8 @@ export async function createTodo(listId, formState, formData) {
     return;
   }
 
-  const result = todoSchema.safeParse({
-    title: formData.get("title"),
-    content: formData.get("content"),
-  });
+  const formDataObject = Object.fromEntries(formData.entries());
+  const result = todoSchema.safeParse(formDataObject);
 
   if (!result.success) {
     return {
@@ -37,13 +45,14 @@ export async function createTodo(listId, formState, formData) {
   try {
     await prisma.todo.create({
       data: {
-        title: result.data.title,
-        content: result.data.content,
+        ...result.data,
         List: { connect: { id: listId } },
-        user: { connect: { email: session?.user?.email } },
+        User: { connect: { email: session?.user?.email } },
       },
     });
   } catch (error) {
+    console.log({ error });
+
     if (error instanceof Error) {
       return {
         errors: {
@@ -70,11 +79,8 @@ export async function updateTodo(id, listId, formState, formData) {
   if (!session) {
     return;
   }
-
-  const result = todoSchema.safeParse({
-    title: formData.get("title"),
-    content: formData.get("content"),
-  });
+  const formDataObject = Object.fromEntries(formData.entries());
+  const result = todoSchema.safeParse(formDataObject);
 
   if (!result.success) {
     return {
@@ -85,10 +91,7 @@ export async function updateTodo(id, listId, formState, formData) {
   try {
     await prisma.todo.update({
       where: { id, user: session.user },
-      data: {
-        title: result.data.title,
-        content: result.data.content,
-      },
+      data: result.data,
     });
   } catch (error) {
     if (error instanceof Error) {
