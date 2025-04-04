@@ -26,7 +26,7 @@ export default async function PostsEdit({ params }) {
         title: userTodo?.title ?? "",
         content: userTodo?.content ?? "",
         priority: userTodo?.priority ?? "",
-        deadline: userTodo?.deadline ?? ""
+        deadline: userTodo?.deadline ?? "",
       }}
       listId={listId}
     />

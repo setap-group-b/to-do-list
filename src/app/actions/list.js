@@ -16,20 +16,15 @@ const todoSchema = z.object({
 export async function createList(formState, formData) {
   const session = await getServerSessionWrapper();
 
-  console.log("HIII");
-
   // TODO: respond better
   if (!session) {
     return;
   }
-  console.log("HIII 22");
 
   const result = todoSchema.safeParse({
     title: formData.get("title"),
     backgroundColour: formData.get("background-colour"),
   });
-
-  console.log({ result });
 
   if (!result.success) {
     return {
@@ -41,6 +36,58 @@ export async function createList(formState, formData) {
 
   try {
     const res = await prisma.list.create({
+      data: {
+        title: result.data.title,
+        backgroundColour: result.data.backgroundColour,
+        user: { connect: { email: session?.user?.email } },
+      },
+    });
+    console.log({ res });
+  } catch (error) {
+    console.log({ ...error }, error.message);
+    if (error instanceof Error) {
+      return {
+        errors: {
+          _form: [error.message],
+        },
+      };
+    } else {
+      return {
+        errors: {
+          _form: ["Something went wrong"],
+        },
+      };
+    }
+  }
+
+  revalidatePath("/dashboard/list"); // purge cached data
+  redirect("/dashboard/list");
+}
+
+export async function updateList(listId, formState, formData) {
+  const session = await getServerSessionWrapper();
+
+  // TODO: respond better
+  if (!session) {
+    return;
+  }
+
+  const result = todoSchema.safeParse({
+    title: formData.get("title"),
+    backgroundColour: formData.get("background-colour"),
+  });
+
+  if (!result.success) {
+    return {
+      // The flatten method is used to convert the validation errors into a flat object structure
+      // that can be easily displayed in the form.
+      errors: result.error.flatten().fieldErrors,
+    };
+  }
+
+  try {
+    const res = await prisma.list.update({
+      where: { id: listId, user: session.user },
       data: {
         title: result.data.title,
         backgroundColour: result.data.backgroundColour,
