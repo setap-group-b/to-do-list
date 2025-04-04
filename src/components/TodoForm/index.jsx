@@ -12,7 +12,9 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
   });
 
   //setup for cyclePriority
-  const [priority, setPriority] = useState("Set Priority");
+  const [priority, setPriority] = useState(
+    `${initialData?.priority ? initialData.priority : "No-Priority"}`,
+  );
   const priorities = [
     "No-Priority",
     "Low-Priority",
@@ -42,14 +44,22 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
             )}
           </section>
 
-          {/* Priority Field */}
           <section style={{ marginBottom: "5px" }}>
-            <button
-              type="button"
-              onClick={() => cyclePriority(priority, priorities, setPriority)}
+            <label htmlFor="priority">Priority:</label>
+            <select
+              id="priority"
+              name="priority"
+              defaultValue={initialData?.priority || ""}
+              className="text-black bg-white"
             >
-              {priority}
-            </button>
+              <option value="none">None</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+            {formState.errors.priority && (
+              <p>{formState.errors.priority?.join(", ")}</p>
+            )}
           </section>
 
           {/* Content Field */}
@@ -88,20 +98,20 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
 
           {/* Notification Field */}
           <section>
-            <label htmlFor="notification">Notification:</label>
+            <label htmlFor="notification-time">Notification time:</label>
             <select
-              id="notification"
-              name="notification"
-              defaultValue={initialData?.notification || ""}
+              id="notification-time"
+              name="notification-time"
+              defaultValue={initialData?.notificationTime || ""}
               className="text-black bg-white"
             >
-              <option value="">Select notification time</option>
-              <option value="1 day">1 day before deadline</option>
-              <option value="1 week">1 week before deadline</option>
-              <option value="1 month">1 month before deadline</option>
+              <option value="none">No notification time</option>
+              <option value="1-day">1 day before deadline</option>
+              <option value="1-week">1 week before deadline</option>
+              <option value="1-month">1 month before deadline</option>
             </select>
-            {formState.errors.notification && (
-              <p>{formState.errors.notification?.join(", ")}</p>
+            {formState.errors.notificationTime && (
+              <p>{formState.errors.notificationTime?.join(", ")}</p>
             )}
           </section>
         </div>

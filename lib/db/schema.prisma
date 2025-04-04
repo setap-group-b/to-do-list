@@ -26,8 +26,8 @@ model Todo {
   List      List?   @relation(fields: [listId], references: [id])
   user      User?   @relation(fields: [userId], references: [id])
   state String?
-  priority Int?
-  deadline DateTime?
+  priority String?
+  deadline String?
   notificationTime String?
 }
 

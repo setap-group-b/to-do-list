@@ -11,6 +11,9 @@ import { z } from "zod";
 const todoSchema = z.object({
   title: z.string().min(1).max(255),
   content: z.string().min(1).max(4000),
+  priority: z.string().min(1).max(30),
+  deadline: z.string().min(1).max(30),
+  notificationTime: z.string().min(1).max(30),
 });
 
 export async function createTodo(listId, formState, formData) {
@@ -24,6 +27,9 @@ export async function createTodo(listId, formState, formData) {
   const result = todoSchema.safeParse({
     title: formData.get("title"),
     content: formData.get("content"),
+    priority: formData.get("priority"),
+    deadline: formData.get("deadline"),
+    notificationTime: formData.get("notification-time"),
   });
 
   if (!result.success) {
@@ -39,6 +45,9 @@ export async function createTodo(listId, formState, formData) {
       data: {
         title: result.data.title,
         content: result.data.content,
+        priority: result.data.priority,
+        deadline: result.data.deadline,
+        notificationTime: result.data.notificationTime,
         List: { connect: { id: listId } },
         user: { connect: { email: session?.user?.email } },
       },
@@ -75,6 +84,9 @@ export async function updateTodo(id, listId, formState, formData) {
   const result = todoSchema.safeParse({
     title: formData.get("title"),
     content: formData.get("content"),
+    priority: formData.get("priority"),
+    deadline: formData.get("deadline"),
+    notificationTime: formData.get("notification-time"),
   });
 
   if (!result.success) {
@@ -89,6 +101,9 @@ export async function updateTodo(id, listId, formState, formData) {
       data: {
         title: result.data.title,
         content: result.data.content,
+        priority: result.data.priority,
+        deadline: result.data.deadline,
+        notificationTime: result.data.notificationTime,
       },
     });
   } catch (error) {
