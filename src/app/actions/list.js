@@ -112,8 +112,8 @@ export async function updateList(listId, formState, formData) {
     }
   }
 
-  revalidatePath("/dashboard/list"); // purge cached data
-  redirect("/dashboard/list");
+  revalidatePath(`/dashboard/list/${listId}/todo`); // purge cached data
+  redirect(`/dashboard/list/${listId}/todo`);
 }
 
 export async function deleteList(listId) {

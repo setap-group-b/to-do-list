@@ -28,9 +28,14 @@ export default async function UserList({ params }) {
     >
       <div className="flex gap-4 justify-between">
         <PageHeader title={`List Tasks`} />
-        <Button>
-          <Link href={`/dashboard/list/${listId}/todo/add`}>Add Tasks</Link>
-        </Button>
+        <div>
+          <Button>
+            <Link href={`/dashboard/list/${listId}/edit`}>Edit List</Link>
+          </Button>
+          <Button>
+            <Link href={`/dashboard/list/${listId}/todo/add`}>Add Tasks</Link>
+          </Button>
+        </div>
       </div>
       <div className="flex-1 flex flex-col">
         <Todos listId={listId} />
