@@ -3,13 +3,9 @@
 import { ListIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ListItem from "../ListItem";
-// import Link from "next/link";
-// import { useParams } from "next/navigation";
 
 const List = ({ list }) => {
-  // const params = useParams();
   const router = useRouter();
-  console.log({ list });
 
   return (
     <div className="bg-white flex flex-col dark:bg-gray-800 rounded-2xl shadow-md border border-indigo-100 dark:border-indigo-900/40 overflow-hidden">

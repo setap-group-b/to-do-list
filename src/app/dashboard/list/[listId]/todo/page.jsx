@@ -1,4 +1,4 @@
-import { getServerSessionWrapper } from "@/utils";
+import { getServerSessionWrapper, getUserList } from "@/utils";
 import { Todos, ListDelete } from "@/components";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
@@ -13,8 +13,19 @@ export default async function UserList({ params }) {
 
   const { listId } = await params;
 
+  const userList = await getUserList(session.user, listId);
+
+  if (!userList) {
+    return <section>Not found!</section>;
+  }
+
   return (
-    <div className="flex flex-col h-full gap-6">
+    <div
+      style={{
+        backgroundColor: userList.backgroundColour,
+      }}
+      className="flex flex-col h-full gap-6 p-4 md:p-6"
+    >
       <div className="flex gap-4 justify-between">
         <PageHeader title={`List Tasks`} />
         <Button>

@@ -9,8 +9,6 @@ import React from "react";
 export default async function AuthLayout({ children }) {
   const session = await getServerSessionWrapper();
 
-  console.log({ session });
-
   if (!session) {
     redirect("/login"); // Immediately redirects unauthenticated users
   }
@@ -24,7 +22,7 @@ export default async function AuthLayout({ children }) {
             <div className="flex-1 flex flex-col h-full">
               <Nav />
               <div className="p-4 md:p-6 lg:p-8 overflow-hidden flex-1 transition-all">
-                <div className="h-full overflow-y-auto p-4 md:p-6 bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-indigo-100 dark:border-indigo-900/40">
+                <div className="h-full overflow-y-auto bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-indigo-100 dark:border-indigo-900/40">
                   {children}
                 </div>
               </div>

@@ -14,7 +14,6 @@ import { getServerSessionWrapper, getUserLists } from "@/utils";
 const Lists = async () => {
   const session = await getServerSessionWrapper();
   const userLists = await getUserLists(session.user);
-  console.log({ userLists });
 
   return (
     <SidebarGroup className={"flex flex-col gap-3"}>
