@@ -1,17 +1,17 @@
 "use client";
 
-import { deleteTodo } from "@/app/actions/todo";
+import { deleteList } from "@/app/actions/list";
 
-export const TodoDelete = ({ id, listId }) => {
+export const ListDelete = ({ listId }) => {
   const deleteAction = (event) => {
     event.preventDefault(); // Prevent the form from being submitted in the traditional way.
-    deleteTodo(id, listId); // Delete the post with the given ID.
+    deleteList(listId); // Delete the list with the given ID.
   };
 
   return (
     <form onSubmit={deleteAction}>
       <button type="submit" className="text-red-500">
-        Delete
+        Delete List
       </button>
     </form>
   );

@@ -115,3 +115,36 @@ export async function updateList(listId, formState, formData) {
   revalidatePath("/dashboard/list"); // purge cached data
   redirect("/dashboard/list");
 }
+
+export async function deleteList(listId) {
+  const session = getServerSessionWrapper();
+
+  // TODO: respond better
+  if (!session) {
+    return;
+  }
+
+  try {
+    await prisma.list.delete({
+      where: { id: listId, user: session.user },
+    });
+  } catch (error) {
+    console.log({ ...error }, error.message);
+    if (error instanceof Error) {
+      return {
+        errors: {
+          _form: [error.message],
+        },
+      };
+    } else {
+      return {
+        errors: {
+          _form: ["Something went wrong"],
+        },
+      };
+    }
+  } finally {
+    revalidatePath(`/dashboard/list`); // purge cached data
+    redirect(`/dashboard/list`);
+  }
+}

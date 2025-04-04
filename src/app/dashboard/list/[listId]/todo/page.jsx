@@ -1,5 +1,5 @@
 import { getServerSessionWrapper } from "@/utils";
-import { Todos } from "@/components";
+import { Todos, ListDelete } from "@/components";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,7 @@ export default async function UserList({ params }) {
       </div>
       <div className="flex-1 flex flex-col">
         <Todos listId={listId} />
+        <ListDelete listId={listId} />
       </div>
     </div>
   );
