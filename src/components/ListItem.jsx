@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Tooltip,
   TooltipContent,
@@ -50,7 +48,7 @@ const ListItem = ({ task, container }) => {
           </span>
         </div>
       </div>
-      {/* <TaskStatusButton currentState={task.status} /> */}
+      <TaskStatusButton currentState={task.status} />
     </ContainerValue>
   );
 };

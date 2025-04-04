@@ -11,17 +11,25 @@ import { dateFormatter } from "@/utils/functions";
 import { priorityObject } from "@/utils/constants";
 import { BsHourglassSplit } from "react-icons/bs";
 
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { deleteTodo } from "@/app/actions/todo";
 import ReusableButton from "../ui/ReusableButton";
 import TaskStatusButton from "../TaskStatusButton";
-import { TodoDelete } from "..";
 
-export const Todo = ({ listId, key, task }) => {
-  // const router = useRouter();
+export const Todo = ({ listId, task }) => {
+  const router = useRouter();
   //small styling for box
   const priority = priorityObject[task.priority];
   const priorityValue = priority.split(" ")[0]?.toLowerCase?.();
   const colorVar = `--${priorityValue}-priority`;
+
+  const now = new Date();
+  const deadline = new Date(task.deadline);
+  const isPassedDueDate = now >= deadline;
+  const aDayToDueDate =
+    !isPassedDueDate &&
+    deadline.getTime() - now.getTime() <= 24 * 60 * 60 * 1000;
+
   return (
     <AccordionItem
       value={task.id}
@@ -29,39 +37,63 @@ export const Todo = ({ listId, key, task }) => {
     >
       <AccordionTrigger
         className={cn(
-          "relative rounded-b-none flex items-center gap-3 p-3 *:text-gray-200 bg-indigo-50 dark:bg-indigo-900/30 border-b border-indigo-100 dark:border-indigo-800/30"
+          "relative rounded-b-none flex items-center gap-3 p-3 bg-indigo-50 dark:bg-indigo-900/30"
         )}
-        style={{
-          background: `oklch(var(${colorVar}) / 80%)`,
-        }}
       >
-        {/* <TaskStatusButton currentState={task.status} /> */}
+        <TaskStatusButton currentState={task.status} />
 
         <div className="flex-1 flex flex-col gap-1">
-          <h3 className="font-medium text-[1.1rem]">{task.title}</h3>
-          <div className="flex gap-2 text-sm">
-            <BsHourglassSplit className="min-w-4 min-h-4" />
+          <div className="flex items-center gap-2">
+            <span
+              className={cn("h-3 w-3 rounded-full")}
+              style={{
+                background: `oklch(var(${colorVar}))`,
+              }}
+            ></span>
+            <h3 className="font-medium text-[1.1rem]">{task.title}</h3>
+          </div>
+          <div
+            className={cn(
+              "flex gap-2 text-sm text-gray-500 dark:text-gray-400",
+              isPassedDueDate
+                ? "text-red-400"
+                : aDayToDueDate
+                ? "text-yellow-400"
+                : ""
+            )}
+          >
+            <BsHourglassSplit className="min-w-4 min-h-4 " />
             <span>
-              Due:{" "}
-              {dateFormatter(task.deadline, {
-                dateStyle: "medium",
-                timeStyle: "short",
-                hour12: true,
-              })}
+              {isPassedDueDate
+                ? "Passed due date"
+                : aDayToDueDate
+                ? "Due in less than 24 hrs"
+                : `Due: ${dateFormatter(task.deadline, {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                    hour12: true,
+                  })}`}
             </span>
           </div>
         </div>
       </AccordionTrigger>
       <AccordionContent className="relative px-4 py-5 overflow-hidden flex flex-col gap-3 font-medium">
-        <p className="text-[1.0rem]">{task.content}</p>
+        <p className="text-[1.04rem]">{task.content}</p>
         <div className="self-end *:p-2 *:min-w-24 space-x-3">
           <ReusableButton
             onClick={() => {
-              // router.push(`/dashboard/list/${listId}/todo/${task.id}/edit`);
+              router.push(`/dashboard/list/${listId}/todo/${task.id}/edit`);
             }}
             title={"Edit"}
           />
-          <TodoDelete listId={listId} id={task.id} />
+          <ReusableButton
+            variant="destructive"
+            title={"Delete"}
+            onClick={(e) => {
+              e.preventDefault(); // Prevent the form from being submitted in the traditional way.
+              deleteTodo(task.id, listId);
+            }}
+          />
         </div>
       </AccordionContent>
     </AccordionItem>

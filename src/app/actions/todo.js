@@ -51,8 +51,6 @@ export async function createTodo(listId, formState, formData) {
       },
     });
   } catch (error) {
-    console.log({ error });
-
     if (error instanceof Error) {
       return {
         errors: {
@@ -141,6 +139,6 @@ export async function deleteTodo(id, listId) {
     }
   }
 
-  revalidatePath(`/dashboard//list/${listId}/todo`); // purge cached data
+  revalidatePath(`/dashboard/list/${listId}/todo`); // purge cached data
   redirect(`/dashboard/list/${listId}/todo`);
 }

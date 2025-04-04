@@ -21,7 +21,7 @@ export const Todos = async ({ listId }) => {
     <div className="flex-1 flex flex-col overflow-hidden">
       {userTodos.length ? (
         <div className="flex-1 flex flex-col gap-6 justify-between overflow-hidden">
-          <div className="flex-1 flex flex-col overflow-y-auto">
+          <div className="flex-1 flex flex-col overflow-y-auto px-3">
             <Accordion
               type="single"
               collapsible
