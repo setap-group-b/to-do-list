@@ -21,14 +21,14 @@ model Todo {
   id        String  @id @default(cuid())
   title     String
   content   String?
-  published Boolean @default(false)
   userId    String?
   listId    String?
   List      List?   @relation(fields: [listId], references: [id])
   user      User?   @relation(fields: [userId], references: [id])
+  state String?
   priority Int?
   deadline DateTime?
-  notification String?
+  notificationTime String?
 }
 
 model Account {
