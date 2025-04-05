@@ -17,13 +17,13 @@ const todoSchema = z.object({
   priority: priorityEnum.default("LOW"),
   deadline: z.preprocess(
     (val) => (val ? new Date(val) : undefined),
-    z.date().optional()
+    z.date().optional(),
   ),
   notification: z.string().optional(),
   status: statusEnum.default("PENDING"),
   priority: z.string().min(1).max(30),
   deadline: z.string().min(1).max(30),
-  notificationTime: z.string().min(1).max(30),
+  notification: z.string().min(1).max(30),
 });
 
 export async function createTodo(listId, formState, formData) {
