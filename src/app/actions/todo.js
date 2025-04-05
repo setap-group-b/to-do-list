@@ -21,9 +21,6 @@ const todoSchema = z.object({
   ),
   notification: z.string().optional(),
   status: statusEnum.default("PENDING"),
-  priority: z.string().min(1).max(30),
-  deadline: z.string().min(1).max(30),
-  notification: z.string().min(1).max(30),
 });
 
 export async function createTodo(listId, formState, formData) {
