@@ -27,6 +27,7 @@ model List {
   userId           String?
   user             User?   @relation(fields: [userId], references: [id])
   Todo             Todo[]
+  group            Group?
 }
 
 model Todo {
@@ -46,6 +47,8 @@ model Todo {
 model Group {
   id        String      @id @default(cuid())
   title     String
+  list      List        @relation(fields: [listId], references: [id])
+  listId    String      @unique
   GroupUser GroupUser[]
 }
 
