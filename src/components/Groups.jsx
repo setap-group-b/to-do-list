@@ -10,8 +10,6 @@ const Groups = async () => {
 
   const userGroups = await getUserGroups(session.user);
 
-  console.log({ userGroups });
-
   if (!userGroups) {
     return <>Create a group to get started!</>;
   }

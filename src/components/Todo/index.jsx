@@ -16,7 +16,7 @@ import { deleteTodo } from "@/app/actions/todo";
 import ReusableButton from "../ui/ReusableButton";
 import TaskStatusButton from "../TaskStatusButton";
 
-export const Todo = ({ listId, task }) => {
+export const Todo = ({ type, listId, task }) => {
   const router = useRouter();
   //small styling for box
   const priority = priorityObject[task.priority];
@@ -84,7 +84,7 @@ export const Todo = ({ listId, task }) => {
         <div className="self-end *:p-2 *:min-w-24 space-x-3">
           <ReusableButton
             onClick={() => {
-              router.push(`/dashboard/list/${listId}/todo/${task.id}/edit`);
+              router.push(`/dashboard/${type}/${listId}/todo/${task.id}/edit`);
             }}
             title={"Edit"}
           />
@@ -93,7 +93,7 @@ export const Todo = ({ listId, task }) => {
             title={"Delete"}
             onClick={(e) => {
               e.preventDefault(); // Prevent the form from being submitted in the traditional way.
-              deleteTodo(task.id, listId);
+              deleteTodo(task.id, listId, type);
             }}
           />
         </div>

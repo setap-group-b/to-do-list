@@ -19,7 +19,7 @@ const Lists = ({ children }) => {
 
   return (
     <SidebarGroup className={"flex flex-col gap-3"}>
-      <SidebarGroupLabel className={"text-lg"}>Lists</SidebarGroupLabel>
+      <SidebarGroupLabel className={"text-lg"}>Owned Lists</SidebarGroupLabel>
       <SidebarGroupAction title="Create new list">
         <Link href={"/dashboard/list/add"}>
           <Plus size={18} />

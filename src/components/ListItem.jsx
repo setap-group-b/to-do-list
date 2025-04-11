@@ -37,15 +37,19 @@ const ListItem = ({ task, container }) => {
           {task.title}
         </h3>
         <div className="flex gap-2 text-xs text-gray-600 dark:text-gray-400">
-          <BsHourglassSplit className="min-w-4 min-h-4" />
-          <span>
-            Due:{" "}
-            {dateFormatter(task.deadline, {
-              dateStyle: "medium",
-              timeStyle: "short",
-              hour12: true,
-            })}
-          </span>
+          {task.deadline && (
+            <>
+              <BsHourglassSplit className="min-w-4 min-h-4" />
+              <span>
+                Due:{" "}
+                {dateFormatter(task.deadline, {
+                  dateStyle: "medium",
+                  timeStyle: "short",
+                  hour12: true,
+                })}
+              </span>
+            </>
+          )}
         </div>
       </div>
       <TaskStatusButton currentState={task.status} />

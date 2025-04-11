@@ -17,7 +17,7 @@ export default async function PostsEdit({ params }) {
     return <>Not found!</>;
   }
 
-  const updateAction = updateTodo.bind(null, id, listId, "list");
+  const updateAction = updateTodo.bind(null, id, listId, "group");
 
   return (
     <TodoForm

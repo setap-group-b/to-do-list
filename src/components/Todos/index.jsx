@@ -4,7 +4,7 @@ import { Todo } from "@/components";
 import { getServerSessionWrapper, getUserTodos } from "@/utils";
 import { priorityObject } from "@/utils/constants";
 
-export const Todos = async ({ listId }) => {
+export const Todos = async ({ type = "list", listId }) => {
   const session = await getServerSessionWrapper();
 
   if (!session) {
@@ -21,14 +21,14 @@ export const Todos = async ({ listId }) => {
     <div className="flex-1 flex flex-col overflow-hidden">
       {userTodos.length ? (
         <div className="flex-1 flex flex-col gap-6 justify-between overflow-hidden">
-          <div className="flex-1 flex flex-col overflow-y-auto px-3">
+          <div className="flex-1 flex flex-col overflow-y-auto">
             <Accordion
               type="single"
               collapsible
               className="flex-1 flex flex-col gap-4"
             >
               {userTodos.map((todo) => (
-                <Todo key={todo.id} task={todo} listId={listId} />
+                <Todo key={todo.id} type={type} task={todo} listId={listId} />
               ))}
             </Accordion>
           </div>

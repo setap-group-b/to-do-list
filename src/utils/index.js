@@ -1,7 +1,7 @@
 export * from "./getUserTodos";
-export * from "./getUserGroups";
 export * from "./getUserTodo";
-
+export * from "./getUserGroups";
+export * from "./getUserGroup";
 export * from "./getUserLists";
 export * from "./getUserList";
 

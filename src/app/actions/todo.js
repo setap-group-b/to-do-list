@@ -51,7 +51,6 @@ export async function createTodo(listId, formState, formData) {
       },
     });
   } catch (error) {
-    console.log({ ...error }, error.message);
     if (error instanceof Error) {
       return {
         errors: {
@@ -71,7 +70,7 @@ export async function createTodo(listId, formState, formData) {
   redirect(`/dashboard/list/${listId}/todo`);
 }
 
-export async function updateTodo(id, listId, formState, formData) {
+export async function updateTodo(id, listId, type, formState, formData) {
   const session = getServerSessionWrapper();
 
   // TODO: respond better
@@ -82,8 +81,6 @@ export async function updateTodo(id, listId, formState, formData) {
   const result = todoSchema.safeParse(formDataObject);
 
   if (!result.success) {
-    console.log(formDataObject, result);
-
     return {
       errors: result.error.flatten().fieldErrors,
     };
@@ -94,9 +91,7 @@ export async function updateTodo(id, listId, formState, formData) {
       where: { id, user: session.user },
       data: result.data,
     });
-    console.log("update");
   } catch (error) {
-    console.log({ ...error }, error.message);
     if (error instanceof Error) {
       return {
         errors: {
@@ -112,11 +107,11 @@ export async function updateTodo(id, listId, formState, formData) {
     }
   }
 
-  revalidatePath(`/dashboard/list/${listId}/todo/${id}`); // purge cached data
-  redirect(`/dashboard/list/${listId}/todo/${id}`);
+  revalidatePath(`/dashboard/${type}/${listId}/todo`); // purge cached data
+  redirect(`/dashboard/${type}/${listId}/todo`);
 }
 
-export async function deleteTodo(id, listId) {
+export async function deleteTodo(id, listId, type) {
   const session = getServerSessionWrapper();
 
   // TODO: respond better
@@ -129,7 +124,6 @@ export async function deleteTodo(id, listId) {
       where: { id, user: session.user },
     });
   } catch (error) {
-    console.log({ ...error }, error.message);
     if (error instanceof Error) {
       return {
         errors: {
@@ -145,6 +139,6 @@ export async function deleteTodo(id, listId) {
     }
   }
 
-  revalidatePath(`/dashboard/list/${listId}/todo`); // purge cached data
-  redirect(`/dashboard/list/${listId}/todo`);
+  revalidatePath(`/dashboard/${type}/${listId}/todo`); // purge cached data
+  redirect(`/dashboard/${type}/${listId}/todo`);
 }

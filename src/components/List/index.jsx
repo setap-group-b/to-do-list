@@ -22,7 +22,7 @@ const List = ({ list }) => {
           className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium"
           onClick={() => router.push(`/dashboard/list/${list.id}/todo`)}
         >
-          View All
+          View all tasks
         </button>
       </div>
       <div className="p-4 flex flex-col flex-1">

@@ -1,22 +1,32 @@
 import prisma from "lib/prisma";
 
 export const getUserGroups = (user) => {
-  return prisma.group.findMany({
+  return prisma.list.findMany({
     where: {
-      OR: [
-        { ownerId: user.id },
-        {
-          members: {
-            some: {
-              userId: user.id,
-            },
-          },
+      collaborators: {
+        some: {
+          id: user.id,
         },
-      ],
+      },
     },
     include: {
-      members: true,
-      lists: true,
+      user: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          image: true,
+        },
+      },
+      Todo: true,
+      collaborators: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          image: true,
+        },
+      },
     },
   });
 };

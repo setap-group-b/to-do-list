@@ -3,9 +3,7 @@ import { Todos } from "@/components";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { ListDelete } from "@/components/ListDelete";
-import { getServerSessionWrapper, getUserList } from "@/utils";
-
-import AddCollaborators from "@/components/AddCollaborators";
+import { getServerSessionWrapper, getUserGroup, getUserList } from "@/utils";
 
 export default async function UserList({ params }) {
   const session = await getServerSessionWrapper();
@@ -16,34 +14,24 @@ export default async function UserList({ params }) {
 
   const { listId } = await params;
 
-  const userList = await getUserList(session.user, listId);
+  const userGroup = await getUserGroup(session.user, listId);
 
-  if (!userList) {
+  if (!userGroup) {
     return <section>Not found!</section>;
   }
 
-  const collaborators = userList.collaborators.map((user) => user.email);
   return (
     <div className="flex flex-col h-full gap-6 p-4 md:p-6 list">
       <div className="flex gap-4 justify-between">
-        <PageHeader title={`${userList.title} List tasks`} />
+        <PageHeader title={`${userGroup.title} group tasks`} />
         <div className="flex items-center gap-4">
           <Button>
-            <Link href={`/dashboard/list/${listId}/todo/add`}>Add Task</Link>
+            <Link href={`/dashboard/group/${listId}/todo/add`}>Add Task</Link>
           </Button>
-          <AddCollaborators
-            user={session.user}
-            listId={listId}
-            listCollaborators={collaborators}
-          />
-          <Button>
-            <Link href={`/dashboard/list/${listId}/edit`}>Edit List</Link>
-          </Button>
-          <ListDelete />
         </div>
       </div>
 
-      <Todos listId={listId} />
+      <Todos type="group" listId={listId} />
     </div>
   );
 }

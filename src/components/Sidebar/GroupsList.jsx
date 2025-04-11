@@ -16,23 +16,27 @@ import UserAvatar from "../UserAvatar";
 import ReusableButton from "../ui/ReusableButton";
 import { MoreHorizontal, Plus } from "lucide-react";
 
-const GroupList = ({ state, group }) => {
+const Group = ({ state, group }) => {
+  const persons = [...group.collaborators, group.user];
   return state === "expanded" ? (
     <SidebarMenuItem className={"h-full"}>
       <SidebarMenuButton
         className={
           "min-h-32 h-full gap-4 pt-5 pb-3 flex items-start flex-col overflow-hidden bg-sidebar-accent/70"
         }
+        style={{
+          backgroundColor: group.backgroundColour,
+        }}
       >
-        {group.members.length ? (
+        {persons.length ? (
           <div className="flex flex-wrap items-center justify-center -space-x-2 mr-2">
-            {group.members.slice(0, 5).map((item, i) => {
+            {persons.slice(0, 5).map((item, i) => {
               return (
                 <UserAvatar
                   key={i}
                   className={cn("text-accent size-10", i >= 3 ? "-mt-2.5" : "")}
-                  image={item.image}
-                  name={item.name}
+                  image={item?.image}
+                  name={item?.name}
                 />
               );
             })}
@@ -48,7 +52,7 @@ const GroupList = ({ state, group }) => {
             <p className="text-wrap line-clamp-1">{group.title}</p>
           </span>
           <p className="text-[.85rem] text-neutral-400">
-            {group.members.length} people{" "}
+            {persons.length} {persons.length === 1 ? "person" : "people"}{" "}
           </p>
         </span>
       </SidebarMenuButton>
@@ -56,6 +60,9 @@ const GroupList = ({ state, group }) => {
   ) : (
     <SidebarMenuItem>
       <SidebarMenuButton
+        style={{
+          backgroundColor: group.backgroundColour,
+        }}
         size="l"
         className={"p-2 flex items-center gap-4 justify-between"}
       >
@@ -64,31 +71,37 @@ const GroupList = ({ state, group }) => {
           <span>{group.title}</span>
         </Link>
         <p className="text-[.85rem] text-neutral-400">
-          {group.members.length} people{" "}
+          {persons.length} people{" "}
         </p>
       </SidebarMenuButton>
     </SidebarMenuItem>
   );
 };
 
-const Groups = ({ groups }) => {
+const GroupsList = ({ groups }) => {
   const { state } = useSidebar();
 
   return (
     <SidebarGroup className={"flex flex-col gap-3"}>
-      <SidebarGroupLabel className={"text-lg"}>Groups</SidebarGroupLabel>
-      <SidebarGroupAction title="Create new group">
+      <SidebarGroupLabel className={"text-lg"}>
+        Collaborative Lists
+      </SidebarGroupLabel>
+      {/* <SidebarGroupAction title="Create new group">
         <Link href={"/dashboard/group/create"}>
           <Plus size={18} />
         </Link>{" "}
         <span className="sr-only">Create new group</span>
-      </SidebarGroupAction>
+      </SidebarGroupAction> */}
       <SidebarGroupContent>
         <SidebarMenu
           className={cn(state === "expanded" ? "grid grid-cols-2 gap-2" : "")}
         >
           {groups.slice(0, 5).map((group, idx) => {
-            return <Group key={idx} state={state} group={group} />;
+            return (
+              <Link key={idx} href={`/dashboard/group/${group.id}/todo`}>
+                <Group state={state} group={group} />{" "}
+              </Link>
+            );
           })}
           <SidebarMenuItem
             className={cn(state === "expanded" ? "col-span-2" : "")}
@@ -114,4 +127,4 @@ const Groups = ({ groups }) => {
   );
 };
 
-export default Groups;
+export default GroupsList;

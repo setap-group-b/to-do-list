@@ -13,6 +13,9 @@ const ListItems = async () => {
         <SidebarMenuButton
           size="l"
           className={"p-2 flex items-center gap-4 justify-between"}
+          style={{
+            backgroundColor: list.backgroundColour,
+          }}
         >
           <Link
             href={`/dashboard/list/${list.id}/todo`}

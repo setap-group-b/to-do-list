@@ -6,5 +6,15 @@ export const getUserList = (user, listId) => {
       user: user,
       id: listId,
     },
+    include: {
+      collaborators: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          image: true,
+        },
+      },
+    },
   });
 };

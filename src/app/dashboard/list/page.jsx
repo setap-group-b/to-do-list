@@ -7,7 +7,7 @@ export default function UserLists() {
   return (
     <div className="flex flex-col gap-8 h-full !overflow-hidden">
       <div className="flex items-center gap-4 justify-between">
-        <PageHeader title={"Lists"} />
+        <PageHeader title={"Owned Lists"} />
         <Button>
           <Link className="p-5" href="/dashboard/list/add">
             Create list

@@ -24,12 +24,13 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
   const [notification, setNotification] = useState(
     initialData.notification || ""
   );
-  //setup for cyclePriority
+
   const [priority, setPriority] = useState(initialData.priority || "");
   const priorities = Object.entries(priorityObject).map(([key, value]) => ({
     label: value,
     value: key,
   }));
+
   const notificationOptions = [
     { label: "1 day before deadline", value: "1 day" },
     { label: "1 week before deadline", value: "1 week" },
@@ -48,8 +49,6 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
 
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
-
-  console.log(initialData, initialData?.deadline.toISOString());
 
   return (
     <div className="flex flex-col h-full gap-6">

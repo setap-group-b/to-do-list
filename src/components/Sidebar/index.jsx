@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
 import Link from "next/link";
 import ListItems from "./ListItems";
-import GroupsWrapper from "./GroupsWrapper";
+import Groups from "./Groups";
 
 const index = () => {
   return (
@@ -28,7 +28,7 @@ const index = () => {
       <Lists>
         <ListItems />
       </Lists>
-      <GroupsWrapper></GroupsWrapper>
+      <Groups />
     </Sidebar>
   );
 };
