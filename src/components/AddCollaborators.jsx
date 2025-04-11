@@ -72,7 +72,6 @@ const AddCollaborators = ({ listId, user, listCollaborators }) => {
           Remove all collaborators{" "}
         </p>
       </DialogContent>
-      <DialogFooter></DialogFooter>
     </Dialog>
   );
 };
