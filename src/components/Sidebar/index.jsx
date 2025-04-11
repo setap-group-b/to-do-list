@@ -1,9 +1,9 @@
 import Lists from "./Lists";
-import Groups from "./Groups";
 import Sidebar from "./Sidebar";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
 import Link from "next/link";
 import ListItems from "./ListItems";
+import GroupsWrapper from "./GroupsWrapper";
 
 const index = () => {
   return (
@@ -28,7 +28,7 @@ const index = () => {
       <Lists>
         <ListItems />
       </Lists>
-      <Groups />
+      <GroupsWrapper></GroupsWrapper>
     </Sidebar>
   );
 };

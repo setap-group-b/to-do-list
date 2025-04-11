@@ -25,18 +25,15 @@ const ReusableDropdown = ({
   const dropdownOptions = autoModifyOptions ? modifyOptions(options) : options;
 
   return (
-    <div className={cn("space-y-2 w-full text-base ml-1", containerClassName)}>
+    <div className={cn("space-y-2 w-full", containerClassName)}>
       {label &&
         (useFormLabel ? (
-          <FormLabel
-            htmlFor={props?.id || name}
-            className="text-base font-medium"
-          >
+          <FormLabel htmlFor={props?.id || name}>
             {label}
             {required ? "*" : ""}
           </FormLabel>
         ) : (
-          <label htmlFor={props?.id || name} className="text-base font-medium">
+          <label htmlFor={props?.id || name}>
             {label}
             {required ? "*" : ""}
           </label>

@@ -52,29 +52,31 @@ export const Todo = ({ listId, task }) => {
             ></span>
             <h3 className="font-medium text-[1.1rem]">{task.title}</h3>
           </div>
-          <div
-            className={cn(
-              "flex gap-2 text-sm text-gray-500 dark:text-gray-400",
-              isPassedDueDate
-                ? "text-red-400"
-                : aDayToDueDate
-                ? "text-yellow-400"
-                : ""
-            )}
-          >
-            <BsHourglassSplit className="min-w-4 min-h-4 " />
-            <span>
-              {isPassedDueDate
-                ? "Passed due date"
-                : aDayToDueDate
-                ? "Due in less than 24 hrs"
-                : `Due: ${dateFormatter(task.deadline, {
-                    dateStyle: "medium",
-                    timeStyle: "short",
-                    hour12: true,
-                  })}`}
-            </span>
-          </div>
+          {task.deadline && (
+            <div
+              className={cn(
+                "flex gap-2 text-sm text-gray-500 dark:text-gray-400",
+                isPassedDueDate
+                  ? "text-red-400"
+                  : aDayToDueDate
+                  ? "text-yellow-400"
+                  : ""
+              )}
+            >
+              <BsHourglassSplit className="min-w-4 min-h-4 " />
+              <span>
+                {isPassedDueDate
+                  ? "Passed due date"
+                  : aDayToDueDate
+                  ? "Due in less than 24 hrs"
+                  : `Due: ${dateFormatter(task.deadline, {
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                      hour12: true,
+                    })}`}
+              </span>
+            </div>
+          )}
         </div>
       </AccordionTrigger>
       <AccordionContent className="relative px-4 py-5 overflow-hidden flex flex-col gap-3 font-medium">

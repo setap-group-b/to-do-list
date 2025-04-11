@@ -24,10 +24,11 @@ export default async function PostsEdit({ params }) {
       formAction={updateAction}
       initialData={{
         title: userTodo?.title ?? "",
+        status: userTodo?.status ?? "",
         content: userTodo?.content ?? "",
         priority: userTodo?.priority ?? "",
         deadline: userTodo?.deadline ?? "",
-        status: userTodo?.status ?? "",
+        notification: userTodo?.notification ?? "",
       }}
       listId={listId}
     />

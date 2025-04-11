@@ -27,7 +27,8 @@ model List {
   userId           String?
   user             User?   @relation(fields: [userId], references: [id])
   Todo             Todo[]
-  group            Group?
+  Group            Group?  @relation(fields: [groupId], references: [id])
+  groupId          String?
 }
 
 model Todo {
@@ -45,11 +46,12 @@ model Todo {
 }
 
 model Group {
-  id        String      @id @default(cuid())
-  title     String
-  list      List        @relation(fields: [listId], references: [id])
-  listId    String      @unique
-  GroupUser GroupUser[]
+  id      String      @id @default(cuid())
+  title   String
+  ownerId String
+  owner   User        @relation(fields: [ownerId], references: [id])
+  lists   List[]
+  members GroupUser[]
 }
 
 model GroupUser {
@@ -103,6 +105,7 @@ model User {
   Session       Session[]
   todos         Todo[]
   GroupUser     GroupUser[]
+  Group         Group[]
 
   @@map("users")
 }

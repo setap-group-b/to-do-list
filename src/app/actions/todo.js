@@ -17,7 +17,7 @@ const todoSchema = z.object({
   priority: priorityEnum.default("LOW"),
   deadline: z.preprocess(
     (val) => (val ? new Date(val) : undefined),
-    z.date().optional(),
+    z.date().optional()
   ),
   notification: z.string().optional(),
   status: statusEnum.default("PENDING"),
@@ -82,6 +82,8 @@ export async function updateTodo(id, listId, formState, formData) {
   const result = todoSchema.safeParse(formDataObject);
 
   if (!result.success) {
+    console.log(formDataObject, result);
+
     return {
       errors: result.error.flatten().fieldErrors,
     };
@@ -92,6 +94,7 @@ export async function updateTodo(id, listId, formState, formData) {
       where: { id, user: session.user },
       data: result.data,
     });
+    console.log("update");
   } catch (error) {
     console.log({ ...error }, error.message);
     if (error instanceof Error) {

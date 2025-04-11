@@ -21,12 +21,11 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
     errors: {},
   });
 
-  const [notification, setNotification] = useState("");
+  const [notification, setNotification] = useState(
+    initialData.notification || ""
+  );
   //setup for cyclePriority
-  const [priority, setPriority] = useState({
-    label: "Click to set priority",
-    value: 0,
-  });
+  const [priority, setPriority] = useState(initialData.priority || "");
   const priorities = Object.entries(priorityObject).map(([key, value]) => ({
     label: value,
     value: key,
@@ -37,13 +36,28 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
     { label: "1 month before deadline", value: "1 month" },
   ];
 
+  function formatDateForInput(dateValue) {
+    if (!dateValue) return "";
+    const pad = (n) => n.toString().padStart(2, "0");
+    const date = new Date(dateValue);
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  }
+
+  console.log(initialData, initialData?.deadline.toISOString());
+
   return (
     <div className="flex flex-col h-full gap-6">
       <PageHeader title={`${initialData?.title ? "Update" : "Create"} Task`} />
       <form
         ref={formRef}
         action={action}
-        className="flex flex-1 flex-col gap-4"
+        className="flex flex-1 flex-col gap-4 *:*:[&>input]:border *:*:[&>input]:p-3 *:*:[&>textarea]:border *:*:[&>textarea]:p-3"
       >
         <div className="flex-1">
           {/* Title Field */}
@@ -56,7 +70,6 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
               id="title"
               name="title"
               defaultValue={initialData?.title || ""}
-              className="text-black bg-white"
             />
             {formState.errors?.title && (
               <p>{formState.errors.title?.join(", ")}</p>
@@ -64,19 +77,25 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
           </section>
 
           <section style={{ marginBottom: "5px" }}>
-            <label htmlFor="priority" style={{ marginRight: "5px" }}>
-              Priority:
-            </label>
-            <button
-              id="priority"
+            <ReusableDropdown
+              autoModifyOptions={false}
+              defaultValue={initialData?.priority || ""}
+              placeholder={"Set task priority"}
               name="priority"
-              type="button"
-              value={priority.value}
-              onClick={() => cyclePriority(priority, priorities, setPriority)}
-            >
-              {priority.label}
-            </button>
-            <input type="hidden" name="priority" value={priority.value} />
+              id="priority"
+              value={priority}
+              label={"Priority:"}
+              onChange={(value) => {
+                setPriority(value);
+              }}
+              options={priorities}
+              containerClassName={"flex"}
+            />
+
+            <input type="hidden" name="priority" value={priority} />
+            {formState.errors.priority && (
+              <p>{formState.errors.priority?.join(", ")}</p>
+            )}
           </section>
 
           {/* Content Field */}
@@ -89,7 +108,6 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
               id="content"
               name="content"
               defaultValue={initialData?.content || ""}
-              className="text-black bg-white"
             ></textarea>
             {formState.errors?.content && (
               <div>{formState.errors.content?.join(", ")}</div>
@@ -105,8 +123,7 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
               type="datetime-local"
               id="deadline"
               name="deadline"
-              defaultValue={initialData?.deadline || ""}
-              className="text-black bg-white"
+              defaultValue={formatDateForInput(initialData?.deadline) || ""}
             />
             {formState.errors.deadline && (
               <p>{formState.errors.deadline?.join(", ")}</p>
@@ -126,6 +143,7 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
               onChange={(value) => {
                 setNotification(value);
               }}
+              containerClassName={"flex"}
               options={notificationOptions}
             />
 
