@@ -8,5 +8,10 @@ export const getUserTodos = (user, listId) => {
         OR: [{ userId: user.id }, { collaborators: { some: { id: user.id } } }],
       },
     },
+    orderBy: [
+      {
+        deadline: "asc",
+      },
+    ],
   });
 };
