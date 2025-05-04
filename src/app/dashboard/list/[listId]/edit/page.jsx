@@ -11,7 +11,13 @@ export default async function PostsEdit({ params }) {
 
   const { listId } = await params;
 
-  const userList = await getUserList(session.user, listId);
+  const getCachedUserList = async () => {
+    "use cache";
+    const list = await getUserList(session.user, listId);
+    return list;
+  };
+
+  const userList = await getCachedUserList();
 
   if (!userList) {
     return <>Not found!</>;

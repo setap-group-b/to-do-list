@@ -11,7 +11,13 @@ export default async function PostsEdit({ params }) {
 
   const { listId, id } = await params;
 
-  const userTodo = await getUserTodo(session.user, id, listId);
+  const getCachedUserTodo = async () => {
+    "use cache";
+    const todo = await getUserTodo(session.user, id, listId);
+    return todo;
+  };
+
+  const userTodo = await getCachedUserTodo();
 
   if (!userTodo) {
     return <>Not found!</>;

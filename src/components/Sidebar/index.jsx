@@ -8,7 +8,14 @@ import { getServerSessionWrapper, getUserLists } from "@/utils";
 
 const index = async () => {
   const session = await getServerSessionWrapper();
-  const userLists = await getUserLists(session.user);
+
+  const getCachedUserLists = async () => {
+    "use cache";
+    const lists = await getUserLists(session.user);
+    return lists;
+  };
+
+  const userLists = await getCachedUserLists();
 
   return (
     <Sidebar>

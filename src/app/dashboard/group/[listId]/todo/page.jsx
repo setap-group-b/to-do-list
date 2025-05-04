@@ -2,8 +2,7 @@ import Link from "next/link";
 import { Todos } from "@/components";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
-import { ListDelete } from "@/components/ListDelete";
-import { getServerSessionWrapper, getUserGroup, getUserList } from "@/utils";
+import { getServerSessionWrapper, getUserGroup } from "@/utils";
 
 export default async function UserList({ params }) {
   const session = await getServerSessionWrapper();
@@ -14,7 +13,13 @@ export default async function UserList({ params }) {
 
   const { listId } = await params;
 
-  const userGroup = await getUserGroup(session.user, listId);
+  const getCachedUserGroup = async () => {
+    "use cache";
+    const group = await getUserGroup(session.user, listId);
+    return group;
+  };
+
+  const userGroup = await getCachedUserGroup();
 
   if (!userGroup) {
     return <section>Not found!</section>;

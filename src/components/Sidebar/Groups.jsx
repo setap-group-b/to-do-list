@@ -5,7 +5,14 @@ import { getServerSessionWrapper, getUserGroups } from "@/utils";
 
 const Groups = async () => {
   const session = await getServerSessionWrapper();
-  const userGroups = await getUserGroups(session.user);
+
+  const getCachedUserGroups = async () => {
+    "use cache";
+    const groups = await getUserGroups(session?.user);
+    return groups;
+  };
+
+  const userGroups = await getCachedUserGroups();
   return <GroupsList groups={userGroups} />;
 };
 

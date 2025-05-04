@@ -8,7 +8,13 @@ const Groups = async () => {
     return <section>Please sign in to see your groups!</section>;
   }
 
-  const userGroups = await getUserGroups(session.user);
+  const getCachedUserGroups = async () => {
+    "use cache";
+    const groups = await getUserGroups(session?.user);
+    return groups;
+  };
+
+  const userGroups = await getCachedUserGroups();
 
   if (!userGroups) {
     return <>Create a group to get started!</>;

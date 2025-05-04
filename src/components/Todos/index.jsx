@@ -11,7 +11,13 @@ export const Todos = async ({ type = "list", listId }) => {
     return <section>Please sign in to see your To-do list!</section>;
   }
 
-  const userTodos = await getUserTodos(session?.user, listId);
+  const getCachedUserTodos = async () => {
+    "use cache";
+    const todos = await getUserTodos(session?.user, listId);
+    return todos;
+  };
+
+  const userTodos = await getCachedUserTodos();
 
   if (!userTodos) {
     return <p>Create a To-do to get started!</p>;

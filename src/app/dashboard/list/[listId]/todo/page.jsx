@@ -16,7 +16,13 @@ export default async function UserList({ params }) {
 
   const { listId } = await params;
 
-  const userList = await getUserList(session.user, listId);
+  const getCachedUserList = async () => {
+    "use cache";
+    const todo = await getUserList(session.user, listId);
+    return todo;
+  };
+
+  const userList = await getCachedUserList();
 
   if (!userList) {
     return <section>Not found!</section>;

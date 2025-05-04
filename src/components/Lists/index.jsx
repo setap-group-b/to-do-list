@@ -8,7 +8,13 @@ export const Lists = async () => {
     return <section>Please sign in to see your lists!</section>;
   }
 
-  const userLists = await getUserLists(session.user);
+  const getCachedUserLists = async () => {
+    "use cache";
+    const lists = await getUserLists(session.user);
+    return lists;
+  };
+
+  const userLists = await getCachedUserLists();
 
   if (!userLists) {
     return <>Create a list to get started!</>;
