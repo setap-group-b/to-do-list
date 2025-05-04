@@ -10,8 +10,6 @@ const index = async () => {
   const session = await getServerSessionWrapper();
   const userLists = await getUserLists(session.user);
 
-  console.log(userLists);
-
   return (
     <Sidebar>
       <SidebarMenu>

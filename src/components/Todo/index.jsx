@@ -37,10 +37,15 @@ export const Todo = ({ type, listId, task }) => {
     >
       <AccordionTrigger
         className={cn(
-          "relative rounded-b-none flex items-center gap-3 p-3 bg-indigo-50 dark:bg-indigo-900/30"
+          "relative rounded-b-none flex items-center gap-3 p-3 bg-indigo-50 dark:bg-indigo-900/30",
         )}
       >
-        <TaskStatusButton currentState={task.status} />
+        <TaskStatusButton
+          type={type}
+          listId={listId}
+          task={task}
+          currentState={task.status}
+        />
 
         <div className="flex-1 flex flex-col gap-1">
           <div className="flex items-center gap-2">
@@ -59,8 +64,8 @@ export const Todo = ({ type, listId, task }) => {
                 isPassedDueDate
                   ? "text-red-400"
                   : aDayToDueDate
-                  ? "text-yellow-400"
-                  : ""
+                    ? "text-yellow-400"
+                    : "",
               )}
             >
               <BsHourglassSplit className="min-w-4 min-h-4 " />
@@ -68,12 +73,12 @@ export const Todo = ({ type, listId, task }) => {
                 {isPassedDueDate
                   ? "Passed due date"
                   : aDayToDueDate
-                  ? "Due in less than 24 hrs"
-                  : `Due: ${dateFormatter(task.deadline, {
-                      dateStyle: "medium",
-                      timeStyle: "short",
-                      hour12: true,
-                    })}`}
+                    ? "Due in less than 24 hrs"
+                    : `Due: ${dateFormatter(task.deadline, {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                        hour12: true,
+                      })}`}
               </span>
             </div>
           )}
