@@ -1,5 +1,6 @@
 import CurrentDateTime from "@/components/CurrentDateTime";
 import { getServerSessionWrapper } from "@/utils";
+import { dateFormatter } from "@/utils/functions";
 import {
   BookOpen,
   Calendar,
@@ -82,7 +83,7 @@ export default async function Home() {
               <Sparkles className="inline-block h-6 w-6 ml-1" />
             </h1>
             <p className="text-indigo-100 dark:text-indigo-200">
-              <CurrentDateTime />
+              {dateFormatter(date)}
             </p>
           </div>
           <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm p-3 rounded-xl">

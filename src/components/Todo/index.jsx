@@ -55,26 +55,31 @@ export const Todo = ({ type, listId, task }) => {
           {task.deadline && (
             <div
               className={cn(
-                "flex gap-2 text-sm text-gray-500 dark:text-gray-400",
+                "flex gap-2 items-center text-sm text-gray-500 dark:text-gray-400",
                 isPassedDueDate
-                  ? "text-red-400"
+                  ? "!text-red-400"
                   : aDayToDueDate
                   ? "text-yellow-400"
                   : ""
               )}
             >
               <BsHourglassSplit className="min-w-4 min-h-4 " />
-              <span>
-                {isPassedDueDate
-                  ? "Passed due date"
-                  : aDayToDueDate
-                  ? "Due in less than 24 hrs"
-                  : `Due: ${dateFormatter(task.deadline, {
-                      dateStyle: "medium",
-                      timeStyle: "short",
-                      hour12: true,
-                    })}`}
-              </span>
+              <div className="flex flex-col">
+                <span>
+                  {`Due date: ${dateFormatter(task.deadline, {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                    hour12: true,
+                  })}`}
+                </span>
+                <span>
+                  {isPassedDueDate
+                    ? "Passed due date"
+                    : aDayToDueDate
+                    ? "Due in less than 24 hrs"
+                    : ``}
+                </span>
+              </div>
             </div>
           )}
         </div>
