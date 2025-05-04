@@ -4,8 +4,14 @@ import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
 import Link from "next/link";
 import ListItems from "./ListItems";
 import Groups from "./Groups";
+import { getServerSessionWrapper, getUserLists } from "@/utils";
 
-const index = () => {
+const index = async () => {
+  const session = await getServerSessionWrapper();
+  const userLists = await getUserLists(session.user);
+
+  console.log(userLists);
+
   return (
     <Sidebar>
       <SidebarMenu>
@@ -24,10 +30,7 @@ const index = () => {
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
-
-      <Lists>
-        <ListItems />
-      </Lists>
+      <Lists userLists={userLists} />
       <Groups />
     </Sidebar>
   );

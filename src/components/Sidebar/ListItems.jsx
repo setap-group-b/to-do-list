@@ -1,12 +1,11 @@
-"use server";
+"use client";
 
-import { getServerSessionWrapper, getUserLists } from "@/utils";
 import { SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
 import Link from "next/link";
 
-const ListItems = async () => {
-  const session = await getServerSessionWrapper();
-  const userLists = await getUserLists(session.user);
+const ListItems = ({ userLists, searchValue }) => {
+  userLists = userLists.filter((list) => list.title.includes(searchValue));
+
   return userLists.slice(0, 5).map((list, idx) => {
     return (
       <SidebarMenuItem key={idx}>

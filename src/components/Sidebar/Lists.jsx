@@ -13,9 +13,17 @@ import {
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { MoreHorizontal, Plus, Search } from "lucide-react";
+import { useState } from "react";
+import ListItems from "./ListItems";
 
-const Lists = ({ children }) => {
+const Lists = ({ userLists }) => {
   const { state } = useSidebar();
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearchChange = (event) => {
+    event.preventDefault();
+    setSearchValue(event.target.value);
+  };
 
   return (
     <SidebarGroup className={"flex flex-col gap-3"}>
@@ -25,6 +33,7 @@ const Lists = ({ children }) => {
         <input
           type="text"
           placeholder="Search lists..."
+          onChange={handleSearchChange}
           className="h-9 w-[180px] rounded-full bg-indigo-50 dark:bg-indigo-900/20 border-none pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 dark:focus:ring-indigo-600/50 placeholder:text-indigo-400/70 dark:placeholder:text-indigo-500/50"
         />
       </div>
@@ -36,7 +45,7 @@ const Lists = ({ children }) => {
       </SidebarGroupAction>
       <SidebarGroupContent>
         <SidebarMenu>
-          {children}
+          <ListItems userLists={userLists} searchValue={searchValue} />
           <SidebarMenuItem className={"cursor-pointer"}>
             <SidebarMenuButton className="text-sidebar-foreground/70">
               <Link
