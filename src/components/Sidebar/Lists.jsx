@@ -12,7 +12,7 @@ import {
 } from "../ui/sidebar";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { MoreHorizontal, Plus } from "lucide-react";
+import { MoreHorizontal, Plus, Search } from "lucide-react";
 
 const Lists = ({ children }) => {
   const { state } = useSidebar();
@@ -20,6 +20,14 @@ const Lists = ({ children }) => {
   return (
     <SidebarGroup className={"flex flex-col gap-3"}>
       <SidebarGroupLabel className={"text-lg"}>Owned Lists</SidebarGroupLabel>
+      <div className="relative hidden md:flex items-center">
+        <Search className="absolute left-3 h-4 w-4 text-indigo-500/70 dark:text-indigo-400/70" />
+        <input
+          type="text"
+          placeholder="Search lists..."
+          className="h-9 w-[180px] rounded-full bg-indigo-50 dark:bg-indigo-900/20 border-none pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 dark:focus:ring-indigo-600/50 placeholder:text-indigo-400/70 dark:placeholder:text-indigo-500/50"
+        />
+      </div>
       <SidebarGroupAction title="Create new list">
         <Link href={"/dashboard/list/add"}>
           <Plus size={18} />
@@ -35,7 +43,7 @@ const Lists = ({ children }) => {
                 href={`/dashboard/list`}
                 className={cn(
                   "flex items-center gap-4",
-                  state === "expanded" ? "w-full" : ""
+                  state === "expanded" ? "w-full" : "",
                 )}
               >
                 <MoreHorizontal />

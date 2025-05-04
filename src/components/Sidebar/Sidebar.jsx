@@ -23,7 +23,6 @@ const Sidebar = ({ children }) => {
         </SidebarMenuButton>
       </SidebarHeader>
       <SidebarContent>{children}</SidebarContent>
-
       <SidebarRail />
     </ShadSidebar>
   );
