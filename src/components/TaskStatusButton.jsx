@@ -25,7 +25,9 @@ const TaskStatusButton = ({ type, listId, task, currentState }) => {
   };
 
   useEffect(() => {
-    updateTodoStatus(task.id, listId, type, taskState);
+    if (task) {
+      updateTodoStatus(task.id, listId, type, taskState);
+    }
   }, [taskState]);
 
   return (
