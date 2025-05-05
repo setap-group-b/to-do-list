@@ -3,9 +3,10 @@
 import { deleteList } from "@/app/actions/list";
 import ReusableButton from "../ui/ReusableButton";
 
-export const ListDelete = ({ listId }) => {
+export const ListDelete = ({ listId, className }) => {
   return (
     <ReusableButton
+      className={className}
       variant={"destructive"}
       title={"Delete list"}
       onClick={(e) => {

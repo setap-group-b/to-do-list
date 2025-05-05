@@ -43,12 +43,15 @@ const SettingsDropdown = () => {
         </Button>
       }
     >
-      <Command className="w-max min-w-44">
-        <CommandItem className="flex flex-col space-y-1 p-3 items-start hover:!bg-transparent data-[selected=true]:bg-transparent max-w-max">
+      <Command className="w-44">
+        <CommandItem className="flex flex-col space-y-1 p-3 items-start hover:!bg-transparent data-[selected=true]:bg-transparent w-full overflow-hidden">
           <p className="font-medium capitalize">
             {session?.user?.name.split(" ").slice(0, 2).join(" ")}
           </p>
-          <p>{session?.user?.email}</p>
+          <p className="overflow-ellipsis overflow-hidden w-full text-nowrap">
+            {" "}
+            {session?.user?.email}emaildqw dewAfadadfd
+          </p>
         </CommandItem>
 
         <CommandSeparator />
@@ -58,15 +61,13 @@ const SettingsDropdown = () => {
               <SettingsIcon size={"1.1rem"} className="mr-2" />
               Settings
             </CommandItem>
-            <CommandItem>Profile</CommandItem>
-            <CommandItem>Security</CommandItem>
           </CommandGroup>
           <CommandGroup>
             <CommandItem
               className="flex items-center justify-between"
               onSelect={handleLogout}
             >
-              <p>Log out</p>
+              Log out
               <LogOutIcon size={"1.1rem"} />
             </CommandItem>
           </CommandGroup>

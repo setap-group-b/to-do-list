@@ -24,7 +24,7 @@ export const Todos = async ({ type = "list", listId }) => {
   }
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden">
+    <div className="flex-1 flex flex-col !overflow-hidden">
       {userTodos.length ? (
         <div className="flex-1 flex flex-col gap-6 justify-between overflow-hidden">
           <div className="flex-1 flex flex-col overflow-y-auto">

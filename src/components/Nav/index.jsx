@@ -19,14 +19,14 @@ export const Nav = () => {
   return (
     <nav className="md:px-6 px-4 py-5 flex items-center justify-between gap-4 z-10 bg-sidebar shadow-[box-shadow:_rgba(33,_35,_38,_0.1)_0px_10px_10px_-10px]">
       <div className="flex items-center gap-2">
-        <SidebarTrigger className={"size-8 text-lg"} />
+        <SidebarTrigger className={"sm:size-8 text-lg"} />
         <Breadcrumb>
-          <BreadcrumbList key={"list"}>
+          <BreadcrumbList className={"hidden md:flex"} key={"list"}>
             {pathList.map((path, i) => {
               if (
                 (!path && i > 0) ||
                 ["list", "group", "todo"].includes(
-                  (pathList[i - 1] || "").toLowerCase(),
+                  (pathList[i - 1] || "").toLowerCase()
                 )
               )
                 return "";

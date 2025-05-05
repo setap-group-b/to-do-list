@@ -54,6 +54,7 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
       <PageHeader title={`${initialData?.title ? "Update" : "Create"} Task`} />
       <form
         ref={formRef}
+        noValidate
         action={action}
         className="flex flex-1 flex-col gap-4 *:*:[&>input]:border *:*:[&>input]:p-3 *:*:[&>textarea]:border *:*:[&>textarea]:p-3"
       >

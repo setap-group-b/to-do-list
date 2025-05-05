@@ -23,13 +23,15 @@ const todoSchema = z.object({
   status: statusEnum.default("PENDING"),
 });
 
-export async function createTodo(listId, formState, formData) {
+export async function createTodo(listId, type, formState, formData) {
   const session = await getServerSessionWrapper();
 
   // TODO: respond better
   if (!session) {
     return;
   }
+
+  console.log({ listId, type, formState, formData });
 
   const formDataObject = Object.fromEntries(formData.entries());
   const result = todoSchema.safeParse(formDataObject);
@@ -66,8 +68,8 @@ export async function createTodo(listId, formState, formData) {
     }
   }
 
-  revalidatePath(`/dashboard/list/${listId}/todo`); // purge cached data
-  redirect(`/dashboard/list/${listId}/todo`);
+  revalidatePath(`/dashboard/${type}/${listId}/todo`); // purge cached data
+  redirect(`/dashboard/${type}/${listId}/todo`);
 }
 
 export async function updateTodo(id, listId, type, formState, formData) {
