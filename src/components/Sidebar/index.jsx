@@ -2,7 +2,6 @@ import Lists from "./Lists";
 import Sidebar from "./Sidebar";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
 import Link from "next/link";
-import ListItems from "./ListItems";
 import Groups from "./Groups";
 import { getServerSessionWrapper, getUserLists } from "@/utils";
 
