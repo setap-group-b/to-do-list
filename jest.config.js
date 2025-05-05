@@ -98,6 +98,12 @@ const config = {
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
+    "^jose": "<rootDir>/node_modules/jose",
+    "^@panva/hkdf": "<rootDir>/node_modules/@panva/hkdf",
+    "^preact-render-to-string":
+      "<rootDir>/node_modules/preact-render-to-string",
+    "^preact": "<rootDir>/node_modules/preact",
+    "^uuid": "<rootDir>/node_modules/uuid",
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
