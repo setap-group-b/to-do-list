@@ -17,7 +17,7 @@ const todoSchema = z.object({
   priority: priorityEnum.default("NONE"),
   deadline: z.preprocess(
     (val) => (val ? new Date(val) : undefined),
-    z.date().optional()
+    z.date().optional(),
   ),
   notification: z.string().optional(),
   status: statusEnum.default("PENDING"),
@@ -77,14 +77,15 @@ export async function updateTodo(id, listId, type, formState, formData) {
   if (!session) {
     return;
   }
-  // const formDataObject = Object.fromEntries(formData.entries());
-  // const result = todoSchema.safeParse(formDataObject);
-  //
-  // if (!result.success) {
-  //   return {
-  //     errors: result.error.flatten().fieldErrors,
-  //   };
-  // }
+
+  const formDataObject = Object.fromEntries(formData.entries());
+  const result = todoSchema.safeParse(formDataObject);
+
+  if (!result.success) {
+    return {
+      errors: result.error.flatten().fieldErrors,
+    };
+  }
 
   try {
     await prisma.todo.update({
