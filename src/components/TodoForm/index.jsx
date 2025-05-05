@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState, useActionState, useRef } from "react";
-import { cyclePriority } from "@/utils/cyclePriority";
 import PageHeader from "../PageHeader";
 import ReusableButton from "../ui/ReusableButton";
 import ReusableDropdown from "../ui/ReusableDropdown";
@@ -22,7 +21,7 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
   });
 
   const [notification, setNotification] = useState(
-    initialData.notification || ""
+    initialData.notification || "",
   );
 
   const [priority, setPriority] = useState(initialData.priority || "");

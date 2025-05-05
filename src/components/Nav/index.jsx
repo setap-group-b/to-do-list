@@ -11,11 +11,10 @@ import {
 import SettingsDropdown from "./SettingsDropdown";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
-import { CalendarDays, Clock, Search } from "lucide-react";
 import { Fragment } from "react";
 
 export const Nav = () => {
-  const pathname = usePathname();
+  const pathname = usePathname() || "";
   const pathList = pathname.trim().split("/");
   return (
     <nav className="md:px-6 px-4 py-5 flex items-center justify-between gap-4 z-10 bg-sidebar shadow-[box-shadow:_rgba(33,_35,_38,_0.1)_0px_10px_10px_-10px]">
