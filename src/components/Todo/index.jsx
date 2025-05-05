@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { deleteTodo } from "@/app/actions/todo";
 import ReusableButton from "../ui/ReusableButton";
 import TaskStatusButton from "../TaskStatusButton";
+import { displayErrorMessage } from "@/utils/displayError";
 
 export const Todo = ({ type, listId, task }) => {
   const router = useRouter();
@@ -96,9 +97,10 @@ export const Todo = ({ type, listId, task }) => {
           <ReusableButton
             variant="destructive"
             title={"Delete"}
-            onClick={(e) => {
+            onClick={async (e) => {
               e.preventDefault(); // Prevent the form from being submitted in the traditional way.
-              deleteTodo(task.id, listId, type);
+              const result = await deleteTodo(task.id, listId, type);
+              if (!result.success) displayErrorMessage(result.errors);
             }}
           />
         </div>

@@ -16,9 +16,11 @@ import { Label } from "@/components/ui/label";
 
 const SettingsPage = ({ userData }) => {
   const { setTheme, theme } = useTheme();
-  const [font, setFont] = useState(localStorage.getItem(localStorageFont));
+  const [font, setFont] = useState(
+    localStorage.getItem(localStorageFont) || "16px"
+  );
   const [boldness, setBoldness] = useState(
-    localStorage.getItem(localStorageBoldness),
+    localStorage.getItem(localStorageBoldness) || "normal"
   );
 
   const handleThemeChange = (value) => {
@@ -73,6 +75,7 @@ const SettingsPage = ({ userData }) => {
                 <SelectValue placeholder="Select theme" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="system">System</SelectItem>
                 <SelectItem value="light">Light</SelectItem>
                 <SelectItem value="dark">Dark</SelectItem>
               </SelectContent>
