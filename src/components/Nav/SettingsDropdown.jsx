@@ -57,14 +57,17 @@ const SettingsDropdown = () => {
         <CommandSeparator />
         <CommandList className="hover:!bg-transparent">
           <CommandGroup>
-            <CommandItem onSelect={navigateToSettings}>
+            <CommandItem
+              className={"cursor-pointer"}
+              onSelect={navigateToSettings}
+            >
               <SettingsIcon size={"1.1rem"} className="mr-2" />
               Settings
             </CommandItem>
           </CommandGroup>
           <CommandGroup>
             <CommandItem
-              className="flex items-center justify-between"
+              className="flex items-center justify-between cursor-pointer"
               onSelect={handleLogout}
             >
               Log out

@@ -46,6 +46,7 @@
   --high-priority: 50% 0.3 25;
   --medium-priority: 85% 0.3 70;
   --low-priority: 55% 0.25 140;
+  --no-priority: 50% 0.3 280deg / 0.5;
 }
 
 .dark {
@@ -84,6 +85,7 @@
   --high-priority: 30% 0.4 90;
   --medium-priority: 70% 0.2 70;
   --low-priority: 40% 0.3 140;
+  --no-priority: 50% 0.3 280deg / 0.5;
 }
 
 @theme inline {
@@ -126,6 +128,7 @@
   --color-priority-high: oklch(var(--high-priority), <alpha-value>);
   --color-priority-medium: oklch(var(--medium-priority), <alpha-value>);
   --color-priority-low: oklch(var(--low-priority), <alpha-value>);
+  --color-priority-none: oklch(var(--no-priority), <alpha-value>);
 }
 
 @layer base {

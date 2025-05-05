@@ -24,7 +24,7 @@ const AddCollaborators = ({ listId, user, listCollaborators }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Add collaborators</Button>
+        <Button className={"cursor-pointer"}>Add collaborators</Button>
       </DialogTrigger>
       <DialogContent className={"flex flex-col gap-7"}>
         <DialogHeader className={"text-left"}>

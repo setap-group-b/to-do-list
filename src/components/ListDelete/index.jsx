@@ -2,11 +2,12 @@
 
 import { deleteList } from "@/app/actions/list";
 import ReusableButton from "../ui/ReusableButton";
+import { cn } from "@/lib/utils";
 
 export const ListDelete = ({ listId, className }) => {
   return (
     <ReusableButton
-      className={className}
+      className={cn("cursor-pointer", className)}
       variant={"destructive"}
       title={"Delete list"}
       onClick={(e) => {

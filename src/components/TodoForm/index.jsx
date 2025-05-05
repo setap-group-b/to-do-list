@@ -21,7 +21,7 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
   });
 
   const [notification, setNotification] = useState(
-    initialData.notification || "",
+    initialData.notification || ""
   );
 
   const [priority, setPriority] = useState(initialData.priority || "");
@@ -88,7 +88,7 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
                 setPriority(value);
               }}
               options={priorities}
-              containerClassName={"flex"}
+              containerClassName={"flex [&>div]:w-[13rem]"}
             />
 
             <input type="hidden" name="priority" value={priority} />

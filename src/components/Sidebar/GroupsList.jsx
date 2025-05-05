@@ -22,7 +22,7 @@ const Group = ({ state, group }) => {
     <SidebarMenuItem className={"h-full"}>
       <SidebarMenuButton
         className={
-          "min-h-32 h-full gap-4 pt-5 pb-3 flex items-start flex-col overflow-hidden bg-sidebar-accent/70"
+          "min-h-32 h-full gap-4 pt-5 pb-3 flex items-start cursor-pointer flex-col overflow-hidden bg-sidebar-accent/70"
         }
       >
         {persons.length ? (

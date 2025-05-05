@@ -14,10 +14,10 @@ const statusEnum = z.enum(status);
 const todoSchema = z.object({
   title: z.string().min(1).max(255),
   content: z.string().max(4000).optional(),
-  priority: priorityEnum.default("LOW"),
+  priority: priorityEnum.default("NONE"),
   deadline: z.preprocess(
     (val) => (val ? new Date(val) : undefined),
-    z.date().optional(),
+    z.date().optional()
   ),
   notification: z.string().optional(),
   status: statusEnum.default("PENDING"),
@@ -30,8 +30,6 @@ export async function createTodo(listId, type, formState, formData) {
   if (!session) {
     return;
   }
-
-  console.log({ listId, type, formState, formData });
 
   const formDataObject = Object.fromEntries(formData.entries());
   const result = todoSchema.safeParse(formDataObject);

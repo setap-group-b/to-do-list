@@ -19,10 +19,10 @@ export const statusObject = Object.fromEntries(
   ])
 );
 
-export const priority = ["HIGH", "MEDIUM", "LOW"];
+export const priority = ["HIGH", "MEDIUM", "LOW", "NONE"];
 export const priorityObject = Object.fromEntries(
   priority.map((val) => [
     val,
-    capitalizeString(val.toLowerCase()) + " priority",
+    (val === "NONE" ? "No" : capitalizeString(val.toLowerCase())) + " priority",
   ])
 );

@@ -12,7 +12,7 @@ const ListItems = ({ userLists, searchValue }) => {
         <SidebarMenuItem key={idx}>
           <SidebarMenuButton
             size="l"
-            className="flex items-center gap-4 w-full capitalize *:text-nowrap justify-between"
+            className="flex items-center gap-4 w-full capitalize cursor-pointer *:text-nowrap justify-between"
           >
             <div className="flex items-center gap-4">
               <div
