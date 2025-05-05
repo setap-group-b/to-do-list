@@ -3,10 +3,10 @@
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import Link from "next/link";
 
 import SettingsDropdown from "./SettingsDropdown";
 import { SidebarTrigger } from "@/components/ui/sidebar";
@@ -26,7 +26,7 @@ export const Nav = () => {
               if (
                 (!path && i > 0) ||
                 ["list", "group", "todo"].includes(
-                  (pathList[i - 1] || "").toLowerCase()
+                  (pathList[i - 1] || "").toLowerCase(),
                 )
               )
                 return "";
@@ -35,9 +35,9 @@ export const Nav = () => {
                 <Fragment key={i}>
                   <BreadcrumbSeparator />
                   <BreadcrumbItem className={"hidden md:block"}>
-                    <BreadcrumbLink href={href} className={"capitalize"}>
+                    <Link href={href} className={"capitalize"}>
                       {path || "Home"}
-                    </BreadcrumbLink>
+                    </Link>
                   </BreadcrumbItem>
                 </Fragment>
               );
