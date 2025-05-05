@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -20,7 +18,7 @@ const SettingsPage = ({ userData }) => {
   const { setTheme, theme } = useTheme();
   const [font, setFont] = useState(localStorage.getItem(localStorageFont));
   const [boldness, setBoldness] = useState(
-    localStorage.getItem(localStorageBoldness)
+    localStorage.getItem(localStorageBoldness),
   );
 
   const handleThemeChange = (value) => {
@@ -44,11 +42,21 @@ const SettingsPage = ({ userData }) => {
       {/* Account Settings Section */}
       <Card>
         <CardHeader>
-          <CardTitle>Account Settings</CardTitle>
+          <CardTitle>Account Details</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <ReusableInput label="Name" defaultValue={userData.name} readOnly />
-          <ReusableInput label="Email" defaultValue={userData.email} readOnly />
+          <ReusableInput
+            label="Name"
+            defaultValue={userData.name}
+            readOnly
+            disabled
+          />
+          <ReusableInput
+            label="Email"
+            defaultValue={userData.email}
+            readOnly
+            disabled
+          />
         </CardContent>
       </Card>
 
