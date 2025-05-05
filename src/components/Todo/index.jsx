@@ -37,7 +37,7 @@ export const Todo = ({ type, listId, task }) => {
     >
       <AccordionTrigger
         className={cn(
-          "relative rounded-b-none flex items-center gap-3 p-3 bg-indigo-50 dark:bg-indigo-900/30"
+          "relative rounded-b-none hover:cursor-pointer hover:no-underline flex items-center gap-3 p-3 bg-indigo-50 dark:bg-indigo-900/30"
         )}
       >
         <TaskStatusButton currentState={task.status} />

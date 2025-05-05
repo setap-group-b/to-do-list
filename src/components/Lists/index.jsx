@@ -15,7 +15,7 @@ export const Lists = async () => {
   }
 
   return userLists?.length ? (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-[repeat(auto-fit,_minmax(18rem,_1fr))] gap-6">
       {userLists.map((list) => (
         <List key={list.id} list={list} />
       ))}

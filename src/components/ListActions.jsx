@@ -28,7 +28,7 @@ const ListActions = ({ listId }) => {
           <Link href={`/dashboard/list/${listId}/edit`}>Edit List</Link>
         </CommandItem>
         <CommandItem>
-          <ListDelete />
+          <ListDelete listId={listId} />
         </CommandItem>
       </Command>
     </ReusablePopover>

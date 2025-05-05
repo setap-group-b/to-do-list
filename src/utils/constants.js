@@ -1,6 +1,9 @@
-import { FaCircleCheck, FaClock } from "react-icons/fa6";
+import { FaCircleCheck } from "react-icons/fa6";
 import { TbProgressCheck } from "react-icons/tb";
 import { capitalizeString } from "./functions";
+
+export const localStorageFont = "fontSettings";
+export const localStorageBoldness = "boldnessSettings";
 
 export const status = ["PENDING", "IN_PROGRESS", "COMPLETED"];
 export const statusIcons = {

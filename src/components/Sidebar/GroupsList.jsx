@@ -24,9 +24,6 @@ const Group = ({ state, group }) => {
         className={
           "min-h-32 h-full gap-4 pt-5 pb-3 flex items-start flex-col overflow-hidden bg-sidebar-accent/70"
         }
-        style={{
-          backgroundColor: group.backgroundColour,
-        }}
       >
         {persons.length ? (
           <div className="flex flex-wrap items-center justify-center -space-x-2 mr-2">
@@ -48,7 +45,12 @@ const Group = ({ state, group }) => {
         )}
         <span className="flex flex-col gap-1">
           <span className="flex gap-2 items-center">
-            <p>🧑‍🧑‍🧒‍🧒</p>
+            <span
+              className="h-3 w-4 rounded-[.2rem]"
+              style={{
+                backgroundColor: group.backgroundColour,
+              }}
+            ></span>
             <p className="text-wrap line-clamp-1">{group.title}</p>
           </span>
           <p className="text-[.85rem] text-neutral-400">
@@ -60,19 +62,15 @@ const Group = ({ state, group }) => {
   ) : (
     <SidebarMenuItem>
       <SidebarMenuButton
-        style={{
-          backgroundColor: group.backgroundColour,
-        }}
         size="l"
         className={"p-2 flex items-center gap-4 justify-between"}
       >
-        <Link href="/" className="flex items-center gap-4">
-          <span className="text-lg">🧑‍🧑‍🧒‍🧒</span>
-          <span>{group.title}</span>
-        </Link>
-        <p className="text-[.85rem] text-neutral-400">
-          {persons.length} people{" "}
-        </p>
+        <span
+          className="h-full w-full rounded-sm"
+          style={{
+            backgroundColor: group.backgroundColour,
+          }}
+        ></span>
       </SidebarMenuButton>
     </SidebarMenuItem>
   );
@@ -86,12 +84,6 @@ const GroupsList = ({ groups }) => {
       <SidebarGroupLabel className={"text-lg"}>
         Collaborative Lists
       </SidebarGroupLabel>
-      {/* <SidebarGroupAction title="Create new group">
-        <Link href={"/dashboard/group/create"}>
-          <Plus size={18} />
-        </Link>{" "}
-        <span className="sr-only">Create new group</span>
-      </SidebarGroupAction> */}
       <SidebarGroupContent>
         <SidebarMenu
           className={cn(state === "expanded" ? "grid grid-cols-2 gap-2" : "")}
@@ -114,9 +106,7 @@ const GroupsList = ({ groups }) => {
                   state === "expanded" ? "w-full" : ""
                 )}
               >
-                <MoreHorizontal
-                  className={cn(state === "expanded" ? "!size-6" : "!size-5")}
-                />
+                <MoreHorizontal className={cn("!size-6")} />
                 <span>View all</span>
               </Link>
             </SidebarMenuButton>

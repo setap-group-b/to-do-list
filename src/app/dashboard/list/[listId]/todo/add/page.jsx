@@ -14,7 +14,7 @@ const getDate = () => {
 export default async function UserTodoAdd({ params }) {
   const { listId } = await params;
 
-  const createAction = createTodo.bind(null, listId);
+  const createAction = createTodo.bind(null, listId, "list");
 
   return (
     <TodoForm

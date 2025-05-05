@@ -9,9 +9,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { localStorageBoldness, localStorageFont } from "@/utils/constants";
+import { useEffect } from "react";
 
 export default function ThemeToggle({ className }) {
   const { setTheme } = useTheme();
+
+  const baseFont = localStorage.getItem(localStorageFont);
+  const baseBoldness = localStorage.getItem(localStorageBoldness);
+
+  useEffect(() => {
+    document.documentElement.style.fontSize = baseFont;
+    document.documentElement.style.fontWeight = baseBoldness;
+  }, [baseFont, baseBoldness]);
 
   return (
     <DropdownMenu>

@@ -1,4 +1,3 @@
-import CurrentDateTime from "@/components/CurrentDateTime";
 import { getServerSessionWrapper } from "@/utils";
 import { dateFormatter } from "@/utils/functions";
 import {
@@ -8,7 +7,6 @@ import {
   GraduationCap,
   ListChecks,
   Sparkles,
-  Trophy,
 } from "lucide-react";
 
 export default async function Home() {

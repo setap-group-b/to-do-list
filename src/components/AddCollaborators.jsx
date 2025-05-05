@@ -27,7 +27,7 @@ const AddCollaborators = ({ listId, user, listCollaborators }) => {
         <Button>Add collaborators</Button>
       </DialogTrigger>
       <DialogContent className={"flex flex-col gap-7"}>
-        <DialogHeader>
+        <DialogHeader className={"text-left"}>
           <DialogTitle>Collaborators</DialogTitle>
           <DialogDescription>
             Collaborators will be able to view, edit and delete tasks in this
@@ -60,7 +60,7 @@ const AddCollaborators = ({ listId, user, listCollaborators }) => {
             )}
           </section>
 
-          <Button className={"p-3 w-full bg-gray-200"}>Save</Button>
+          <Button className={"p-4 w-full bg-gray-200"}>Save</Button>
         </form>
         <p
           className="text-red-500 text-[0.8rem] text-center cursor-pointer"
