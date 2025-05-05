@@ -39,8 +39,10 @@ model Todo {
   listId       String?
   priority     Priority  @default(NONE)
   status       Status    @default(PENDING)
-  deadline     DateTime?
   notification String?
+  deadline     DateTime?
+  reminderDate DateTime?
+  remindedAt   DateTime?
   List         List?     @relation(fields: [listId], references: [id])
   User         User?     @relation(fields: [userId], references: [id])
 }

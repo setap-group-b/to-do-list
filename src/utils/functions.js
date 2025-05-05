@@ -19,6 +19,7 @@ export function dateFormatter(date, options) {
     const formatter = new Intl.DateTimeFormat("en-GB", {
       dateStyle: "full",
       timeStyle: "medium",
+
       ...options,
     });
     value = formatter.format(dateValue);
@@ -37,4 +38,33 @@ export const modifyOptions = (arr, label) => {
     label: capitalizeString(label || value),
     value,
   }));
+};
+
+export const getNotificationDate = (deadlineDate, option) => {
+  if (!deadlineDate || !option) return null;
+
+  const deadline = new Date(deadlineDate);
+  const notification = new Date(deadline);
+  const today = new Date();
+
+  switch (option.toLowerCase()) {
+    case "1 day":
+      notification.setDate(deadline.getDate() - 1);
+      break;
+    case "1 week":
+      notification.setDate(deadline.getDate() - 7);
+      break;
+    case "1 month":
+      notification.setMonth(deadline.getMonth() - 1);
+      break;
+    default:
+      return null;
+  }
+
+  // If notification date is in the past, set it to today
+  if (notification < today) {
+    return today;
+  }
+
+  return notification;
 };

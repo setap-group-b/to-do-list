@@ -6,19 +6,28 @@ import PageHeader from "../PageHeader";
 import ReusableButton from "../ui/ReusableButton";
 import ReusableDropdown from "../ui/ReusableDropdown";
 import { priorityObject } from "@/utils/constants";
+import { displayErrorMessage } from "@/utils/displayError";
 
 export const TodoForm = ({ formAction, initialData, listId }) => {
   const formRef = useRef(null);
+  const [formState, setFormState] = useState({ errors: {} });
+
   async function submitForm(prevState, formData) {
     const result = await formAction(prevState, formData);
     if (result.success && formRef.current) {
       formRef.current.reset();
+    } else {
+      if (Array.isArray(result.errors)) {
+        displayErrorMessage(result.errors);
+      } else setFormState({ errors: result.errors });
     }
-    return result;
   }
-  const [formState, action] = useActionState(submitForm, {
-    errors: {},
-  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Stop default form submission
+    const formData = new FormData(e.target);
+    await submitForm(formState, formData);
+  };
 
   const [notification, setNotification] = useState(
     initialData.notification || ""
@@ -55,7 +64,7 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
       <form
         ref={formRef}
         noValidate
-        action={action}
+        onSubmit={handleSubmit}
         className="flex flex-1 flex-col gap-4 *:*:[&>input]:border *:*:[&>input]:p-3 *:*:[&>textarea]:border *:*:[&>textarea]:p-3"
       >
         <div className="flex-1">
