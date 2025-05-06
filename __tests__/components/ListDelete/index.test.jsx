@@ -1,10 +1,14 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { TestButton } from "@/components/TestButton";
+import { ListDelete } from "@/components/ListDelete";
 
-describe("TestButton", () => {
-  it("Renders the TestButton component", () => {
-    render(<TestButton />);
+jest.mock("@/app/actions/list", () => ({
+  deleteList: jest.fn(),
+}));
+
+describe("ListDelete", () => {
+  it("Renders the ListDelete component", () => {
+    render(<ListDelete />);
 
     const button = screen.getByRole("button");
 
