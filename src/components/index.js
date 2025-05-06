@@ -5,6 +5,7 @@ export * from "./TodoForm";
 export * from "./Lists";
 export * from "./List";
 export * from "./ListForm";
+export * from "./ListDelete";
 
 export * from "./Nav";
 
