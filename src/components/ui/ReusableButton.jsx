@@ -43,16 +43,7 @@ const ReusableButton = ({
 
   return (
     <Button
-      className={cn(
-        {
-          "bg-red-600": isDanger,
-          "bg-red-600/10 !text-pc4": isLightDanger,
-          "border !text-foreground border-gray-300": isBordered,
-        },
-        "text-base font-semibold text-center rounded-lg font-inter leading-snug py-5 px-4",
-        "inline-flex items-center justify-center",
-        className
-      )}
+      className={cn(className)}
       disabled={disabled || isLoading}
       variant={buttonVariant}
       {...buttonProps}

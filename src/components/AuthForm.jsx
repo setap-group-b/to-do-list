@@ -42,7 +42,7 @@ const AuthForm = ({ className, isSignUp }) => {
     } else if (res.ok) {
       toast.success("Login successful");
       form.reset();
-      router.push("/");
+      router.push("/dashboard");
     }
   }
 

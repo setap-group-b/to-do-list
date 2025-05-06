@@ -8,7 +8,7 @@ export default async function AuthFormLayout({ children }) {
   const session = await getServerSessionWrapper();
 
   if (session) {
-    redirect("/"); // Immediately redirects authenticated users
+    redirect("/dashboard"); // Immediately redirects authenticated users
   }
 
   return (

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   SidebarGroup,
   SidebarGroupAction,
@@ -6,88 +8,60 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "../ui/sidebar";
 import Link from "next/link";
-import { MoreHorizontal, Plus } from "lucide-react";
-import ReusableButton from "../ui/ReusableButton";
+import { cn } from "@/lib/utils";
+import { MoreHorizontal, Plus, Search } from "lucide-react";
+import { useState } from "react";
+import ListItems from "./ListItems";
 
-const Lists = () => {
-  const collections = [
-    {
-      name: "Home",
-      icon: "🏠",
-      noOfTasks: Math.trunc(Math.random() * 10),
-      url: "",
-    },
-    {
-      name: "Books to read",
-      icon: "📚",
-      noOfTasks: Math.trunc(Math.random() * 10),
-      url: "",
-    },
-    {
-      name: "Completed",
-      icon: "✅",
-      noOfTasks: Math.trunc(Math.random() * 10),
-      url: "",
-    },
-    {
-      name: "Workout",
-      icon: "💪",
-      noOfTasks: Math.trunc(Math.random() * 10),
-      url: "",
-    },
-    {
-      name: "Diet",
-      icon: "🍽️",
-      noOfTasks: Math.trunc(Math.random() * 10),
-      url: "",
-    },
-    {
-      name: "Road trip",
-      icon: "🚗",
-      noOfTasks: Math.trunc(Math.random() * 10),
-      url: "",
-    },
-  ];
+const Lists = ({ userLists }) => {
+  const { state } = useSidebar();
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearchChange = (event) => {
+    event.preventDefault();
+    setSearchValue(event.target.value);
+  };
 
   return (
     <SidebarGroup className={"flex flex-col gap-3"}>
-      <SidebarGroupLabel className={"text-lg"}>Lists</SidebarGroupLabel>
+      <SidebarGroupLabel className={"text-lg"}>Owned Lists</SidebarGroupLabel>
+      {state === "expanded" && (
+        <div className="relative hidden md:flex items-center w-full">
+          <Search className="absolute left-3 h-4 w-4 text-indigo-500/70 dark:text-indigo-400/70" />
+          <input
+            type="text"
+            placeholder="Search lists..."
+            onChange={handleSearchChange}
+            className="h-10 w-full rounded-md bg-indigo-50 dark:bg-indigo-900/30 border-none pl-9 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 dark:focus:ring-indigo-600/50 placeholder:text-indigo-400/70 dark:placeholder:text-indigo-500/50"
+          />
+        </div>
+      )}
       <SidebarGroupAction title="Create new list">
-        <Plus /> <span className="sr-only">Create new list</span>
+        <Link href={"/dashboard/list/add"}>
+          <Plus size={18} />
+        </Link>{" "}
+        <span className="sr-only">Create new list</span>
       </SidebarGroupAction>
       <SidebarGroupContent>
         <SidebarMenu>
-          {collections.map((collection) => {
-            return (
-              <SidebarMenuItem key={collection.name}>
-                <SidebarMenuButton
-                  size="l"
-                  className={"p-2 flex items-center gap-4 justify-between"}
-                >
-                  <Link
-                    href={collection.url}
-                    className="flex items-center gap-4 w-full"
-                  >
-                    <span className="text-lg">{collection.icon}</span>
-                    <span>{collection.name}</span>
-                  </Link>
-                  <span className="bg-accent p-2 rounded-sm h-5 w-6 flex items-center justify-center">
-                    {collection.noOfTasks}
-                  </span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            );
-          })}
-          {collections.length >= 6 && (
-            <SidebarMenuItem className={"cursor-pointer"}>
-              <SidebarMenuButton className="text-sidebar-foreground/70">
+          <ListItems userLists={userLists} searchValue={searchValue} />
+          <SidebarMenuItem className={"cursor-pointer"}>
+            <SidebarMenuButton className="text-sidebar-foreground/70">
+              <Link
+                href={`/dashboard/list`}
+                className={cn(
+                  "flex items-center gap-4",
+                  state === "expanded" ? "w-full" : ""
+                )}
+              >
                 <MoreHorizontal />
                 <span>View all</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          )}
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

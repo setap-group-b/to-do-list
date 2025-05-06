@@ -8,15 +8,43 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
+enum Status {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum Priority {
+  NONE
+  HIGH
+  MEDIUM
+  LOW
+}
+
+model List {
+  id               String  @id @default(cuid())
+  title            String
+  backgroundColour String
+  userId           String?
+  user             User?   @relation(fields: [userId], references: [id], "ListOwner")
+  Todo             Todo[]
+  collaborators    User[]  @relation("CollaboratingLists")
+}
+
 model Todo {
-  id        String  @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  userId    String?
-  listId    String?
-  List      List?   @relation(fields: [listId], references: [id])
-  user      User?   @relation(fields: [userId], references: [id])
+  id           String    @id @default(cuid())
+  title        String
+  content      String?
+  userId       String?
+  listId       String?
+  priority     Priority  @default(NONE)
+  status       Status    @default(PENDING)
+  notification String?
+  deadline     DateTime?
+  reminderDate DateTime?
+  remindedAt   DateTime?
+  List         List?     @relation(fields: [listId], references: [id])
+  User         User?     @relation(fields: [userId], references: [id])
 }
 
 model Account {
@@ -48,18 +76,19 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  password      String?
-  image         String?
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
-  Account       Account[]
-  List          List[]
-  Session       Session[]
-  todos         Todo[]
+  id                 String    @id @default(cuid())
+  name               String?
+  email              String?   @unique
+  emailVerified      DateTime?
+  password           String?
+  image              String?
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+  Account            Account[]
+  Session            Session[]
+  todos              Todo[]
+  ownedLists         List[]    @relation("ListOwner")
+  collaboratingLists List[]    @relation("CollaboratingLists")
 
   @@map("users")
 }
@@ -71,13 +100,4 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-}
-
-model List {
-  id               String  @id
-  title            String
-  backgroundColour String
-  userId           String?
-  users            User?   @relation(fields: [userId], references: [id])
-  Todo             Todo[]
 }

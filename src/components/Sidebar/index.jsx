@@ -1,40 +1,43 @@
-"use client";
-
-import Logo from "../Logo";
-import {
-  Sidebar as ShadSidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenuButton,
-  SidebarRail,
-} from "../ui/sidebar";
-import { PlusIcon } from "lucide-react";
-import { useState } from "react";
-import Groups from "./Groups";
 import Lists from "./Lists";
+import Sidebar from "./Sidebar";
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
+import Link from "next/link";
+import Groups from "./Groups";
+import { getServerSessionWrapper, getUserLists } from "@/utils";
 
-const Sidebar = () => {
+const index = async () => {
+  const session = await getServerSessionWrapper();
+
+  const getCachedUserLists = async () => {
+    "use cache";
+    const lists = await getUserLists(session.user);
+    return lists;
+  };
+
+  const userLists = await getCachedUserLists();
+
   return (
-    <ShadSidebar
-      collapsible="icon"
-      className={"shadow-lg  z-20 border-sidebar-accent"}
-    >
-      <SidebarHeader
-        className={"flex flex-row items-center gap-4 pt-5 justify-between"}
-      >
-        <SidebarMenuButton size="lg" className="!bg-transparent">
-          <Logo className={"gap-4 ml-1"} />
-        </SidebarMenuButton>
-      </SidebarHeader>
-      <SidebarContent>
-        <Lists />
-        <Groups />
-      </SidebarContent>
-
-      <SidebarRail />
-    </ShadSidebar>
+    <Sidebar>
+      <SidebarMenu>
+        <SidebarMenuItem className={"mx-3"}>
+          <SidebarMenuButton
+            size="lg"
+            className={"p-2 flex items-center gap-4 justify-between"}
+          >
+            <Link
+              href={`/dashboard/`}
+              className="flex items-center gap-4 w-full capitalize"
+            >
+              <span className="text-xl">🏠</span>
+              <span>Home</span>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+      <Lists userLists={userLists} />
+      <Groups />
+    </Sidebar>
   );
 };
 
-export default Sidebar;
+export default index;
