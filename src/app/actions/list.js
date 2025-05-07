@@ -43,19 +43,11 @@ export async function createList(formState, formData) {
       },
     });
   } catch (error) {
-    if (error instanceof Error) {
-      return {
-        errors: {
-          _form: [error.message],
-        },
-      };
-    } else {
-      return {
-        errors: {
-          _form: ["Something went wrong"],
-        },
-      };
-    }
+    return {
+      success: false,
+      errors:
+        error instanceof Error ? [error.message] : ["Something went wrong"],
+    };
   }
 
   revalidatePath("/dashboard/list"); // purge cached data
@@ -93,19 +85,11 @@ export async function updateList(listId, formState, formData) {
       },
     });
   } catch (error) {
-    if (error instanceof Error) {
-      return {
-        errors: {
-          _form: [error.message],
-        },
-      };
-    } else {
-      return {
-        errors: {
-          _form: ["Something went wrong"],
-        },
-      };
-    }
+    return {
+      success: false,
+      errors:
+        error instanceof Error ? [error.message] : ["Something went wrong"],
+    };
   }
 
   revalidatePath(`/dashboard/list/${listId}/todo`); // purge cached data
@@ -125,19 +109,11 @@ export async function deleteList(listId) {
       where: { id: listId, user: session.user },
     });
   } catch (error) {
-    if (error instanceof Error) {
-      return {
-        errors: {
-          _form: [error.message],
-        },
-      };
-    } else {
-      return {
-        errors: {
-          _form: ["Something went wrong"],
-        },
-      };
-    }
+    return {
+      success: false,
+      errors:
+        error instanceof Error ? [error.message] : ["Something went wrong"],
+    };
   } finally {
     revalidatePath(`/dashboard/list`); // purge cached data
     redirect(`/dashboard/list`);

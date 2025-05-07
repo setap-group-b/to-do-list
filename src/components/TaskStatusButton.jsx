@@ -33,13 +33,13 @@ const TaskStatusButton = ({ type, listId, task, currentState }) => {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild>
+        <TooltipTrigger>
           <span
             className={cn(
               "size-6 cursor-pointer rounded-full font-bold flex items-center justify-center bg-white dark:bg-gray-900 *:w-full *:h-full",
               taskState === "COMPLETED"
                 ? "dark:text-green-500 text-green-600"
-                : "dark:text-blue-500 text-blue-600",
+                : "dark:text-blue-500 text-blue-600"
             )}
             onClick={(e) => {
               e.stopPropagation();

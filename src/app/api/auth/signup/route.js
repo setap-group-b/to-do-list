@@ -10,6 +10,7 @@ export async function POST(req) {
     const dbUser = await prisma.user.findFirst({
       where: { email },
     });
+
     if (dbUser) {
       return NextResponse.json(
         {
@@ -22,6 +23,7 @@ export async function POST(req) {
     const newUser = await prisma.user.create({
       data: { email, name, password: hashedPassword },
     });
+
     const { password: p, ...userData } = newUser;
     return NextResponse.json(
       {

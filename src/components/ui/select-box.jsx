@@ -36,6 +36,7 @@ const SelectBox = (
     onChange,
     onError,
     multiple,
+    ...props
   },
   ref
 ) => {

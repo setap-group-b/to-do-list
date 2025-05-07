@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -10,6 +9,12 @@ import { priorityObject } from "@/utils/constants";
 import { displayErrorMessage } from "@/utils/displayError";
 
 export const TodoForm = ({ formAction, initialData, listId }) => {
+  const [priority, setPriority] = useState(initialData.priority || "NONE");
+  const priorities = Object.entries(priorityObject).map(([key, value]) => ({
+    label: value,
+    value: key,
+  }));
+
   const formRef = useRef(null);
   const [formState, setFormState] = useState({ errors: {} });
 
@@ -26,6 +31,7 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Stop default form submission
+
     const formData = new FormData(e.target);
     await submitForm(formState, formData);
   };
@@ -33,12 +39,6 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
   const [notification, setNotification] = useState(
     initialData.notification || ""
   );
-
-  const [priority, setPriority] = useState(initialData.priority || "");
-  const priorities = Object.entries(priorityObject).map(([key, value]) => ({
-    label: value,
-    value: key,
-  }));
 
   const notificationOptions = [
     { label: "1 day before deadline", value: "1 day" },
@@ -85,10 +85,12 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
             )}
           </section>
 
+          {/* Priority Field */}
           <section style={{ marginBottom: "5px" }}>
+            {" "}
             <ReusableDropdown
               autoModifyOptions={false}
-              defaultValue={initialData?.priority || ""}
+              defaultValue={initialData?.priority || "NONE"}
               placeholder={"Set task priority"}
               name="priority"
               id="priority"
@@ -99,12 +101,13 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
               }}
               options={priorities}
               containerClassName={"flex [&>div]:w-[13rem]"}
-            />
-
-            <input type="hidden" name="priority" value={priority} />
-            {formState.errors.priority && (
-              <p>{formState.errors.priority?.join(", ")}</p>
-            )}
+            >
+              {" "}
+              <input type="hidden" name="priority" value={priority} />
+              {formState.errors.priority && (
+                <p>{formState.errors.priority?.join(", ")}</p>
+              )}
+            </ReusableDropdown>
           </section>
 
           {/* Content Field */}

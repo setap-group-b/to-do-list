@@ -1,19 +1,42 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useRef, useState } from "react";
 import ReusableButton from "../ui/ReusableButton";
 import PageHeader from "../PageHeader";
+import { displayErrorMessage } from "@/utils/displayError";
 
 export const ListForm = ({ formAction, initialData }) => {
-  const [formState, action] = useActionState(formAction, {
-    errors: {},
-  });
+  const formRef = useRef(null);
+  const [formState, setFormState] = useState({ errors: {} });
+
+  async function submitForm(prevState, formData) {
+    const result = await formAction(prevState, formData);
+
+    if (result?.success && formRef?.current) {
+      formRef.current.reset();
+    } else {
+      if (Array.isArray(result?.errors)) {
+        displayErrorMessage(result?.errors);
+      } else setFormState({ errors: result?.errors });
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Stop default form submission
+    const formData = new FormData(e.target);
+    await submitForm(formState, formData);
+  };
 
   return (
     <div className="h-full flex flex-col gap-4">
       <PageHeader title={`${initialData.title ? "Update" : "Create"} List`} />
-      <form action={action} className="flex flex-col gap-5">
+      <form
+        ref={formRef}
+        noValidate
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-5"
+      >
         <section>
           <label htmlFor="title">Title</label>
           <input
@@ -28,7 +51,7 @@ export const ListForm = ({ formAction, initialData }) => {
           )}
         </section>
         <section>
-          <label htmlFor="content">Background Colour</label>
+          <label htmlFor="background-colour">Background Colour</label>
           <input
             type="color"
             id="background-colour"

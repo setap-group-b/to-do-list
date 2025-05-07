@@ -12,7 +12,7 @@ export default async function UserTodoAdd({ params }) {
       initialData={{
         title: "",
         content: "",
-        priority: "Set Priority Here",
+        priority: "",
         status: "",
         // deadline: { getDate }
       }}

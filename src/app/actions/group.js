@@ -34,6 +34,8 @@ export async function createGroup(listId, formState, formData) {
     collaborators: JSON.parse(collaborators),
   });
 
+  console.log({ collaborators, result });
+
   if (!result.success) {
     return {
       // The flatten method is used to convert the validation errors into a flat object structure

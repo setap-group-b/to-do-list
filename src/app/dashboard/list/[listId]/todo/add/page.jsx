@@ -1,16 +1,6 @@
 import { TodoForm } from "@/components";
 import { createTodo } from "@/app/actions/todo";
 
-const getDate = () => {
-  const date = new Date();
-
-  // Values that could be used later in deadline setting  (mins rounded to the nearest ten)
-  const hour = date.getHours();
-  const minute = Math.round(date.getMinutes() / 10) * 10;
-
-  return date;
-};
-
 export default async function UserTodoAdd({ params }) {
   const { listId } = await params;
 
@@ -22,7 +12,7 @@ export default async function UserTodoAdd({ params }) {
       initialData={{
         title: "",
         content: "",
-        priority: "Set Priority Here",
+        priority: "",
         status: "",
         // deadline: { getDate }
       }}
