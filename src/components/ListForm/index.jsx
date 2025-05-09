@@ -29,46 +29,55 @@ export const ListForm = ({ formAction, initialData }) => {
   };
 
   return (
-    <div className="h-full flex flex-col gap-4">
+    <div className="h-full flex flex-col gap-6 p-4 md:p-6">
       <PageHeader title={`${initialData.title ? "Update" : "Create"} List`} />
       <form
         ref={formRef}
         noValidate
         onSubmit={handleSubmit}
-        className="flex flex-col gap-5"
+        className="flex flex-col gap-6 max-w-2xl mx-auto w-full bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-indigo-100 dark:border-indigo-900/40 p-6"
       >
-        <section>
-          <label htmlFor="title">Title</label>
+        <section className="flex flex-col gap-2">
+          <label htmlFor="title" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            Title
+          </label>
           <input
             type="text"
             id="title"
             name="title"
             defaultValue={initialData.title}
-            className="text-black bg-white"
+            className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 dark:focus:ring-indigo-600/50"
+            placeholder="Enter list title"
           />
           {formState.errors.title && (
-            <p>{formState.errors.title?.join(", ")}</p>
+            <p className="text-sm text-red-500 dark:text-red-400">{formState.errors.title?.join(", ")}</p>
           )}
         </section>
-        <section>
-          <label htmlFor="background-colour">Background Colour</label>
-          <input
-            type="color"
-            id="background-colour"
-            name="background-colour"
-            defaultValue={initialData.backgroundColour}
-            className="text-black bg-white"
-          ></input>
+        <section className="flex flex-col gap-2">
+          <label htmlFor="background-colour" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            Background Colour
+          </label>
+          <div className="flex items-center gap-3">
+            <input
+              type="color"
+              id="background-colour"
+              name="background-colour"
+              defaultValue={initialData.backgroundColour || "#818cf8"}
+              className="h-10 w-20 rounded-lg cursor-pointer border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
+            />
+            <span className="text-sm text-gray-500 dark:text-gray-400">
+              Choose a color for your list
+            </span>
+          </div>
           {formState.errors.content && (
-            <div>
-              {formState.errors.content?.join(", ")} // Display form errors
-              related to the content field
-            </div>
+            <p className="text-sm text-red-500 dark:text-red-400">{formState.errors.content?.join(", ")}</p>
           )}
         </section>
-        <section className="*:min-w-32 flex items-center gap-4">
-          <ReusableButton type="submit">Save</ReusableButton>
-          <ReusableButton type="button">
+        <section className="flex items-center gap-4 pt-4">
+          <ReusableButton type="submit" className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white">
+            Save
+          </ReusableButton>
+          <ReusableButton type="button" className="flex-1 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100">
             <Link href={`/dashboard/list`}>Cancel</Link>
           </ReusableButton>
         </section>

@@ -33,8 +33,8 @@ const TaskStatusButton = ({ type, listId, task, currentState }) => {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger>
-          <span
+        <TooltipTrigger asChild>
+          <div
             className={cn(
               "size-6 cursor-pointer rounded-full font-bold flex items-center justify-center bg-white dark:bg-gray-900 *:w-full *:h-full",
               taskState === "COMPLETED"
@@ -45,9 +45,17 @@ const TaskStatusButton = ({ type, listId, task, currentState }) => {
               e.stopPropagation();
               handleCheckboxChange();
             }}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleCheckboxChange();
+              }
+            }}
           >
             {statusIcons[taskState]}
-          </span>
+          </div>
         </TooltipTrigger>
         <TooltipContent>
           <p>{statusObject[taskState]}</p>

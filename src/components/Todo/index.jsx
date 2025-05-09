@@ -40,54 +40,61 @@ export const Todo = ({ type, listId, task }) => {
         className={cn(
           "relative rounded-b-none hover:cursor-pointer hover:no-underline flex items-center gap-3 p-3 bg-indigo-50 dark:bg-indigo-900/30"
         )}
+        asChild
       >
-        <TaskStatusButton
-          type={type}
-          listId={listId}
-          task={task}
-          currentState={task.status}
-        />
+        <div
+          role="button"
+          tabIndex={0}
+          className="flex items-center gap-3 w-full"
+        >
+          <TaskStatusButton
+            type={type}
+            listId={listId}
+            task={task}
+            currentState={task.status}
+          />
 
-        <div className="flex-1 flex flex-col gap-1">
-          <div className="flex items-center gap-2">
-            <span
-              className={cn("h-3 w-3 rounded-full")}
-              style={{
-                background: `oklch(var(${colorVar}))`,
-              }}
-            ></span>
-            <h3 className="font-medium text-[1.1rem]">{task.title}</h3>
-          </div>
-          {task.deadline && (
-            <div
-              className={cn(
-                "flex gap-2 items-center text-sm text-gray-500 dark:text-gray-400",
-                isPassedDueDate
-                  ? "!text-red-400"
-                  : aDayToDueDate
-                  ? "text-yellow-400"
-                  : ""
-              )}
-            >
-              <BsHourglassSplit className="min-w-4 min-h-4 " />
-              <div className="flex flex-col">
-                <span>
-                  {`Due date: ${dateFormatter(task.deadline, {
-                    dateStyle: "medium",
-                    timeStyle: "short",
-                    hour12: true,
-                  })}`}
-                </span>
-                <span>
-                  {isPassedDueDate
-                    ? "Passed due date"
-                    : aDayToDueDate
-                    ? "Due in less than 24 hrs"
-                    : ``}
-                </span>
-              </div>
+          <div className="flex-1 flex flex-col gap-1">
+            <div className="flex items-center gap-2">
+              <span
+                className={cn("h-3 w-3 rounded-full")}
+                style={{
+                  background: `oklch(var(${colorVar}))`,
+                }}
+              ></span>
+              <h3 className="font-medium text-[1.1rem]">{task.title}</h3>
             </div>
-          )}
+            {task.deadline && (
+              <div
+                className={cn(
+                  "flex gap-2 items-center text-sm text-gray-500 dark:text-gray-400",
+                  isPassedDueDate
+                    ? "!text-red-400"
+                    : aDayToDueDate
+                    ? "text-yellow-400"
+                    : ""
+                )}
+              >
+                <BsHourglassSplit className="min-w-4 min-h-4 " />
+                <div className="flex flex-col">
+                  <span>
+                    {`Due date: ${dateFormatter(task.deadline, {
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                      hour12: true,
+                    })}`}
+                  </span>
+                  <span>
+                    {isPassedDueDate
+                      ? "Passed due date"
+                      : aDayToDueDate
+                      ? "Due in less than 24 hrs"
+                      : ``}
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </AccordionTrigger>
       <AccordionContent className="relative px-4 py-5 overflow-hidden flex flex-col gap-3 font-medium">
