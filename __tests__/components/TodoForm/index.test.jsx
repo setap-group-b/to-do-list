@@ -49,11 +49,11 @@ describe("TodoForm", () => {
       />
     );
 
-    expect(screen.getByLabelText(/Title:/i)).toBeInTheDocument();
-    expect(screen.getByText(/Priority:/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Content:/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Deadline:/i)).toBeInTheDocument();
-    expect(screen.getByText(/Notification:/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Title/i)).toBeInTheDocument();
+    expect(screen.getByText(/No priority/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Content/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Deadline/i)).toBeInTheDocument();
+    expect(screen.getByText(/Select notification time/i)).toBeInTheDocument();
     expect(screen.getByText(/Save/i)).toBeInTheDocument();
     expect(screen.getByText(/Cancel/i)).toBeInTheDocument();
   });
@@ -76,8 +76,8 @@ describe("TodoForm", () => {
       />
     );
 
-    expect(screen.getByLabelText(/Title:/i)).toHaveValue("Existing Task");
-    expect(screen.getByLabelText(/Content:/i)).toHaveValue("Task description");
+    expect(screen.getByLabelText(/Title/i)).toHaveValue("Existing Task");
+    expect(screen.getByLabelText(/Content/i)).toHaveValue("Task description");
   });
 
   it("submits the form with valid data", async () => {
@@ -91,10 +91,10 @@ describe("TodoForm", () => {
       />
     );
 
-    fireEvent.change(screen.getByLabelText(/Title:/i), {
+    fireEvent.change(screen.getByLabelText(/Title/i), {
       target: { value: "New Task" },
     });
-    fireEvent.change(screen.getByLabelText(/Content:/i), {
+    fireEvent.change(screen.getByLabelText(/Content/i), {
       target: { value: "Task description" },
     });
 
