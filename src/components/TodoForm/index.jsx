@@ -66,28 +66,29 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
         ref={formRef}
         noValidate
         onSubmit={handleSubmit}
-        className="flex flex-1 flex-col gap-4 *:*:[&>input]:border *:*:[&>input]:p-3 *:*:[&>textarea]:border *:*:[&>textarea]:p-3"
+        className="flex flex-1 flex-col gap-6 max-w-3xl mx-auto w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
       >
-        <div className="flex-1">
+        <div className="flex-1 space-y-6">
           {/* Title Field */}
-          <section style={{ marginBottom: "5px" }}>
-            <label htmlFor="title" style={{ marginRight: "5px" }}>
-              Title:
+          <section className="space-y-2">
+            <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Title
             </label>
             <input
               type="text"
               id="title"
               name="title"
               defaultValue={initialData?.title || ""}
+              className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-2 text-gray-900 dark:text-gray-100 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-800"
+              placeholder="Enter task title"
             />
             {formState.errors?.title && (
-              <p>{formState.errors.title?.join(", ")}</p>
+              <p className="text-sm text-red-500 dark:text-red-400">{formState.errors.title?.join(", ")}</p>
             )}
           </section>
 
           {/* Priority Field */}
-          <section style={{ marginBottom: "5px" }}>
-            {" "}
+          <section className="space-y-2">
             <ReusableDropdown
               autoModifyOptions={false}
               defaultValue={initialData?.priority || "NONE"}
@@ -95,55 +96,56 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
               name="priority"
               id="priority"
               value={priority}
-              label={"Priority:"}
+              label={"Priority"}
               onChange={(value) => {
                 setPriority(value);
               }}
               options={priorities}
-              containerClassName={"flex [&>div]:w-[13rem]"}
+              containerClassName={"w-full"}
             >
-              {" "}
               <input type="hidden" name="priority" value={priority} />
               {formState.errors.priority && (
-                <p>{formState.errors.priority?.join(", ")}</p>
+                <p className="text-sm text-red-500 dark:text-red-400">{formState.errors.priority?.join(", ")}</p>
               )}
             </ReusableDropdown>
           </section>
 
           {/* Content Field */}
-          <section style={{ marginBottom: "5px" }}>
-            <label htmlFor="content" style={{ marginBottom: "5px" }}>
-              Content:
+          <section className="space-y-2">
+            <label htmlFor="content" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Content
             </label>
-            <br />
             <textarea
               id="content"
               name="content"
               defaultValue={initialData?.content || ""}
+              className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-2 text-gray-900 dark:text-gray-100 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-800 min-h-[120px]"
+              placeholder="Enter task description"
             ></textarea>
             {formState.errors?.content && (
-              <div>{formState.errors.content?.join(", ")}</div>
+              <p className="text-sm text-red-500 dark:text-red-400">{formState.errors.content?.join(", ")}</p>
             )}
           </section>
 
           {/* Deadline Field */}
-          <section style={{ marginBottom: "5px" }}>
-            <label htmlFor="deadline" style={{ marginRight: "5px" }}>
-              Deadline:
+          <section className="space-y-2">
+            <label htmlFor="deadline" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Deadline
             </label>
             <input
               type="datetime-local"
               id="deadline"
               name="deadline"
               defaultValue={formatDateForInput(initialData?.deadline) || ""}
+              className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-2 text-gray-900 dark:text-gray-100 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-800"
             />
             {formState.errors.deadline && (
-              <p>{formState.errors.deadline?.join(", ")}</p>
+              <p className="text-sm text-red-500 dark:text-red-400">{formState.errors.deadline?.join(", ")}</p>
             )}
           </section>
 
           {/* Notification Field */}
-          <section>
+          <section className="space-y-2">
             <ReusableDropdown
               autoModifyOptions={false}
               defaultValue={initialData?.notification || ""}
@@ -151,33 +153,29 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
               name="notification"
               id="notification"
               value={notification}
-              label={"Notification:"}
+              label={"Notification"}
               onChange={(value) => {
                 setNotification(value);
               }}
-              containerClassName={"flex"}
+              containerClassName={"w-full"}
               options={notificationOptions}
             />
-
             <input type="hidden" name="notification" value={notification} />
-
             {formState.errors.notification && (
-              <p>{formState.errors.notification?.join(", ")}</p>
+              <p className="text-sm text-red-500 dark:text-red-400">{formState.errors.notification?.join(", ")}</p>
             )}
           </section>
         </div>
 
         {/* Submit and Cancel Buttons */}
-        <section className="*:min-w-32 flex items-center gap-4 justify-end">
+        <section className="flex items-center gap-4 justify-end">
           <ReusableButton type="submit">Save</ReusableButton>
-          <ReusableButton>
-            <Link
-              href={`/dashboard/list/${listId}/todo`}
-              style={{ marginLeft: "2.5px" }}
-            >
-              Cancel
-            </Link>
-          </ReusableButton>
+          <Link
+            href={`/dashboard/list/${listId}/todo`}
+            className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 min-w-32"
+          >
+            Cancel
+          </Link>
         </section>
       </form>
     </div>

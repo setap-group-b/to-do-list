@@ -26,17 +26,16 @@ const AddCollaborators = ({ listId, user, listCollaborators }) => {
       <DialogTrigger asChild>
         <Button className={"cursor-pointer"}>Add collaborators</Button>
       </DialogTrigger>
-      <DialogContent className={"flex flex-col gap-7"}>
-        <DialogHeader className={"text-left"}>
-          <DialogTitle>Collaborators</DialogTitle>
-          <DialogDescription>
-            Collaborators will be able to view, edit and delete tasks in this
-            list
+      <DialogContent className="sm:max-w-[425px] bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+        <DialogHeader className="space-y-3">
+          <DialogTitle className="text-xl font-semibold text-gray-900 dark:text-gray-100">Collaborators</DialogTitle>
+          <DialogDescription className="text-sm text-gray-600 dark:text-gray-400">
+            Collaborators will be able to view, edit and delete tasks in this list
           </DialogDescription>
         </DialogHeader>
 
-        <form action={action} className="w-full flex flex-col gap-7">
-          <section className="flex flex-col gap-2">
+        <form action={action} className="w-full space-y-6">
+          <section className="space-y-2">
             <ReusableMultiTextInput
               label="Add collaborators"
               value={collaborators}
@@ -44,7 +43,8 @@ const AddCollaborators = ({ listId, user, listCollaborators }) => {
               changeValue={(value) => {
                 setCollaborators(value);
               }}
-              placeholder={"Type user's email and press enter"}
+              placeholder="Type user's email and press enter"
+              className="w-full"
             />
             <input
               type="hidden"
@@ -56,21 +56,29 @@ const AddCollaborators = ({ listId, user, listCollaborators }) => {
               )}
             />
             {formState.errors.collaborators && (
-              <p>{formState.errors.collaborators?.join(", ")}</p>
+              <p className="text-sm text-red-500 dark:text-red-400">{formState.errors.collaborators?.join(", ")}</p>
             )}
           </section>
 
-          <Button className={"p-4 w-full bg-gray-200"}>Save</Button>
+          <div className="flex flex-col gap-3">
+            <Button 
+              type="submit"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
+            >
+              Save
+            </Button>
+            <button
+              type="button"
+              className="text-sm text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 transition-colors cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                deleteGroup(listId);
+              }}
+            >
+              Remove all collaborators
+            </button>
+          </div>
         </form>
-        <p
-          className="text-red-500 text-[0.8rem] text-center cursor-pointer"
-          onClick={(e) => {
-            e.preventDefault();
-            deleteGroup(listId);
-          }}
-        >
-          Remove all collaborators{" "}
-        </p>
       </DialogContent>
     </Dialog>
   );
