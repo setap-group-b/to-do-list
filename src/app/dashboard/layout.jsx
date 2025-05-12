@@ -21,7 +21,7 @@ export default async function AuthLayout({ children }) {
             <div className="flex-1 flex flex-col h-full">
               <Nav />
               <div className="p-4 md:p-6 lg:p-8 overflow-hidden flex-1 transition-all">
-                <div className="h-full overflow-y-auto overflow-x-hidden p-4 md:p-6 has-[.list]:p-0 has-[.settings]:p-0 has-[.list]:border-none has-[.settings]:border-none has-[.settings]:!bg-transparent has-[.settings]:!shadow-none bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-indigo-100 dark:border-indigo-900/40">
+                <div className="h-full overflow-y-auto overflow-x-hidden p-4 md:p-6 has-[.list,_.settings,_.add-list]:p-0 has-[.list,_.settings,_.add-list]:border-none has-[_.settings,_.add-list]:border-none has-[.settings,_.add-list]:!bg-transparent has-[_.settings,_.add-list]:!shadow-none bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-indigo-100 dark:border-indigo-900/40">
                   {children}
                 </div>
               </div>
