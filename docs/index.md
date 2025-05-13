@@ -163,33 +163,50 @@ Ctrl + F => /lib/db/schema.prisma
 
       * **authorize(credentials):** 
 
-         * These credentials are then parsed and validated to ensure null/ undefined values arent passed on
-         * The email and password of the user logging in are seperately checked against the prisma database, providing unique errors on fail
-         * If all tests are passed, an object of `{id, name, email, image}` is returned 
+         * These credentials are then parsed and validated to ensure null/ undefined values arent passed on.
+         * The email and password of the user logging in are seperately checked against the prisma database, providing unique errors on fail.
+         * If all tests are passed, an object of `{id, name, email, image}` is returned.
 
          * **callbacks{}:**
             
-            * `jwt({ token, user })` assigns a user's id to a token once they have logged in
+            * `jwt({ token, user })` assigns a user's id to a token once they have logged in.
 
-            * `session({ session, token })` Then completes this by assigning the token to a valid session
+            * `session({ session, token })` Then completes this by assigning the token to a valid session.
 
-      * `secret: process.env.NEXTAUTH_SECRET` then encrypts our session's key by adding a long and randomly generated string to the end of a JWT
+      * `secret: process.env.NEXTAUTH_SECRET` then encrypts our session's key by adding a long and randomly generated string to the end of a JWT.
 ****
    ### lib/mailer.js
-   This file is responsible for the sending of the notification reminder for a user's tasks that have a deadline (e.g. "You have 1 week before your deadline!"), it utlises the NodeMailer library to .
+   This file is responsible for the sending of the notification reminder for a user's tasks that have a deadline (e.g. "You have 1 week before your deadline!"), it utlises the [NodeMailer](https://nodemailer.com/) library to structure and send emails to the desired recipient(s).
 
-   * First an 
+   * `transporter` is an integral part of NodeMailer that is able to successfully send an email with the values passed to it `{ host, port, secure, auth { user, pass }}`. All values except `secure => (boolean)` are passed from environment variables to these fields.
 
-   * mailer.js explanation
+   * **sendReminder(task, list)**
+
+> recipients => maps each entry of the list parameter to that users email, producing a list of endpoints for the email to be sent.
+> date => calls dateFormatterformats the deadline date from a Date() value into something more readable for the user (e.g. Wednesday, 14 November 2025 at 13:45:00) 
+
+   * **transporter.sendMail()**
+
+      * the `.sendMail()` function assigns fields of a passed object typical to that of a normal email:
+> from: => 
+> to: => takes `recipients` and joins each item by `", "` to appropriately chain all email addresses.
+> subject: => Takes the `task.title` and `date` to provide an automated subject field.
+> text: takes various fields from the `task` object and formats it in a welcoming and friendly pre-written message to notify them their task is due in X amount of time.
 
 ****
    ### lib/prisma.js
+   This file is responsible for establishing the prisma client using the [prisma library](https://www.prisma.io/docs)
 
-   * prisma.js explanation
+   * checks if the app is running in `"development"` or `"production"` mode, in production, code runs once so calling a new client each instance is safe. However in development, the server typically refreshes after each file change putting strain on the database from numerous redundant connections.
 
+****
    ### lib/schema.js
+   This file contains the code responsible for passing formatted credentials to our authentication functions
 
-   * schema.js explanation
+   * **createAuthSchema()**
+
+      * This creates an object to be used in the authorisation for users logging in/ registering
+         * Contains fields `{ name, email, password }`, all of these have constraints and default values to enforce valid inputs and maintain consistency in terms of formatting.
 
 ****
 ## node_modules
