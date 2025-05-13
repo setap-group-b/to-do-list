@@ -58,3 +58,116 @@ To include email notification feature:
    EMAIL_PORT # 465 or 587
    EMAIL_FROM=your-email@example.com # Default "from" address
 ```
+# Code Glossary
+
+The following is a compendium of our apps current components, this will allow any external contributors to familiarise themselves with the project's codebase.
+For easy access we recommend using (Ctrl + F) and your files path to better navigate this glossary.
+
+E.g. 
+```
+Ctrl + F => /lib/db/schema.prisma
+```
+
+## /lib
+ ### /lib/db
+ 
+ This database schema uses the [**Prisma**](https://www.prisma.io/docs) library for its database storage and storage of information streamed to and from the client.
+
+   * #### /lib/db/schema.prisma
+
+
+      * #### **Database Generation:** 
+         * generator{} and datasource{} are responsible for initialising the client and database respectively, with datasource{} being passed environment variables to declare that the db is a postgresql db and the required URL's for it to host from.
+
+      * #### **Custom Data Type Declarations:** 
+         * Next is our custom data type declarations, the enum 'Status' contains the necessary values to be cycled through later on in our task creation/ edit functions,
+         the enum priority also follows a similar structure and use in our project.
+
+      * #### **Relations:**
+         * Cross model relations are typically represented by a statement resembling the following: 
+         > `<ExternalModelName>  <InternalFieldName>? @relation(fields: [<ForeignKeyField>], references: [<ForeignPrimaryKeyField])`
+         * In this instance the `<ExternalModelName>` and `<ForeignPrimaryKeyField>` are the typical Foreign Table and Foreign Primary Key you would expect to see in a `SQL FOREIGN KEY` declaration.
+         * One-to-many relations are handled by the `<InternalFieldName>` being superceded by a `[]`, to represent a multitude of values
+
+      * #### **Model Declarations:** 
+         * **List:** This model contains the relevant items a list would require (id, title, backgroundColour) as well as values useful in relating lists to the users who will be accessing them:
+            > userId => The user whom this list 'belongs' to | Todo[] => A listing of all the Todo's nested within this List (This is critical in the loading and saving of a user's lists)
+
+         * **Todo:** Like List, this contains the standard fields expected of a Todo List entry (id, title, content), as well as our custom Priority and Status [enums](#custom-data-type-declarations). 
+
+            * **Some fields unique to Todo are:**
+
+            * > notification => The time before the set deadline that a reminder will be sent out.
+            * > deadline => The date in which this task should be completed by.
+            * > reminderDate => Stores the calculated value of when the user needs to receive a reminder regarding that particular.
+            * > remindedAt => This value is kept null to reset the logic of the reminder status when updating the reminderDate.
+
+         * **Account:** 
+            * This model mostly contains information used in authentication and the network used in this project.
+            * The `userId` in this model maps the relevant `userId` from the `User` model, ensuring account details and information are kept consistent across devices/ connections.
+
+            * **Details used in account authentication:**
+               * > type => The type of account used e.g. `"email"` or `"oauth"`
+               * > provider => Which service is used to authenticate the user e.g. `"Google"` or `"GitHub`
+               * > providerAccountId => The unique identifier given by the service provider is then mapped to this accounts details
+
+            * A number of optional `OAuth` fields are then stored in the event that the chosen provider returns a value for that row (Not all providers distribute the same tokens/ session-data)
+
+               |     Row Name       |     Data Type     |
+               |--------------------|-------------------|
+               | refresh_token      | (Optional) String |
+               | access_token       | (Optional) String |
+               | expires_at         | (Optional) Int    |
+               | token_type         | (Optional) String |
+               | scope              | (Optional) String |
+               | id_token           | (Optional) String |
+               | session_state      | (Optional) String |
+               | oauth_token_secret | (Optional) String |
+               | oauth_token        | (Optional) String |
+
+         * **Session:**
+
+            * This model tracks the relevant user's sessionToken, ensuring that session's are maintained properly by utilising the expires field to purge/ validate the affected sessions
+
+         * **User:**
+
+            * This model includes some typical user credentials such as name, email and password.
+
+            * The large bulk of storage within this model is the User's relations to all of the aforementioned tables, these include:
+
+               |      Row Name      |   Data Type   |
+               |--------------------|---------------|
+               |      Account       |   Account[]   |
+               |      Session       |   Session[]   |
+               |       todos        |    Todo[]     |
+               |    ownedLists      |    List[]     |    
+               | collaboratingLists |    List[]     |    
+
+            * For some additional information, createdAt and updatedAt are also mapped to their respective user when any changes are made involving the prisma db.
+
+
+         * **verification Token:**
+            * To be completed after dinner 
+
+### lib/auth.js
+
+   * auth explanation
+
+### lib/mailer.js
+
+   * mailer.js explanation
+
+### lib/prisma.js
+
+   * prisma.js explanation
+
+### lib/schema.js
+
+   * schema.js explanation
+
+bottom of lib -v
+****
+
+## /public
+
+#### *To be continued...*
