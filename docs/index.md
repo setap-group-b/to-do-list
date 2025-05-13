@@ -217,4 +217,6 @@ Here belongs all of the necessary dependencies required for this project install
 ****
 ## /public
 
+This directory holds the images 
+
 #### *To be continued...*
