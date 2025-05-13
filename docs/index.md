@@ -69,7 +69,6 @@ Ctrl + F => /lib/db/schema.prisma
 ```
 
 ## /lib
- ### /lib/db
  
  This database schema uses the [**Prisma**](https://www.prisma.io/docs) library for its database storage and storage of information streamed to and from the client.
 
