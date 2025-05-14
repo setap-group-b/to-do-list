@@ -1,14 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useActionState, useRef } from "react";
+import { useState, useRef } from "react";
 import PageHeader from "../PageHeader";
 import ReusableButton from "../ui/ReusableButton";
 import ReusableDropdown from "../ui/ReusableDropdown";
 import { priorityObject } from "@/utils/constants";
 import { displayErrorMessage } from "@/utils/displayError";
 
-export const TodoForm = ({ formAction, initialData, listId }) => {
+export const TodoForm = ({ formAction, initialData, listId, listType }) => {
   const [priority, setPriority] = useState(initialData.priority || "NONE");
   const priorities = Object.entries(priorityObject).map(([key, value]) => ({
     label: value,
@@ -37,7 +37,7 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
   };
 
   const [notification, setNotification] = useState(
-    initialData.notification || ""
+    initialData.notification || "",
   );
 
   const notificationOptions = [
@@ -59,6 +59,8 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
 
+  const cancelHref = `/dashboard/${listType || "list"}/${listId}/todo`;
+
   return (
     <div className="flex flex-col h-full gap-6">
       <PageHeader title={`${initialData?.title ? "Update" : "Create"} Task`} />
@@ -71,7 +73,10 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
         <div className="flex-1 space-y-6">
           {/* Title Field */}
           <section className="space-y-2">
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label
+              htmlFor="title"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
               Title
             </label>
             <input
@@ -83,7 +88,9 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
               placeholder="Enter task title"
             />
             {formState.errors?.title && (
-              <p className="text-sm text-red-500 dark:text-red-400">{formState.errors.title?.join(", ")}</p>
+              <p className="text-sm text-red-500 dark:text-red-400">
+                {formState.errors.title?.join(", ")}
+              </p>
             )}
           </section>
 
@@ -105,14 +112,19 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
             >
               <input type="hidden" name="priority" value={priority} />
               {formState.errors.priority && (
-                <p className="text-sm text-red-500 dark:text-red-400">{formState.errors.priority?.join(", ")}</p>
+                <p className="text-sm text-red-500 dark:text-red-400">
+                  {formState.errors.priority?.join(", ")}
+                </p>
               )}
             </ReusableDropdown>
           </section>
 
           {/* Content Field */}
           <section className="space-y-2">
-            <label htmlFor="content" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label
+              htmlFor="content"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
               Content
             </label>
             <textarea
@@ -123,13 +135,18 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
               placeholder="Enter task description"
             ></textarea>
             {formState.errors?.content && (
-              <p className="text-sm text-red-500 dark:text-red-400">{formState.errors.content?.join(", ")}</p>
+              <p className="text-sm text-red-500 dark:text-red-400">
+                {formState.errors.content?.join(", ")}
+              </p>
             )}
           </section>
 
           {/* Deadline Field */}
           <section className="space-y-2">
-            <label htmlFor="deadline" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label
+              htmlFor="deadline"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
               Deadline
             </label>
             <input
@@ -140,7 +157,9 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
               className="w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-2 text-gray-900 dark:text-gray-100 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-800"
             />
             {formState.errors.deadline && (
-              <p className="text-sm text-red-500 dark:text-red-400">{formState.errors.deadline?.join(", ")}</p>
+              <p className="text-sm text-red-500 dark:text-red-400">
+                {formState.errors.deadline?.join(", ")}
+              </p>
             )}
           </section>
 
@@ -162,16 +181,20 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
             />
             <input type="hidden" name="notification" value={notification} />
             {formState.errors.notification && (
-              <p className="text-sm text-red-500 dark:text-red-400">{formState.errors.notification?.join(", ")}</p>
+              <p className="text-sm text-red-500 dark:text-red-400">
+                {formState.errors.notification?.join(", ")}
+              </p>
             )}
           </section>
         </div>
 
         {/* Submit and Cancel Buttons */}
         <section className="flex items-center gap-4 justify-end">
-          <ReusableButton type="submit">Save</ReusableButton>
+          <ReusableButton className="cursor-pointer" type="submit">
+            Save
+          </ReusableButton>
           <Link
-            href={`/dashboard/list/${listId}/todo`}
+            href={cancelHref}
             className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 min-w-32"
           >
             Cancel

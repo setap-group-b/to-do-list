@@ -38,7 +38,10 @@ export const ListForm = ({ formAction, initialData }) => {
         className="flex flex-col gap-6 max-w-2xl mx-auto w-full bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-indigo-100 dark:border-indigo-900/40 p-6"
       >
         <section className="flex flex-col gap-2">
-          <label htmlFor="title" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label
+            htmlFor="title"
+            className="text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
             Title
           </label>
           <input
@@ -50,11 +53,16 @@ export const ListForm = ({ formAction, initialData }) => {
             placeholder="Enter list title"
           />
           {formState.errors.title && (
-            <p className="text-sm text-red-500 dark:text-red-400">{formState.errors.title?.join(", ")}</p>
+            <p className="text-sm text-red-500 dark:text-red-400">
+              {formState.errors.title?.join(", ")}
+            </p>
           )}
         </section>
         <section className="flex flex-col gap-2">
-          <label htmlFor="background-colour" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label
+            htmlFor="background-colour"
+            className="text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
             Background Colour
           </label>
           <div className="flex items-center gap-3">
@@ -70,15 +78,25 @@ export const ListForm = ({ formAction, initialData }) => {
             </span>
           </div>
           {formState.errors.content && (
-            <p className="text-sm text-red-500 dark:text-red-400">{formState.errors.content?.join(", ")}</p>
+            <p className="text-sm text-red-500 dark:text-red-400">
+              {formState.errors.content?.join(", ")}
+            </p>
           )}
         </section>
         <section className="flex items-center gap-4 pt-4">
-          <ReusableButton type="submit" className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white">
+          <ReusableButton
+            type="submit"
+            className="cursor-pointer flex-1 bg-indigo-600 hover:bg-indigo-700 text-white"
+          >
             Save
           </ReusableButton>
-          <ReusableButton type="button" className="flex-1 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100">
-            <Link href={`/dashboard/list`}>Cancel</Link>
+          <ReusableButton
+            type="button"
+            className="flex-1 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100"
+          >
+            <Link className="flex-1" href={`/dashboard/list`}>
+              Cancel
+            </Link>
           </ReusableButton>
         </section>
       </form>
