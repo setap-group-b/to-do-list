@@ -316,11 +316,21 @@ This directory holds all images, these have been used for backdrops and placehol
             * `Settings()` is used to validate the user's session, then return the function component `<SettingsPage/>` in a more modularised form to reduce code bloating on our main page hosting multiple function components.
 
       * ### src/app/dashboard/layout.jsx
-         * `AuthLayout({ children })` validates a user's session before returning the logic and layout of the [`<Sidebar/>`](#srccomponentssidebar) for use on 
+         * `AuthLayout({ children })` validates a user's session before returning the logic and layout of the [`<Sidebar/>`](#srccomponentssidebar) for use on the display pages of the app.
+
       * ### src/app/dashboard/page.jsx
+         *  This file combines all of the html and React components to form our home page, only after that user's session has been validated.
+
    * ### src/app/globals.css
+      * This file provides dynamic theming through the use of [`oklch()`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch) and [`tailwind CSS`](https://tailwindcss.com/docs/installation/using-vite).
+      * This holds some of the presets for global settings like the light and dark-mode feature
+
    * ### src/app/layout.jsx
+      * `RootLayout({ children })` declares and initialises some of the variables used in [`<ThemeProvider>`](#srccomponentsuitheme-providerjsx).
+
    * ### src/app/page.jsx
+      * `LandingPage()` returns all of the html and embedded React components to create the initial page that is displayed on load, from here a user will either login or signup and enter the protected directories of the app.
+
 
 ****
    * ### src/components 
@@ -336,8 +346,9 @@ This directory holds all images, these have been used for backdrops and placehol
       * ### src/components/TodoForm
       * ### src/components/Todos
       * ### src/components/ui 
-         * ### src/components/us/button.jsx
+         * ### src/components/ui/button.jsx
          * ### src/components/ui/card.jsx
+         * ### src/components/ui/theme-provider.jsx
          * > This is an incomplete component directory, files that need linking to will be added ahead of the main bulk of content
       * ### src/components/AddCollaborators.jsx
       * ### src/components/Groups.jsx
