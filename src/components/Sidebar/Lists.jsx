@@ -166,8 +166,8 @@ const Lists = ({ userLists }) => {
               items={filteredLists.map((item) => item.id)}
               strategy={verticalListSortingStrategy}
             >
-              {filteredLists.map((list) => {
-                console.log("Rendering list item:", list); // ✅ Debugging log
+              {filteredLists.slice(0, 5).map((list) => {
+                console.log("Rendering list item:", list); 
                 return (
                   <SortableListItem key={list.id} list={list} state={state} />
                 );
