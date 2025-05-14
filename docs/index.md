@@ -63,10 +63,9 @@ To include email notification feature:
 The following is a compendium of our apps current components, this will allow any external contributors to familiarise themselves with the project's codebase.
 For easy access we recommend using (Ctrl + F) and your files path to better navigate this glossary.
 
-E.g. 
-```
-Ctrl + F => /lib/db/schema.prisma
-```
+> E.g. `Ctrl + F => /lib/db/schema.prisma`
+
+Index: (possible tree with nodes as links for easier access and readability)
 
 ## /lib
  
@@ -75,20 +74,20 @@ Ctrl + F => /lib/db/schema.prisma
 ****
    ### /lib/db/schema.prisma
 
-   * #### **Database Generation:** 
+   * ### **Database Generation:** 
       * generator{} and datasource{} are responsible for initialising the client and database respectively, with datasource{} being passed environment variables to declare that the db is a postgresql db and the required URL's for it to host from.
 
-   * #### **Custom Data Type Declarations:** 
+   * ### **Custom Data Type Declarations:** 
       * Next is our custom data type declarations, the enum 'Status' contains the necessary values to be cycled through later on in our task creation/ edit functions,
       the enum priority also follows a similar structure and use in our project.
 
-   * #### **Relations:**
+   * ### **Relations:**
       * Cross model relations are typically represented by a statement resembling the following: 
       > `<ExternalModelName>  <InternalFieldName>? @relation(fields: [<ForeignKeyField>], references: [<ForeignPrimaryKeyField])`
       * In this instance the `<ExternalModelName>` and `<ForeignPrimaryKeyField>` are the typical Foreign Table and Foreign Primary Key you would expect to see in a `SQL FOREIGN KEY` declaration.
       * One-to-many relations are handled by the `<InternalFieldName>` being superceded by a `[]`, to represent a multitude of values
 
-   * #### **Model Declarations:** 
+   * ### **Model Declarations:** 
       * **List:** This model contains the relevant items a list would require (id, title, backgroundColour) as well as values useful in relating lists to the users who will be accessing them:
          > userId => The user whom this list 'belongs' to | Todo[] => A listing of all the Todo's nested within this List (This is critical in the loading and saving of a user's lists)
 
@@ -216,7 +215,73 @@ Here belongs all of the necessary dependencies required for this project install
 
 ****
 ## /public
+This directory holds all images, these have been used for backdrops and placeholders
 
-This directory holds the images 
+* Use of the Next.js `Image` component has also been utilised for its increased performance and optimisation [src/app/page.jsx](#srcapppagejsx)
 
+****
+## /src
+
+   ### src/app
+
+   * ### src/app/(auth)
+
+      * ### src/app/(auth)/login
+         * Imports all of the necessary components from [`"/ui/card.jsx"`](#srccomponentsuicardjsx) and arranges them to build the login ui of the app.
+
+      * ### src/app/(auth)/signup
+         * Almost identical to `"src/app/(auth)/login"` in terms of the imported components, with the only difference being some contextual text differences between logging in and registering.
+
+      * ### src/app/(auth)/layout.jsx
+         * Checks if a user is already authenticated, redirecting to the dashboard if so.
+         * If not, the desired layout is injected into the `"children"` parameter of div `className="flex flex-1 items-center justify-center w-full"`
+****
+   * ### src/app/actions
+      * ### src/app/actions
+         * ### src/app/actions/group.js
+            * `groupSchema` defines a [**zod**](https://zod.dev/?id=table-of-contents) schema for an array of list collaborators, with validation for each entry with the `.refine()` function
+            * `createGroup(listId, formState, formData)`: Stores the parsed list of collaborators for use in fetching them by their emails, if successful the prisma schema for that List is updated with the collaborators appended to the list of authors.  
+            * `deleteGroup(listId)`: Removes all collaborators of a list and redirects out of that (no longer existing) group's url.
+
+         * ### src/app/actions/list.js
+            * `todoSchema` defines a zod schema for a list object, containing a title and backgroundColour with relevant input constraints
+            * `createList(formState, formData)`: stores a parsed `todoSchema` object to have its fields passed into the prisma `.create({ data: })` object 
+            * `updateList(listId, formState, formData)`: stores a parsed `todoSchema` object to have its fields passed into a prisma `.update({ where, data })`, with `listId` identifying the list to be updated, and the parsed values overwriting the values of that list.
+            * `deleteList(listId)`: If the passed `listId` is found within the prisma schema, `.delete()` is called on that list's ID, with errors being produced if not.
+
+         * ### src/app/actions/todo.js
+            * `todoSchema` defines a zod schema for a to-do-list entry, containing a title, content, priority, deadline, notification and status. Each of these fields has the constraints and input requirements established at their declaration with zod's [**primitives**](https://zod.dev/?id=primitives)
+            * `createTodo(listId, type, formState, formData)`:
+            * `updateTodo(id, listId, type, formState, status)`:
+            * `updateTodoStatus(id, listId, type, status)`:
+****
+   * ### src/app/api
+   * ### src/app/dashboard
+   * ### src/app/globals.css
+   * ### src/app/layout.jsx
+   * ### src/app/page.jsx
+
+****
+   * ### src/components 
+      * ### src/components/List
+      * ### src/components/ListDelete
+      * ### src/components/ListForm
+      * ### src/components/Lists
+      * ### src/components/Nav
+      * ### src/components/SessionWrapper
+      * ### src/components/Sidebar
+      * ### src/components/TestButton
+      * ### src/components/Todo
+      * ### src/components/TodoForm
+      * ### src/components/Todos
+      * ### src/components/ui 
+         * ### src/components/ui/card.jsx
+         * > This is an incomplete component directory, files that need linking to will be added ahead of the main bulk of content
+****
+   * ### src/hooks
+****
+   * ### src/lib
+****
+   * ### src/utils
+****
 #### *To be continued...*
