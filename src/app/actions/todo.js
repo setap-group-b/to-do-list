@@ -66,7 +66,7 @@ export async function createTodo(listId, type, formState, formData) {
   redirect(`/dashboard/${type}/${listId}/todo`);
 }
 
-export async function updateTodo(id, listId, type, formState, formData) {
+export async function updateTodo(id, listId, type, formData) {
   const session = getServerSessionWrapper();
 
   // TODO: respond better
