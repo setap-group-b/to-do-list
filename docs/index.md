@@ -72,7 +72,8 @@ Index: (possible tree with nodes as links for easier access and readability)
  This database schema uses the [**Prisma**](https://www.prisma.io/docs) library for its database storage and storage of information streamed to and from the client.
 
 ****
-   ### /lib/db/schema.prisma
+
+### /lib/db/schema.prisma
 
    * ### **Database Generation:** 
       * generator{} and datasource{} are responsible for initialising the client and database respectively, with datasource{} being passed environment variables to declare that the db is a postgresql db and the required URL's for it to host from.
@@ -256,7 +257,67 @@ This directory holds all images, these have been used for backdrops and placehol
             * `updateTodoStatus(id, listId, type, status)`:
 ****
    * ### src/app/api
+      * ### src/app/api/auth
+         * ### src/app/api/auth/[...nextauth]/route.js
+            * This file loads the authentication options we previously declared in [lib/auth](#libauthjs) for use in our GET and POST requests.
+         
+         * ### src/app/api/auth/signup/route.js
+            * This file handles the signup functionality of our login system, as the fields parsed from our zod schema [signUpSchema](#libschemajs) are checked against the database for existing accounts.
+            * The parsed password is hashed using [bcrypt](https://www.npmjs.com/package/bcrypt) and excluded from the userData object to avoid exposing sensitive information in the response messages
+
+      * ### src/app/api/cron
+         * ### src/app/api/cron/route.js
+            * [`checkAndSendReminders()`](#srclibreminderchecksjs) is used here to gather a list of users who have not yet been reminded about the deadline of their task (based on their `notification` setting) and send out a wave of pre-written reminder emails.
+
+      * ### src/app/api/index.js
+         * This file only exports the `src/app/api/[...nextauth]/route` code.
+****
    * ### src/app/dashboard
+      * ### src/app/dashboard/group
+         * ### src/app/dashboard/group/[listId]/todo
+            * ### src/app/dashboard/group/[listId]/todo/[id]/edit/page.jsx
+               * `PostsEdit({ params })` Updates a user's todo list by pulling the cached list and updating its initialData fields. Cache is used here for greatly increased efficiency and speed when fetching.
+
+            * ### src/app/dashboard/group/[listId]/todo/[id]/add/page.jsx
+               * Solely return the TodoForm function component with appropriate default values for its `initialData` parameter: `initialData={{title: "", content: "", priority: "", status: ""}}`
+               
+            * ### src/app/dashboard/group/[listId]/todo/page.jsx
+               * This file uses the function components [`Todos`](#srccomponentstodos), [`PageHeader`](#srccomponentspageheaderjsx) and [`Button`](#srccomponentsusbuttonjsx) to form the list of group tasks a user is collaborating on. 
+
+         * ### src/app/dashboard/group/page.jsx
+            * This file uses the [`PageHeader`](#srccomponentspageheaderjsx) and [`Groups`](#srccomponentsgroupsjsx) function components to form the group page/ dashboard.
+      ****
+      * ### src/app/dashboard/list
+         * ### src/app/dashboard/list/[listId]
+            * ### src/app/dashboard/list/[listId]/edit/page.jsx
+               * Also uses the `PostsEdit({ params })` function to return a new [`ListForm`](#srccomponentslistform) for a created [`List`](#srccomponentslist) with updated values passed into the form's `initialData` fields.
+
+            * ### src/app/dashboard/list/[listId]/todo
+               * ### src/app/dashboard/list/[listId]/todo/[id]/edit/page.jsx
+                  * Again, uses `PostsEdit({ params })` to return an updated Todo Form, this time with updated `initialData` field values.
+               * ### src/app/dashboard/list/[listId]/todo/add/page.jsx
+                  * `userTodoAdd({ params })` calls [`createTodo`](#srcappactionstodojs) to initialise a valid listId within the database and append the function component [TodoForm](#srccomponentstodoform) to that new list.
+               * ### src/app/dashboard/list/[listId]/todo/page.jsx
+                  * `UserList({ params })` uses cache to fetch a user's list and display it using the [`PageHeader`](#srccomponentspageheaderjsx), [`Button`](#srccomponentsusbuttonjsx), [`AddCollaborators`](#srccomponentsaddcollaboratorsjsx), [`ListDelete`](#srccomponentslistdelete) and [`Todos`](#srccomponentstodos) function components to format the page.
+
+         * ### src/app/dashboard/list/add/page.jsx
+            * `UserListAdd()` returns a [`ListForm`](#srccomponentslistform) with the [`createList`](#srcappactionslistjs) logic being passed as the formAction.
+
+         * ### src/app/dashboard/list/page.jsx
+            * `UserLists()` returns a page that fetches and displays all of a users currently created [`Lists`](#srccomponentslists), with the option to create a new list by redirecting to [`/dashboard/list/add`](#srcappdashboardlistaddpagejsx).
+
+
+      * ### src/app/dashboard/settings
+         * ### src/app/dashboard/settings/index.jsx
+            * `SettingsPage({ userData })` declares the structure of the settings page, along with some handlers for customisable features such as the theme, font, boldness, of text.
+            * The distinct sections of `Account`, `Theme`, `Font Size` and `Font Boldness` are also defined and composed of function components from the `/components/ui` directory.
+
+         * ### src/app/dashboard/settings/page.jsx
+            * `Settings()` is used to validate the user's session, then return the function component `<SettingsPage/>` in a more modularised form to reduce code bloating on our main page hosting multiple function components.
+
+      * ### src/app/dashboard/layout.jsx
+         * `AuthLayout({ children })` validates a user's session before returning the logic and layout of the [`<Sidebar/>`](#srccomponentssidebar) for use on 
+      * ### src/app/dashboard/page.jsx
    * ### src/app/globals.css
    * ### src/app/layout.jsx
    * ### src/app/page.jsx
@@ -275,12 +336,18 @@ This directory holds all images, these have been used for backdrops and placehol
       * ### src/components/TodoForm
       * ### src/components/Todos
       * ### src/components/ui 
+         * ### src/components/us/button.jsx
          * ### src/components/ui/card.jsx
          * > This is an incomplete component directory, files that need linking to will be added ahead of the main bulk of content
+      * ### src/components/AddCollaborators.jsx
+      * ### src/components/Groups.jsx
+      * ### src/components/PageHeader.jsx
 ****
    * ### src/hooks
 ****
    * ### src/lib
+      * ### src/lib/reminderChecks.js
+      * ### src/lib/utils.js
 ****
    * ### src/utils
 ****
