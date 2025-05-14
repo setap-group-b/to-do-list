@@ -12,8 +12,7 @@ import {
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import UserAvatar from "../UserAvatar";
-import ReusableButton from "../ui/ReusableButton";
-import { MoreHorizontal, Plus } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 
 const Group = ({ state, group }) => {
   const persons = [...group.collaborators, group.user];
