@@ -58,15 +58,44 @@ To include email notification feature:
    EMAIL_PORT # 465 or 587
    EMAIL_FROM=your-email@example.com # Default "from" address
 ```
-# Code Glossary
+# Code Glossary:
 
 The following is a compendium of our apps current components, this will allow any external contributors to familiarise themselves with the project's codebase.
 For easy access we recommend using (Ctrl + F) and your files path to better navigate this glossary.
 
 > E.g. `Ctrl + F => /lib/db/schema.prisma`
 
-Index: (possible tree with nodes as links for easier access and readability)
+# Index: 
+#### (Made with the purpose of easier navigation through the codebase)
 
+[**lib**](#lib)
+* [**lib/db**](#libdbschemaprisma)
+****
+[**public**](#public)
+****
+[**src**](#src)
+* [**app**](#srcapp)
+   * [**(auth)**](#srcappauth)
+   * [**actions**](#srcappactions)
+   * [**api**](#srcappapi)
+   * [**dashboard**](#srcappdashboard)
+* [**components**](#srccomponents)
+   * [**List**](#srccomponentslistindexjsx)
+   * [**ListDelete**](#srccomponentslistdeleteindexjsx)
+   * [**ListForm**](#srccomponentslistformindexjsx)
+   * [**Lists**](#srccomponentslistsindexjsx)
+   * [**Nav**](#srccomponentsnav)
+   * [**SessionWrapper**](#srccomponentssessionwrapperindexjsx)
+   * [**Sidebar**](#srccomponentssidebar)
+   * [**TestButton**](#srccomponentstestbuttonindexjsx)
+   * [**Todo**](#srccomponentstodoindexjsx)
+   * [**TodoForm**](#srccomponentstodoformindexjsx)
+   * [**Todos**](#srccomponentstodosindexjsx)
+   * [**UI**](#srccomponentsui)
+   * [**hooks**](#srchooks)
+   * [**lib**](#srclib)
+   * [**utils**](#srcutils)
+****
 ## /lib
  
  This database schema uses the [**Prisma**](https://www.prisma.io/docs) library for its database storage and storage of information streamed to and from the client.
@@ -383,14 +412,21 @@ This directory holds all images, these have been used for backdrops and placehol
             * This is visible in [`'/src/components/Sidebar`](#srccomponentssidebar) 
 
       * ### src/components/TestButton/index.jsx
+         * Simply returns a button used for testing
 
       * ### src/components/Todo/index.jsx
+         * `Todo({ type, listId, task })` contains the html and React components to render a single Todo item on the `'Home/Dashboard/List/Todo'` page.
+         * The `'Accordion'` descriptors represent the components ability to 'extend' and show its content [**read more here...**](https://react-bootstrap.netlify.app/docs/components/accordion/).
 
       * ### src/components/TodoForm/index.jsx
+         * `TodoForm({ formAction, initialData, listId, listType })` contains the html and React components for rendering a form capable of establishing a new task for a todo list
+         * Each field has the necessary error handling and input validators to limit issues when submitting using the built in handlers
 
       * ### src/components/Todos/index.jsx
+         * `Todos({ type = "list", listId })` pulls the user's current todo lists and maps them to the appropriate fields of the `<Accordion/>` component (e.g. assigning title to the accordion's head and the content to its initially hidden section).
 
       * ### src/components/ui 
+         * 
          * ### src/components/ui/button.jsx
          * ### src/components/ui/card.jsx
          * ### src/components/ui/theme-provider.jsx
