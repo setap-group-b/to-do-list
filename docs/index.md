@@ -156,7 +156,7 @@ Index: (possible tree with nodes as links for easier access and readability)
    * **authOptions():** This function is supported by [**NextAuth.js**](https://next-auth.js.org/getting-started/introduction), a subsection of [**Next.js**](https://nextjs.org/docs) which focuses heavily on authenticating and validating data.
 
       * First, the necessary declarations and default options are adjusted to better work with the program
-         * > adapter: => `PrismaAdapter(prisma)` is passed to integrate NextAuth with our [ORM](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping) of choice (In this case, prisma).
+         * > adapter: => `PrismaAdapter(prisma)` is passed to integrate NextAuth with our [**ORM**](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping) of choice (In this case, prisma).
          * > pages: => `/login` this overrides the default page to be loaded by NextAuth with what we want to be loaded
          * > session: => `"jwt"` uses [*JSON Web Tokens*](https://auth0.com/docs/secure/tokens/json-web-tokens) for session management, these are stored client-side and therefore reduce database lookups.
          * > providers: => The array `[GitHubProvider, GoogleProvider, CredentialsProvider]` is passed here, GitHub and Google use their respective `clientId` and `clientSecret` environment variables, while `CredentialsProvider` allows for custom logic to be passed (e.g. typical input of an email and password).
@@ -176,7 +176,7 @@ Index: (possible tree with nodes as links for easier access and readability)
       * `secret: process.env.NEXTAUTH_SECRET` then encrypts our session's key by adding a long and randomly generated string to the end of a JWT.
 ****
    ### lib/mailer.js
-   This file is responsible for the sending of the notification reminder for a user's tasks that have a deadline (e.g. "You have 1 week before your deadline!"), it utlises the [NodeMailer](https://nodemailer.com/) library to structure and send emails to the desired recipient(s).
+   This file is responsible for the sending of the notification reminder for a user's tasks that have a deadline (e.g. "You have 1 week before your deadline!"), it utlises the [**NodeMailer**](https://nodemailer.com/) library to structure and send emails to the desired recipient(s).
 
    * `transporter` is an integral part of NodeMailer that is able to successfully send an email with the values passed to it `{ host, port, secure, auth { user, pass }}`. All values except `secure => (boolean)` are passed from environment variables to these fields.
 
@@ -195,7 +195,7 @@ Index: (possible tree with nodes as links for easier access and readability)
 
 ****
    ### lib/prisma.js
-   This file is responsible for establishing the prisma client using the [prisma library](https://www.prisma.io/docs)
+   This file is responsible for establishing the prisma client using the [**prisma library**](https://www.prisma.io/docs)
 
    * checks if the app is running in `"development"` or `"production"` mode, in production, code runs once so calling a new client each instance is safe. However in development, the server typically refreshes after each file change putting strain on the database from numerous redundant connections.
 
@@ -212,13 +212,13 @@ Index: (possible tree with nodes as links for easier access and readability)
 ## node_modules
 
 Here belongs all of the necessary dependencies required for this project installed by running `npm i`, however the length and contents of this directory are subject to change over the course of the app's lifetime.
-> For a better explanation of node modules or npm in general, please visit [the npm site](https://docs.npmjs.com/about-npm)
+> For a better explanation of node modules or npm in general, please visit [**the npm site**](https://docs.npmjs.com/about-npm)
 
 ****
 ## /public
 This directory holds all images, these have been used for backdrops and placeholders
 
-* Use of the Next.js `Image` component has also been utilised for its increased performance and optimisation [src/app/page.jsx](#srcapppagejsx)
+* Use of the Next.js `Image` component has also been utilised for its increased performance and optimisation [**src/app/page.jsx**](#srcapppagejsx)
 
 ****
 ## /src
@@ -228,7 +228,7 @@ This directory holds all images, these have been used for backdrops and placehol
    * ### src/app/(auth)
 
       * ### src/app/(auth)/login
-         * Imports all of the necessary components from [`"/ui/card.jsx"`](#srccomponentsuicardjsx) and arranges them to build the login ui of the app.
+         * Imports all of the necessary components from [**`"/ui/card.jsx"`**](#srccomponentsuicardjsx) and arranges them to build the login ui of the app.
 
       * ### src/app/(auth)/signup
          * Almost identical to `"src/app/(auth)/login"` in terms of the imported components, with the only difference being some contextual text differences between logging in and registering.
@@ -259,15 +259,15 @@ This directory holds all images, these have been used for backdrops and placehol
    * ### src/app/api
       * ### src/app/api/auth
          * ### src/app/api/auth/[...nextauth]/route.js
-            * This file loads the authentication options we previously declared in [lib/auth](#libauthjs) for use in our GET and POST requests.
+            * This file loads the authentication options we previously declared in [**lib/auth**](#libauthjs) for use in our GET and POST requests.
          
          * ### src/app/api/auth/signup/route.js
-            * This file handles the signup functionality of our login system, as the fields parsed from our zod schema [signUpSchema](#libschemajs) are checked against the database for existing accounts.
-            * The parsed password is hashed using [bcrypt](https://www.npmjs.com/package/bcrypt) and excluded from the userData object to avoid exposing sensitive information in the response messages
+            * This file handles the signup functionality of our login system, as the fields parsed from our zod schema [**signUpSchema**](#libschemajs) are checked against the database for existing accounts.
+            * The parsed password is hashed using [**bcrypt**](https://www.npmjs.com/package/bcrypt) and excluded from the userData object to avoid exposing sensitive information in the response messages
 
       * ### src/app/api/cron
          * ### src/app/api/cron/route.js
-            * [`checkAndSendReminders()`](#srclibreminderchecksjs) is used here to gather a list of users who have not yet been reminded about the deadline of their task (based on their `notification` setting) and send out a wave of pre-written reminder emails.
+            * [**`checkAndSendReminders()`**](#srclibreminderchecksjs) is used here to gather a list of users who have not yet been reminded about the deadline of their task (based on their `notification` setting) and send out a wave of pre-written reminder emails.
 
       * ### src/app/api/index.js
          * This file only exports the `src/app/api/[...nextauth]/route` code.
@@ -282,29 +282,29 @@ This directory holds all images, these have been used for backdrops and placehol
                * Solely return the TodoForm function component with appropriate default values for its `initialData` parameter: `initialData={{title: "", content: "", priority: "", status: ""}}`
                
             * ### src/app/dashboard/group/[listId]/todo/page.jsx
-               * This file uses the function components [`Todos`](#srccomponentstodos), [`PageHeader`](#srccomponentspageheaderjsx) and [`Button`](#srccomponentsusbuttonjsx) to form the list of group tasks a user is collaborating on. 
+               * This file uses the function components [`**Todos**`](#srccomponentstodos), [`**PageHeader**`](#srccomponentspageheaderjsx) and [`**Button**`](#srccomponentsusbuttonjsx) to form the list of group tasks a user is collaborating on. 
 
          * ### src/app/dashboard/group/page.jsx
-            * This file uses the [`PageHeader`](#srccomponentspageheaderjsx) and [`Groups`](#srccomponentsgroupsjsx) function components to form the group page/ dashboard.
+            * This file uses the [**`PageHeader`**](#srccomponentspageheaderjsx) and [**`Groups`**](#srccomponentsgroupsjsx) function components to form the group page/ dashboard.
       ****
       * ### src/app/dashboard/list
          * ### src/app/dashboard/list/[listId]
             * ### src/app/dashboard/list/[listId]/edit/page.jsx
-               * Also uses the `PostsEdit({ params })` function to return a new [`ListForm`](#srccomponentslistform) for a created [`List`](#srccomponentslist) with updated values passed into the form's `initialData` fields.
+               * Also uses the `PostsEdit({ params })` function to return a new [**`ListForm`**](#srccomponentslistform) for a created [**`List`**](#srccomponentslist) with updated values passed into the form's `initialData` fields.
 
             * ### src/app/dashboard/list/[listId]/todo
                * ### src/app/dashboard/list/[listId]/todo/[id]/edit/page.jsx
                   * Again, uses `PostsEdit({ params })` to return an updated Todo Form, this time with updated `initialData` field values.
                * ### src/app/dashboard/list/[listId]/todo/add/page.jsx
-                  * `userTodoAdd({ params })` calls [`createTodo`](#srcappactionstodojs) to initialise a valid listId within the database and append the function component [TodoForm](#srccomponentstodoform) to that new list.
+                  * `userTodoAdd({ params })` calls [**`createTodo`**](#srcappactionstodojs) to initialise a valid listId within the database and append the function component [**TodoForm**](#srccomponentstodoform) to that new list.
                * ### src/app/dashboard/list/[listId]/todo/page.jsx
-                  * `UserList({ params })` uses cache to fetch a user's list and display it using the [`PageHeader`](#srccomponentspageheaderjsx), [`Button`](#srccomponentsusbuttonjsx), [`AddCollaborators`](#srccomponentsaddcollaboratorsjsx), [`ListDelete`](#srccomponentslistdelete) and [`Todos`](#srccomponentstodos) function components to format the page.
+                  * `UserList({ params })` uses cache to fetch a user's list and display it using the [**`PageHeader`**](#srccomponentspageheaderjsx), [**`Button`**](#srccomponentsusbuttonjsx), [**`AddCollaborators`**](#srccomponentsaddcollaboratorsjsx), [**`ListDelete`**](#srccomponentslistdelete) and [**`Todos`**](#srccomponentstodos) function components to format the page.
 
          * ### src/app/dashboard/list/add/page.jsx
-            * `UserListAdd()` returns a [`ListForm`](#srccomponentslistform) with the [`createList`](#srcappactionslistjs) logic being passed as the formAction.
+            * `UserListAdd()` returns a [**`ListForm`**](#srccomponentslistform) with the [**`createList`**](#srcappactionslistjs) logic being passed as the formAction.
 
          * ### src/app/dashboard/list/page.jsx
-            * `UserLists()` returns a page that fetches and displays all of a users currently created [`Lists`](#srccomponentslists), with the option to create a new list by redirecting to [`/dashboard/list/add`](#srcappdashboardlistaddpagejsx).
+            * `UserLists()` returns a page that fetches and displays all of a users currently created [**`Lists`**](#srccomponentslists), with the option to create a new list by redirecting to [**`/dashboard/list/add`**](#srcappdashboardlistaddpagejsx).
 
 
       * ### src/app/dashboard/settings
@@ -316,17 +316,17 @@ This directory holds all images, these have been used for backdrops and placehol
             * `Settings()` is used to validate the user's session, then return the function component `<SettingsPage/>` in a more modularised form to reduce code bloating on our main page hosting multiple function components.
 
       * ### src/app/dashboard/layout.jsx
-         * `AuthLayout({ children })` validates a user's session before returning the logic and layout of the [`<Sidebar/>`](#srccomponentssidebar) for use on the display pages of the app.
+         * `AuthLayout({ children })` validates a user's session before returning the logic and layout of the [**`<Sidebar/>`**](#srccomponentssidebar) for use on the display pages of the app.
 
       * ### src/app/dashboard/page.jsx
          *  This file combines all of the html and React components to form our home page, only after that user's session has been validated.
 
    * ### src/app/globals.css
-      * This file provides dynamic theming through the use of [`oklch()`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch) and [`tailwind CSS`](https://tailwindcss.com/docs/installation/using-vite).
+      * This file provides dynamic theming through the use of [**`oklch()`**](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch) and [**`tailwind CSS`**](https://tailwindcss.com/docs/installation/using-vite).
       * This holds some of the presets for global settings like the light and dark-mode feature
 
    * ### src/app/layout.jsx
-      * `RootLayout({ children })` declares and initialises some of the variables used in [`<ThemeProvider>`](#srccomponentsuitheme-providerjsx).
+      * `RootLayout({ children })` declares and initialises some of the variables used in [**`<ThemeProvider/>`**](#srccomponentsuitheme-providerjsx).
 
    * ### src/app/page.jsx
       * `LandingPage()` returns all of the html and embedded React components to create the initial page that is displayed on load, from here a user will either login or signup and enter the protected directories of the app.
@@ -334,17 +334,62 @@ This directory holds all images, these have been used for backdrops and placehol
 
 ****
    * ### src/components 
-      * ### src/components/List
-      * ### src/components/ListDelete
-      * ### src/components/ListForm
-      * ### src/components/Lists
+      * ### src/components/List/index.jsx
+         * `List({ list })` contains the html and React components to display the user's current lists as well as the options to create new lists and append tasks.
+
+      * ### src/components/ListDelete/index.jsx
+         * `ListDelete({ listId, className })` packages the functionality of [**deleteList**](#srcappactionslistjs) into a `<ReusableButton/>` function component while preventing the form from being submitted in the standard way.
+
+      * ### src/components/ListForm/index.jsx
+         * `ListForm({ formAction, initialData })` contains the html and React components to display the list creation form held at `'/Home/Dashboard/List`.
+
+      * ### src/components/Lists/index.jsx
+         * `Lists()` checks for a valid session before pulling the user's currently stored lists from cache for greatly increased speed.
+         * The stored lists are then mapped into an array for display in [`'/dashboard/list'`](#srcappdashboardlist)
+
       * ### src/components/Nav
-      * ### src/components/SessionWrapper
+         * ### src/components/Nav/index.jsx 
+            * `Nav()` is responsible for the display of the Nav bar commonly seen spanning along the top of the app's pages, It mostly displays a formatted 'current path' in the app's directories.
+
+         * ### src/components/Nav/SettingsDropdown.jsx
+            * `SettingsDropdown()` is comprised of mainly React components and displays the dropdown menu when clicking on the user's profile picture.
+            * This functions also contains the handlers for the pressable buttons (`Settings` and `Logout`)
+
+      * ### src/components/SessionWrapper/index.jsx
+         * This files singular purpose is to initialise NextAuth's [**`SessionProvider`**](https://next-auth.js.org/getting-started/client#sessionprovider) and store this result in a variable to be used across the app (`SessionWrapper`).
+
       * ### src/components/Sidebar
-      * ### src/components/TestButton
-      * ### src/components/Todo
-      * ### src/components/TodoForm
-      * ### src/components/Todos
+         * ### src/components/Sidebar/Groups.jsx
+            * `Groups()` pulls the available groups in a user's session from cache, then passes them to the [**`<GroupsList/>`**](#srccomponentssidebargroupslistjsx) component for rendering on its respective page
+
+         * ### src/components/Sidebar/GroupsList.jsx
+            * `Group({ state, group })` contains the html and logic to display the currently available group lists the user has access to.
+            * `GroupsList({ groups })` forms the structure of this panel on the sidebar, mapping the number of available `<Group/>` items as children to its structure.
+
+         * ### src/components/Sidebar/index.jsx
+            * `index()` contains the React components that display the `🏠 Home` button that redirects the user to `'/dashboard/`
+            * this function also pulls the user's current lists from cache to be displayed in the space below the `home` button.
+
+         * ### src/components/Sidebar/ListItems.jsx
+            * `ListItems({ userListas, searchValue })` Displays the users ongoing lists in the sidebar, inheriting properties such as `title` and `backgroundColour`.
+
+         * ### src/components/Sidebar/Lists.jsx
+            * `SortableListItem({ list, state })` Allows for drag and drop styling with the list items displayed on the sidebar using the React toolkit [**`dnd kit`**](https://docs.dndkit.com/api-documentation/context-provider).
+            * `Lists({ userLists })` contains the display logic for the lists held in the sidebar as well as the wider options of creating new lists or viewing all lists. 
+               * This function also stores `<SortableListItem/>` as a child node of Lists structure, utilising localStorage to help the custom order of lists persist across sessions.
+
+         * ### src/components/Sidebar/Sidebar.jsx
+            * `Sidebar({ children })` acts as a unifying function to act as a wrapper for the various subcomponents the sidebar is comprised of.
+            * This is visible in [`'/src/components/Sidebar`](#srccomponentssidebar) 
+
+      * ### src/components/TestButton/index.jsx
+
+      * ### src/components/Todo/index.jsx
+
+      * ### src/components/TodoForm/index.jsx
+
+      * ### src/components/Todos/index.jsx
+
       * ### src/components/ui 
          * ### src/components/ui/button.jsx
          * ### src/components/ui/card.jsx
