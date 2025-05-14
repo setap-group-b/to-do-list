@@ -8,7 +8,7 @@ import { getServerSessionWrapper } from "@/utils";
 
 import { z } from "zod";
 
-const todoSchema = z.object({
+const listSchema = z.object({
   title: z.string().min(1).max(255),
   backgroundColour: z.string().min(7).max(7),
 });
@@ -21,7 +21,7 @@ export async function createList(formState, formData) {
     return;
   }
 
-  const result = todoSchema.safeParse({
+  const result = listSchema.safeParse({
     title: formData.get("title"),
     backgroundColour: formData.get("background-colour"),
   });
@@ -62,7 +62,7 @@ export async function updateList(listId, formState, formData) {
     return;
   }
 
-  const result = todoSchema.safeParse({
+  const result = listSchema.safeParse({
     title: formData.get("title"),
     backgroundColour: formData.get("background-colour"),
   });
