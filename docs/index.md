@@ -70,9 +70,9 @@ For easy access we recommend using (Ctrl + F) and your files path to better navi
 
 [**lib**](#lib)
 * [**lib/db**](#libdbschemaprisma)
-****
+
 [**public**](#public)
-****
+
 [**src**](#src)
 * [**app**](#srcapp)
   * [**(auth)**](#srcappauth)
@@ -95,6 +95,7 @@ For easy access we recommend using (Ctrl + F) and your files path to better navi
   * [**hooks**](#srchooks)
   * [**lib**](#srclib)
   * [**utils**](#srcutils)
+
 ****
 ## /lib
  
