@@ -1,7 +1,5 @@
-import Link from "next/link";
 import Groups from "@/components/Groups";
 import PageHeader from "@/components/PageHeader";
-import { Button } from "@/components/ui/button";
 
 export default function UserGroups() {
   return (

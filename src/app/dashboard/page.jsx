@@ -3,7 +3,6 @@ import { dateFormatter } from "@/utils/functions";
 import {
   BookOpen,
   Calendar,
-  Clock,
   GraduationCap,
   ListChecks,
   Sparkles,
