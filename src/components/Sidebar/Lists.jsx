@@ -42,11 +42,19 @@ const SortableListItem = ({ list, state }) => {
   };
 
   return (
-    <SidebarMenuItem ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <SidebarMenuItem
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+    >
       <SidebarMenuButton className="text-sidebar-foreground">
         <Link
           href={`/dashboard/list/${list.id}/todo`}
-          className={cn("flex items-center gap-4", state === "expanded" ? "w-full" : "")}
+          className={cn(
+            "flex items-center gap-4",
+            state === "expanded" ? "w-full" : "",
+          )}
         >
           <div
             className="h-2 w-2 rounded-full mr-2"
@@ -69,27 +77,27 @@ const Lists = ({ userLists }) => {
   console.log("userLists:", userLists);
   console.log("First list structure:", userLists[0]);
 
-useEffect(() => {
-  const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
-  if (stored) {
-    const order = JSON.parse(stored);
-    console.log("Loaded order from localStorage:", order);
-    const ordered = order
-      .map((id) => userLists.find((l) => l.id === id))
-      .filter(Boolean);
-    const remaining = userLists.filter((l) => !order.includes(l.id));
+  useEffect(() => {
+    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (stored) {
+      const order = JSON.parse(stored);
+      console.log("Loaded order from localStorage:", order);
+      const ordered = order
+        .map((id) => userLists.find((l) => l.id === id))
+        .filter(Boolean);
+      const remaining = userLists.filter((l) => !order.includes(l.id));
 
-    const combined = [...ordered, ...remaining];
-    if (combined.length > 0) {
-      setLists(combined);
+      const combined = [...ordered, ...remaining];
+      if (combined.length > 0) {
+        setLists(combined);
+      } else {
+        console.warn("LocalStorage order mismatch. Falling back to userLists.");
+        setLists(userLists);
+      }
     } else {
-      console.warn("LocalStorage order mismatch. Falling back to userLists.");
       setLists(userLists);
     }
-  } else {
-    setLists(userLists);
-  }
-}, [userLists]);
+  }, [userLists]);
 
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
@@ -99,12 +107,12 @@ useEffect(() => {
   console.log("lists:", lists);
 
   const filteredLists = lists.filter((l) => {
-  console.log("Checking:", l.title);
-  return (
-    typeof l?.title === "string" &&
-    l.title.toLowerCase().includes(searchValue.toLowerCase())
-  );
-});
+    console.log("Checking:", l.title);
+    return (
+      typeof l?.title === "string" &&
+      l.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  });
 
   console.log("filteredLists:", filteredLists);
 
@@ -119,7 +127,7 @@ useEffect(() => {
       setLists(newOrder);
       localStorage.setItem(
         LOCAL_STORAGE_KEY,
-        JSON.stringify(newOrder.map((l) => l.id))
+        JSON.stringify(newOrder.map((l) => l.id)),
       );
     }
   };
@@ -140,47 +148,50 @@ useEffect(() => {
         </div>
       )}
 
-<SidebarGroupAction title="Create new list">
-  <Link href={"/dashboard/list/add"}>
-    <Plus size={18} />
-  </Link>
-  <span className="sr-only">Create new list</span>
-</SidebarGroupAction>
-
-<SidebarGroupContent>
-  <SidebarMenu>
-    <DndContext
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      onDragEnd={handleDragEnd}
-    >
-      <SortableContext
-        items={filteredLists.map((item) => item.id)}
-        strategy={verticalListSortingStrategy}
-      >
-        {filteredLists.map((list) => {
-          console.log("Rendering list item:", list); // ✅ Debugging log
-          return (
-            <SortableListItem key={list.id} list={list} state={state} />
-          );
-        })}
-      </SortableContext>
-    </DndContext>
-
-    <SidebarMenuItem className="cursor-pointer">
-      <SidebarMenuButton className="text-sidebar-foreground/70">
-        <Link
-          href={`/dashboard/list`}
-          className={cn("flex items-center gap-4", state === "expanded" ? "w-full" : "")}
-        >
-          <MoreHorizontal />
-          <span>View all</span>
+      <SidebarGroupAction title="Create new list">
+        <Link href={"/dashboard/list/add"}>
+          <Plus size={18} />
         </Link>
-      </SidebarMenuButton>
-    </SidebarMenuItem>
-  </SidebarMenu>
-</SidebarGroupContent>
-</SidebarGroup>
+        <span className="sr-only">Create new list</span>
+      </SidebarGroupAction>
+
+      <SidebarGroupContent>
+        <SidebarMenu>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext
+              items={filteredLists.map((item) => item.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              {filteredLists.map((list) => {
+                console.log("Rendering list item:", list); // ✅ Debugging log
+                return (
+                  <SortableListItem key={list.id} list={list} state={state} />
+                );
+              })}
+            </SortableContext>
+          </DndContext>
+
+          <SidebarMenuItem className="cursor-pointer">
+            <SidebarMenuButton className="text-sidebar-foreground/70">
+              <Link
+                href={`/dashboard/list`}
+                className={cn(
+                  "flex items-center gap-4",
+                  state === "expanded" ? "w-full" : "",
+                )}
+              >
+                <MoreHorizontal />
+                <span>View all</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </SidebarGroup>
   );
-}
+};
 export default Lists;

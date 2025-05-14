@@ -18,7 +18,7 @@ const Group = ({ group }) => {
           </h2>
         </div>
         <button
-          className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium"
+          className="cursor-pointer text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium"
           onClick={() => router.push(`/dashboard/group/${group.id}/todo`)}
         >
           View all tasks
@@ -47,7 +47,7 @@ const Group = ({ group }) => {
                 onClick={() =>
                   router.push(`/dashboard/group/${group.id}/todo/add`)
                 }
-                className=" mt-4 py-2 rounded-xl border border-dashed border-indigo-300 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:bg-indigo-50 dark:hover:bg-indigo-900/20 capitalize"
+                className="cursor-pointer mt-4 py-2 rounded-xl border border-dashed border-indigo-300 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:bg-indigo-50 dark:hover:bg-indigo-900/20 capitalize"
               >
                 + {item}
               </button>

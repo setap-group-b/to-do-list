@@ -38,7 +38,7 @@ export const Todo = ({ type, listId, task }) => {
     >
       <AccordionTrigger
         className={cn(
-          "relative rounded-b-none hover:cursor-pointer hover:no-underline flex items-center gap-3 p-3 bg-indigo-50 dark:bg-indigo-900/30"
+          "relative rounded-b-none hover:cursor-pointer hover:no-underline flex items-center gap-3 p-3 bg-indigo-50 dark:bg-indigo-900/30",
         )}
       >
         <TaskStatusButton
@@ -65,8 +65,8 @@ export const Todo = ({ type, listId, task }) => {
                 isPassedDueDate
                   ? "!text-red-400"
                   : aDayToDueDate
-                  ? "text-yellow-400"
-                  : ""
+                    ? "text-yellow-400"
+                    : "",
               )}
             >
               <BsHourglassSplit className="min-w-4 min-h-4 " />
@@ -82,8 +82,8 @@ export const Todo = ({ type, listId, task }) => {
                   {isPassedDueDate
                     ? "Passed due date"
                     : aDayToDueDate
-                    ? "Due in less than 24 hrs"
-                    : ``}
+                      ? "Due in less than 24 hrs"
+                      : ``}
                 </span>
               </div>
             </div>
@@ -98,10 +98,12 @@ export const Todo = ({ type, listId, task }) => {
               router.push(`/dashboard/${type}/${listId}/todo/${task.id}/edit`);
             }}
             title={"Edit"}
+            className="cursor-pointer"
           />
           <ReusableButton
             variant="destructive"
             title={"Delete"}
+            className="cursor-pointer"
             onClick={async (e) => {
               e.preventDefault(); // Prevent the form from being submitted in the traditional way.
               const result = await deleteTodo(task.id, listId, type);

@@ -17,10 +17,10 @@ import { Label } from "@/components/ui/label";
 const SettingsPage = ({ userData }) => {
   const { setTheme, theme } = useTheme();
   const [font, setFont] = useState(
-    localStorage.getItem(localStorageFont) || "16px"
+    localStorage.getItem(localStorageFont) || "16px",
   );
   const [boldness, setBoldness] = useState(
-    localStorage.getItem(localStorageBoldness) || "normal"
+    localStorage.getItem(localStorageBoldness) || "normal",
   );
 
   const handleThemeChange = (value) => {
