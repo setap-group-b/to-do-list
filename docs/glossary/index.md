@@ -473,6 +473,10 @@ This directory holds all images, these have been used for backdrops and placehol
 - A helper function that wraps NextAuth’s `getServerSession()` with pre-configured authentication options. This function simplifies server-side access to the current user session by using your authOptions configuration. It's useful in server components, API routes, or any place where server-side authentication is required.
 - `Promise<Session | null>` Resolves to the authenticated user's session object, or null if the user is not logged in.
 - ### src/utils/getUserGroup.js
+- `getUserGroup(user, listId)` function checks whether the user is a collaborator on a given list (or group). It ensures that only authorized users can access the list's data. It uses Prisma’s `findUnique` method on the list model with a condition that checks both the id of the list and whether the user is listed as a collaborator.
+- `user: { id: string }` is the user object (or just an object with the user's ID)
+- `listId: string` is the unique identifier of the list/group to look up.
+- `Promise<List | null>` resolves to the list if the user is a collaborator, otherwise null.
 - ### src/utils/getUserGroups.js
 - ### src/utils/getUserList.js
 - ### src/utils/getUserLists.js
