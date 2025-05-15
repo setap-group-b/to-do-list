@@ -40,7 +40,6 @@ const SortableListItem = ({ list, state }) => {
     transform,
     transition,
     isDragging,
-    active,
   } = useSortable({ id: list.id });
 
   const style = {
@@ -81,7 +80,7 @@ const SortableListItem = ({ list, state }) => {
             />
             <span className="truncate">{list.title}</span>
             <span className="ml-auto bg-muted text-xs rounded px-2 py-0.5">
-              {list.taskCount ?? 0}
+              {list?.Todo?.length || 0}
             </span>
           </Link>
         )}
@@ -98,7 +97,7 @@ const SortableListItem = ({ list, state }) => {
             />
             <span className="truncate">{list.title}</span>
             <span className="ml-auto bg-muted text-xs rounded px-2 py-0.5">
-              {list.taskCount ?? 0}
+              {list?.Todo?.length || 0}
             </span>
           </div>
         )}
