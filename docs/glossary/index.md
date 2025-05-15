@@ -478,6 +478,10 @@ This directory holds all images, these have been used for backdrops and placehol
 - `listId: string` is the unique identifier of the list/group to look up.
 - `Promise<List | null>` resolves to the list if the user is a collaborator, otherwise null.
 - ### src/utils/getUserGroups.js
+- `getUserGroups(user)` fetches all the lists/groups where the user is a collaborator.
+- `user: { id: string }` the current user object or an object with at least the user's id.
+- `Promise<List[]>` promise that resolves to an array of list objects where the user is a collaborator.
+- 
 - ### src/utils/getUserList.js
 - ### src/utils/getUserLists.js
 - ### src/utils/getUserToDo.js
