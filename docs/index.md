@@ -437,6 +437,11 @@ This directory holds all images, these have been used for backdrops and placehol
    * `priority` levels used for each task (HIGH,MEDIUM,LOW,NONE)
    * `priorityObject` is a readable map for priority values. 
    * ### src/utils/cyclePriority.js
+   * Cycles through the predefined list of priorities (e.g., HIGH, MEDIUM, LOW, NONE) and sets the next one in the list. When it reaches the end, it loops back to the start.
+   * `currentPriority`: The current priority object (e.g., { value: "MEDIUM" }).
+   * `priorities`: Array of priority objects to cycle through (e.g., `[{ value: "HIGH" }, { value: "MEDIUM" }, ...]`).
+   * `setPriority`: A setter function to update the selected priority.
+   * In practice this is will work such that If `currentPriority` is "LOW", and the priorities list is [HIGH, MEDIUM, LOW, NONE], it will cycle to "NONE" next. From "NONE", it will cycle back to "HIGH".
    * ### src/utils/displayError.js
    * ### src/utils/functions.js
    * ### src/utils/gatAllTasks.js
