@@ -416,6 +416,10 @@ This directory holds all images, these have been used for backdrops and placehol
       * `PageHeader({ title })` renders a simple, reusable page header with a back navigation button and a dynamic title.Uses the `useRouter()` hook from Next.js to enable backward navigation via `router.back()`.Displays a left-pointing arrow icon (LucideArrowLeft) that functions as a back button. Accepts a title prop which is rendered next to the icon, automatically capitalized.Used to give context and navigation
 ****
    * ### src/hooks
+   * ### use-mobile.js
+   * `useIsMobile()` is a React hook that detects whether the current viewport width is considered mobile size.Defines a mobile breakpoint constant at 768 pixels.
+   * `window.matchMedia` to listen for viewport width changes below the breakpoint.
+   * Sets and returns a boolean state isMobile indicating if the screen width is less than the mobile breakpoint.
 ****
    * ### src/lib
       * ### src/lib/reminderChecks.js
