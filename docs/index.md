@@ -409,6 +409,9 @@ This directory holds all images, these have been used for backdrops and placehol
       * Displays form validation errors if any are returned from the createGroup action.
       * Includes a red "Remove all collaborators" link that calls the deleteGroup server action to clear the list.
       * ### src/components/Groups.jsx
+      * `Groups()` is an asynchronous server component that fetches and displays the user's current groups.Uses `getServerSessionWrapper()` to determine if a user is logged in. If not, it displays a sign-in prompt.Uses `getUserGroups()` wrapped in a cached function ("use cache") to retrieve the authenticated user's groups from the database or backend.
+      * If no groups exist, it encourages the user to create one.
+      * If groups are found, they are displayed in a responsive grid layout, each rendered with the Group component.
       * ### src/components/PageHeader.jsx
 ****
    * ### src/hooks
