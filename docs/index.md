@@ -402,6 +402,12 @@ This directory holds all images, these have been used for backdrops and placehol
         * ### src/components/ui/theme-provider.jsx
         * > This is an incomplete component directory, files that need linking to will be added ahead of the main bulk of content
       * ### src/components/AddCollaborators.jsx
+      * `AddCollaborators({ listId, user, listCollaborators })` is a modal component that allows users to manage collaborators for a specific to-do list. Built with the Dialog component from @/components/ui/dialog to open a modal when clicking the Add collaborators button.
+      * Uses useState to track the current list of collaborators and useActionState to handle async form submissions using the createGroup server action
+      * The ReusableMultiTextInput component is used to add multiple collaborators via email, with built-in validation and change tracking.
+      * A hidden <input> field serializes the collaborators (excluding the current user) for form submission.
+      * Displays form validation errors if any are returned from the createGroup action.
+      * Includes a red "Remove all collaborators" link that calls the deleteGroup server action to clear the list.
       * ### src/components/Groups.jsx
       * ### src/components/PageHeader.jsx
 ****
