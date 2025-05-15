@@ -455,6 +455,11 @@ This directory holds all images, these have been used for backdrops and placehol
 - `setPriority`: A setter function to update the selected priority.
 - In practice this is will work such that If `currentPriority` is "LOW", and the priorities list is [HIGH, MEDIUM, LOW, NONE], it will cycle to "NONE" next. From "NONE", it will cycle back to "HIGH".
 - ### src/utils/displayError.js
+- To show a user-friendly error notification using `react-hot-toast` based on different possible error formats.
+- `err`: Can be a string, object, or server response containing an error message. If `err` is a string, it directly displays it as a toast error.
+- If `err.data.message` is an array, it loops through the array and displays each message.
+- a default error message: "Something went wrong, please try again!".
+- 
 - ### src/utils/functions.js
 - ### src/utils/gatAllTasks.js
 - ### src/utils/getServerSessionWrapper.js
