@@ -31,7 +31,7 @@ export default async function UserList({ params }) {
   const collaborators = userList.collaborators.map((user) => user.email);
   return (
     <div className="flex flex-col h-full gap-6 p-4 md:p-6 list">
-      <div className="flex gap-4 justify-between flex-wrap">
+      <div className="flex gap-4 gap-y-8 justify-between flex-wrap">
         <PageHeader title={`${userList.title} List tasks`} />
         <div className="flex items-center gap-4 flex-wrap w-full md:w-max *:flex-1 md:*:flex-none">
           <Button className={"cursor-pointer"}>

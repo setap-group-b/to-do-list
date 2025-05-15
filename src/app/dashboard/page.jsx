@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { getUserLists } from "@/utils";
 import Link from "next/link";
+import ListItem from "@/components/ListItem";
 
 export default async function Home() {
   let timeOfDay = "";
@@ -39,12 +40,12 @@ export default async function Home() {
     .slice(0, 3);
 
   const completedTasks = allTasks.filter(
-    (task) => task.status === "COMPLETED",
+    (task) => task.status === "COMPLETED"
   ).length;
   const totalTasks = allTasks.length;
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col h-full w-full gap-6">
       <div className="bg-gradient-to-r from-indigo-500 to-purple-600 dark:from-indigo-700 dark:to-purple-800 p-6 rounded-2xl shadow-lg text-white">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
@@ -75,8 +76,8 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-indigo-100 dark:border-indigo-900/40 overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl flex flex-col shadow-md border border-indigo-100 dark:border-indigo-900/40 overflow-hidden">
           <div className="flex items-center justify-between bg-indigo-50 dark:bg-indigo-900/30 p-4 border-b border-indigo-100 dark:border-indigo-800/30">
             <div className="flex items-center gap-2">
               <Calendar className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
@@ -91,47 +92,18 @@ export default async function Home() {
               View All
             </Link>
           </div>
-          <div className="p-4">
-            <ul className="space-y-3">
-              {upcomingTasks.length > 0 ? (
-                upcomingTasks.map((task) => (
-                  <li
-                    key={task.id}
-                    className="flex items-center gap-3 p-3 rounded-xl bg-indigo-50/50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/30"
-                  >
-                    <div
-                      className={`h-3 w-3 rounded-full ${
-                        task.priority === "HIGH"
-                          ? "bg-red-500"
-                          : task.priority === "MEDIUM"
-                            ? "bg-amber-500"
-                            : "bg-green-500"
-                      }`}
-                    ></div>
-                    <div className="flex-1">
-                      <h3 className="font-medium text-gray-900 dark:text-gray-100">
-                        {task.title}
-                      </h3>
-                      <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                        <span>
-                          Due: {new Date(task.deadline).toLocaleDateString()}
-                        </span>
-                      </div>
-                    </div>
-                    <Link
-                      href={`/dashboard/list/${task.listId}/todo`}
-                      className="h-8 w-8 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-800/30"
-                    >
-                      <ListChecks className="h-4 w-4" />
-                    </Link>
-                  </li>
-                ))
-              ) : (
-                <li className="text-center text-gray-500 dark:text-gray-400 py-4">
-                  No upcoming deadlines
-                </li>
-              )}
-            </ul>
+          <div className="p-4 flex-1 flex flex-col">
+            {upcomingTasks.length > 0 ? (
+              <ul className="space-y-3 flex-1">
+                {upcomingTasks.map((task, i) => (
+                  <ListItem task={task} key={i} />
+                ))}
+              </ul>
+            ) : (
+              <div className="flex items-center justify-center flex-1 text-gray-500 dark:text-gray-400 py-4">
+                <p>No upcoming deadlines</p>
+              </div>
+            )}
             <Link
               href="/dashboard/list/add"
               className="w-full mt-4 py-2 rounded-xl border border-dashed border-indigo-300 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:bg-indigo-50 dark:hover:bg-indigo-900/20 flex items-center justify-center"
@@ -141,7 +113,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-indigo-100 dark:border-indigo-900/40 overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl flex flex-col shadow-md border border-indigo-100 dark:border-indigo-900/40 overflow-hidden">
           <div className="flex items-center justify-between bg-indigo-50 dark:bg-indigo-900/30 p-4 border-b border-indigo-100 dark:border-indigo-800/30">
             <div className="flex items-center gap-2">
               <BookOpen className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
@@ -156,10 +128,10 @@ export default async function Home() {
               View All
             </Link>
           </div>
-          <div className="p-4">
-            <ul className="space-y-3">
-              {userLists.length > 0 ? (
-                userLists?.slice(0, 3).map((list) => (
+          <div className="p-4 flex-1 flex flex-col">
+            {userLists.length ? (
+              <ul className="space-y-3 flex-1">
+                {userLists?.slice(0, 3).map((list) => (
                   <Link
                     key={list.id}
                     href={`/dashboard/list/${list.id}/todo`}
@@ -189,13 +161,13 @@ export default async function Home() {
                       </div>
                     </li>
                   </Link>
-                ))
-              ) : (
-                <li className="text-center text-gray-500 dark:text-gray-400 py-4">
-                  No lists
-                </li>
-              )}
-            </ul>
+                ))}
+              </ul>
+            ) : (
+              <div className="flex items-center justify-center flex-1 text-gray-500 dark:text-gray-400 py-4">
+                <p>No lists yet</p>
+              </div>
+            )}
             <Link
               href="/dashboard/list/add"
               className="w-full mt-4 py-2 rounded-xl border border-dashed border-indigo-300 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:bg-indigo-50 dark:hover:bg-indigo-900/20 flex items-center justify-center"

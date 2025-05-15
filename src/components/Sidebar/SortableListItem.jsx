@@ -34,7 +34,7 @@ export const SortableListItem = ({ list, state }) => {
             href={`/dashboard/list/${list.id}/todo`}
             className={cn(
               "flex items-center gap-4",
-              state === "expanded" ? "w-full" : "",
+              state === "expanded" ? "w-full" : ""
             )}
           >
             <div
@@ -51,7 +51,7 @@ export const SortableListItem = ({ list, state }) => {
           <div
             className={cn(
               "flex items-center gap-4 pointer-events-none",
-              state === "expanded" ? "w-full" : "",
+              state === "expanded" ? "w-full" : ""
             )}
           >
             <div

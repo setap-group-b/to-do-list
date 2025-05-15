@@ -29,13 +29,13 @@ export const ListForm = ({ formAction, initialData }) => {
   };
 
   return (
-    <div className="h-full flex flex-col gap-6 p-4 md:p-6">
+    <div className="h-full flex flex-col gap-6 py-4 md:py-6 add-list m-auto  max-w-2xl">
       <PageHeader title={`${initialData.title ? "Update" : "Create"} List`} />
       <form
         ref={formRef}
         noValidate
         onSubmit={handleSubmit}
-        className="flex flex-col gap-6 max-w-2xl mx-auto w-full bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-indigo-100 dark:border-indigo-900/40 p-6"
+        className="flex flex-col gap-6 mx-auto w-full bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-indigo-100 dark:border-indigo-900/40 p-6"
       >
         <section className="flex flex-col gap-2">
           <label
