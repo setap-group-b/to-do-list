@@ -466,6 +466,9 @@ This directory holds all images, these have been used for backdrops and placehol
 - `modifyOptions(arr: string[], label?: string): { label: string, value: string }[]`. Transforms an array of strings into an array of objects for use in dropdowns or selects. Returns: Array of `{ label, value }` pairs. For example, `modifyOptions(["low", "medium"]);`
 - `getNotificationDate(deadlineDate: Date | string, option: string): Date | null`. Calculates a notification date relative to a given deadline. Returns: A Date object representing the notification time, or null if invalid. Subtracts time from the deadline based on the option. If the calculated date is in the past, returns today’s date instead. eg. `getNotificationDate("2025-06-01", "1 week");`
 - ### src/utils/gatAllTasks.js
+- `getAllTasks(user, isCompleted)` fetches all tasks associated with a given user — including tasks from their own lists and any shared (collaborative) lists.
+- `Promise<Todo[]>:` An array of tasks (todos) accessible by the user, as returned from Prisma’s `findMany()` query. Queries the `todo` table for tasks where the user is the owner of the list `(List.userId)`. Or the user is a collaborator on the list `(List.collaborators)`.
+- The `isCompleted` parameter is not currently used in the query. You may filter tasks like this in the future where you can get completed tasks or not etc. 
 - ### src/utils/getServerSessionWrapper.js
 - ### src/utils/getUserGroup.js
 - ### src/utils/getUserGroups.js
