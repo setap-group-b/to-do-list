@@ -508,8 +508,15 @@ This directory holds all images, these have been used for backdrops and placehol
 - `todoId: string` is the unique ID of the to-do item being requested.
 - `listId: string` is the list ID to ensure the todo belongs to a specific list.
 - `Promise<Todo | null>` A single to-do item object if access is permitted, or null if not found or access is denied.
+  
 - ### src/utils/getUserToDos.js
+- `getUserTodos(user, listId)` fetches all to-do items from a specific list where the user is either the owner or a collaborator, ordered by deadline.
+- `user	{ id: string }`	The current logged-in user object.
+- `listId	string`	is ID of the list to fetch todos from.
+- A Promise resolving to an array of Todo objects.
+  
 - ### src/utils/index.js
+- This file acts as a centralized export module for all server-side data-fetching functions used across the application. By using this file, other modules can import utilities more cleanly without needing to reference individual paths.
 
 ---
 
