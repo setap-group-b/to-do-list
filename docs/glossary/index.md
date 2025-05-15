@@ -202,18 +202,18 @@ This directory holds all images, these have been used for backdrops and placehol
 
 ### src/app/actions
 
-     ### src/app/actions/group.js
+#### src/app/actions/group.js
 
-      - `groupSchema` defines a [**zod**](https://zod.dev/?id=table-of-contents) schema for an array of list collaborators, with validation for each entry with the `.refine()` function
-      - `createGroup(listId, formState, formData)`: Stores the parsed list of collaborators for use in fetching them by their emails, if successful the prisma schema for that List is updated with the collaborators appended to the list of authors.
-      - `deleteGroup(listId)`: Removes all collaborators of a list and redirects out of that (no longer existing) group's url.
+- `groupSchema` defines a [**zod**](https://zod.dev/?id=table-of-contents) schema for an array of list collaborators, with validation for each entry with the `.refine()` function.
+- `createGroup(listId, formState, formData)`: Stores the parsed list of collaborators for use in fetching them by their emails. If successful, the Prisma schema for that List is updated with the collaborators appended to the list of authors.
+- `deleteGroup(listId)`: Removes all collaborators of a list and redirects out of that (no longer existing) group's URL.
 
-    - ### src/app/actions/list.js
+#### src/app/actions/list.js
 
-      - `todoSchema` defines a zod schema for a list object, containing a title and backgroundColour with relevant input constraints
-      - `createList(formState, formData)`: stores a parsed `todoSchema` object to have its fields passed into the prisma `.create({ data: })` object
-      - `updateList(listId, formState, formData)`: stores a parsed `todoSchema` object to have its fields passed into a prisma `.update({ where, data })`, with `listId` identifying the list to be updated, and the parsed values overwriting the values of that list.
-      - `deleteList(listId)`: If the passed `listId` is found within the prisma schema, `.delete()` is called on that list's ID, with errors being produced if not.
+- `todoSchema` defines a Zod schema for a list object, containing a title and backgroundColour with relevant input constraints.
+- `createList(formState, formData)`: Stores a parsed `todoSchema` object to have its fields passed into the Prisma `.create({ data: })` method.
+- `updateList(listId, formState, formData)`: Stores a parsed `todoSchema` object to have its fields passed into a Prisma `.update({ where, data })`. `listId` identifies the list to be updated, and the parsed values overwrite the values of that list.
+- `deleteList(listId)`: If the passed `listId` is found in the Prisma schema, `.delete()` is called on that list's ID; errors are thrown if not found.
 
     - ### src/app/actions/todo.js
       - `todoSchema` defines a zod schema for a to-do-list entry, containing a title, content, priority, deadline, notification and status. Each of these fields has the constraints and input requirements established at their declaration with zod's [**primitives**](https://zod.dev/?id=primitives)
