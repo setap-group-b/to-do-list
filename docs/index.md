@@ -413,6 +413,7 @@ This directory holds all images, these have been used for backdrops and placehol
       * If no groups exist, it encourages the user to create one.
       * If groups are found, they are displayed in a responsive grid layout, each rendered with the Group component.
       * ### src/components/PageHeader.jsx
+      * `PageHeader({ title })` renders a simple, reusable page header with a back navigation button and a dynamic title.Uses the `useRouter()` hook from Next.js to enable backward navigation via `router.back()`.Displays a left-pointing arrow icon (LucideArrowLeft) that functions as a back button. Accepts a title prop which is rendered next to the icon, automatically capitalized.Used to give context and navigation
 ****
    * ### src/hooks
 ****
