@@ -14,6 +14,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { MoreHorizontal, Plus, Search } from "lucide-react";
 import { useEffect, useState } from "react";
+import { SortableListItem } from "./SortableListItem";
 
 import {
   DndContext,
@@ -24,107 +25,28 @@ import {
 } from "@dnd-kit/core";
 import {
   SortableContext,
-  useSortable,
   verticalListSortingStrategy,
   arrayMove,
 } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 
 const LOCAL_STORAGE_KEY = "sidebar-list-order";
-
-const SortableListItem = ({ list, state }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id: list.id });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
-
-  const [wasDragging, setWasDragging] = useState(false);
-
-  useEffect(() => {
-    if (isDragging) {
-      setWasDragging(true);
-    } else if (wasDragging) {
-      const timer = setTimeout(() => setWasDragging(false), 300);
-      return () => clearTimeout(timer);
-    }
-  }, [isDragging, wasDragging]);
-
-  return (
-    <SidebarMenuItem
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-    >
-      <SidebarMenuButton className="text-sidebar-foreground">
-        {!wasDragging && (
-          <Link
-            href={`/dashboard/list/${list.id}/todo`}
-            className={cn(
-              "flex items-center gap-4",
-              state === "expanded" ? "w-full" : "",
-            )}
-          >
-            <div
-              className="h-2 w-2 rounded-full mr-2"
-              style={{ backgroundColor: list.backgroundColour || "#999" }}
-            />
-            <span className="truncate">{list.title}</span>
-            <span className="ml-auto bg-muted text-xs rounded px-2 py-0.5">
-              {list?.Todo?.length || 0}
-            </span>
-          </Link>
-        )}
-        {wasDragging && (
-          <div
-            className={cn(
-              "flex items-center gap-4 pointer-events-none",
-              state === "expanded" ? "w-full" : "",
-            )}
-          >
-            <div
-              className="h-2 w-2 rounded-full mr-2"
-              style={{ backgroundColor: list.backgroundColour || "#999" }}
-            />
-            <span className="truncate">{list.title}</span>
-            <span className="ml-auto bg-muted text-xs rounded px-2 py-0.5">
-              {list?.Todo?.length || 0}
-            </span>
-          </div>
-        )}
-      </SidebarMenuButton>
-    </SidebarMenuItem>
-  );
-};
 
 const Lists = ({ userLists }) => {
   const { state } = useSidebar();
   const [searchValue, setSearchValue] = useState("");
   const [lists, setLists] = useState(userLists);
-  console.log("userLists:", userLists);
-  console.log("First list structure:", userLists[0]);
 
   useEffect(() => {
     const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (stored) {
       const order = JSON.parse(stored);
-      console.log("Loaded order from localStorage:", order);
       const ordered = order
         .map((id) => userLists.find((l) => l.id === id))
         .filter(Boolean);
       const remaining = userLists.filter((l) => !order.includes(l.id));
 
       const combined = [...ordered, ...remaining];
-      if (combined.length > 0) {
+      if (order.length > 0) {
         setLists(combined);
       } else {
         console.warn("LocalStorage order mismatch. Falling back to userLists.");
@@ -139,11 +61,7 @@ const Lists = ({ userLists }) => {
     setSearchValue(e.target.value);
   };
 
-  console.log("searchValue:", searchValue);
-  console.log("lists:", lists);
-
   const filteredLists = lists.filter((l) => {
-    console.log("Checking:", l.title);
     return (
       typeof l?.title === "string" &&
       l.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -207,7 +125,6 @@ const Lists = ({ userLists }) => {
               strategy={verticalListSortingStrategy}
             >
               {filteredLists.map((list) => {
-                console.log("Rendering list item:", list);
                 return (
                   <SortableListItem key={list.id} list={list} state={state} />
                 );
@@ -234,4 +151,5 @@ const Lists = ({ userLists }) => {
     </SidebarGroup>
   );
 };
+
 export default Lists;

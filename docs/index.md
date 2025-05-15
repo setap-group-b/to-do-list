@@ -366,8 +366,8 @@ This directory holds all images, these have been used for backdrops and placehol
         * `index()` contains the React components that display the `🏠 Home` button that redirects the user to `'/dashboard/`
         * this function also pulls the user's current lists from cache to be displayed in the space below the `home` button.
 
-      * ### src/components/Sidebar/ListItems.jsx
-        * `ListItems({ userListas, searchValue })` Displays the users ongoing lists in the sidebar, inheriting properties such as `title` and `backgroundColour`.
+      * ### src/components/Sidebar/SortableListItem.jsx
+        * `SortableListItem({ list, state })` One of the sortable lists in the sidebar.
 
       * ### src/components/Sidebar/Lists.jsx
         * `SortableListItem({ list, state })` Allows for drag and drop styling with the list items displayed on the sidebar using the React toolkit [**`dnd kit`**](https://docs.dndkit.com/api-documentation/context-provider).
