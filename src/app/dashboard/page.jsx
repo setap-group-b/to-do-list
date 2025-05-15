@@ -106,14 +106,11 @@ export default async function Home() {
                         {task.title}
                       </h3>
                       <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                        <span className="bg-indigo-100 dark:bg-indigo-800/50 px-2 py-0.5 rounded-full">
-                          {task.List?.title || "No List"}
-                        </span>
                         <span>Due: {new Date(task.deadline).toLocaleDateString()}</span>
                       </div>
                     </div>
                     <Link
-                      href={`/dashboard/list/${task.listId}/todo/${task.id}`}
+                      href={`/dashboard/list/${task.listId}/todo`}
                       className="h-8 w-8 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-800/30"
                     >
                       <ListChecks className="h-4 w-4" />
