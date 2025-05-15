@@ -470,6 +470,8 @@ This directory holds all images, these have been used for backdrops and placehol
 - `Promise<Todo[]>:` An array of tasks (todos) accessible by the user, as returned from Prisma’s `findMany()` query. Queries the `todo` table for tasks where the user is the owner of the list `(List.userId)`. Or the user is a collaborator on the list `(List.collaborators)`.
 - The `isCompleted` parameter is not currently used in the query. You may filter tasks like this in the future where you can get completed tasks or not etc. 
 - ### src/utils/getServerSessionWrapper.js
+- A helper function that wraps NextAuth’s `getServerSession()` with pre-configured authentication options. This function simplifies server-side access to the current user session by using your authOptions configuration. It's useful in server components, API routes, or any place where server-side authentication is required.
+- `Promise<Session | null>` Resolves to the authenticated user's session object, or null if the user is not logged in.
 - ### src/utils/getUserGroup.js
 - ### src/utils/getUserGroups.js
 - ### src/utils/getUserList.js
