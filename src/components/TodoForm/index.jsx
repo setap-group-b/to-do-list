@@ -1,14 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useActionState, useRef } from "react";
+import { useState, useRef } from "react";
 import PageHeader from "../PageHeader";
 import ReusableButton from "../ui/ReusableButton";
 import ReusableDropdown from "../ui/ReusableDropdown";
 import { priorityObject } from "@/utils/constants";
 import { displayErrorMessage } from "@/utils/displayError";
 
-export const TodoForm = ({ formAction, initialData, listId }) => {
+export const TodoForm = ({ formAction, initialData, listId, listType }) => {
   const [priority, setPriority] = useState(initialData.priority || "NONE");
   const priorities = Object.entries(priorityObject).map(([key, value]) => ({
     label: value,
@@ -58,6 +58,8 @@ export const TodoForm = ({ formAction, initialData, listId }) => {
 
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
+
+  const cancelHref = `/dashboard/${listType || "list"}/${listId}/todo`;
 
   return (
     <div className="flex flex-col h-full gap-6 max-w-3xl m-auto add-list">

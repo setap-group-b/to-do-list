@@ -10,12 +10,36 @@ import { priorityObject } from "@/utils/constants";
 import { BsHourglassSplit } from "react-icons/bs";
 import TaskStatusButton from "./TaskStatusButton";
 
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+
 const ListItem = ({ task, container }) => {
   const priority = priorityObject[task.priority];
   const colorVar = `--${priority.split(" ")[0]?.toLowerCase?.()}-priority`;
+
   const ContainerValue = container || "li";
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({ id: task.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   return (
-    <ContainerValue className="flex items-center gap-3 p-3 rounded-xl bg-indigo-50/50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/30">
+    <ContainerValue
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className="flex items-center gap-3 p-3 rounded-xl bg-indigo-50/50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/30"
+    >
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>

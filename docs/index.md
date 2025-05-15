@@ -1,4 +1,4 @@
-# Welcome to To-do Lists's documentation
+# Setup
 
 ## Run Locally
 

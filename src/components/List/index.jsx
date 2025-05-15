@@ -19,7 +19,7 @@ const List = ({ list }) => {
           </h2>
         </div>
         <button
-          className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium"
+          className="cursor-pointer text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium"
           onClick={() => router.push(`/dashboard/list/${list.id}/todo`)}
         >
           View all tasks
@@ -42,7 +42,7 @@ const List = ({ list }) => {
 
         <button
           onClick={() => router.push(`/dashboard/list/${list.id}/todo/add`)}
-          className="w-full mt-4 py-2 rounded-xl border border-dashed border-indigo-300 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
+          className="cursor-pointer w-full mt-4 py-2 rounded-xl border border-dashed border-indigo-300 dark:border-indigo-700 text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
         >
           + Add New Task
         </button>

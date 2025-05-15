@@ -20,7 +20,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
-const AuthForm = ({ className, isSignUp }) => {
+const AuthForm = ({ isSignUp }) => {
   const router = useRouter();
   const [signUpLoading, setSignUpLoading] = useState(false);
   const form = useForm({

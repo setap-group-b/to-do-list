@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import ReusableButton from "../ui/ReusableButton";
 import PageHeader from "../PageHeader";
 import { displayErrorMessage } from "@/utils/displayError";
@@ -38,6 +38,10 @@ export const ListForm = ({ formAction, initialData }) => {
         className="flex flex-col gap-6 mx-auto w-full bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-indigo-100 dark:border-indigo-900/40 p-6"
       >
         <section className="flex flex-col gap-2">
+          <label
+            htmlFor="title"
+            className="text-sm font-medium text-gray-700 dark:text-gray-300"
+          >
           <label
             htmlFor="title"
             className="text-sm font-medium text-gray-700 dark:text-gray-300"
@@ -81,12 +85,15 @@ export const ListForm = ({ formAction, initialData }) => {
             <p className="text-sm text-red-500 dark:text-red-400">
               {formState.errors.content?.join(", ")}
             </p>
+            <p className="text-sm text-red-500 dark:text-red-400">
+              {formState.errors.content?.join(", ")}
+            </p>
           )}
         </section>
         <section className="flex items-center gap-4 pt-4">
           <ReusableButton
             type="submit"
-            className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white"
+            className="cursor-pointer flex-1 bg-indigo-600 hover:bg-indigo-700 text-white"
           >
             Save
           </ReusableButton>
@@ -94,7 +101,9 @@ export const ListForm = ({ formAction, initialData }) => {
             type="button"
             className="flex-1 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100"
           >
-            <Link href={`/dashboard/list`}>Cancel</Link>
+            <Link className="flex-1" href={`/dashboard/list`}>
+              Cancel
+            </Link>
           </ReusableButton>
         </section>
       </form>

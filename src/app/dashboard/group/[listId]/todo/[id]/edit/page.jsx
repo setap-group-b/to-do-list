@@ -37,6 +37,7 @@ export default async function PostsEdit({ params }) {
         notification: userTodo?.notification ?? "",
       }}
       listId={listId}
+      listType={"group"}
     />
   );
 }
