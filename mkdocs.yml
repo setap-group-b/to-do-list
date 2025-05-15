@@ -1,4 +1,7 @@
 site_name: To-do List
+nav:
+  - Home: index.md
+  - Glossary: glossary/index.md
 theme:
   name: readthedocs
   highlightjs: true
