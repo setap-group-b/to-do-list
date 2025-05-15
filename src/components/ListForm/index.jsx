@@ -42,10 +42,6 @@ export const ListForm = ({ formAction, initialData }) => {
             htmlFor="title"
             className="text-sm font-medium text-gray-700 dark:text-gray-300"
           >
-          <label
-            htmlFor="title"
-            className="text-sm font-medium text-gray-700 dark:text-gray-300"
-          >
             Title
           </label>
           <input
@@ -82,9 +78,6 @@ export const ListForm = ({ formAction, initialData }) => {
             </span>
           </div>
           {formState.errors.content && (
-            <p className="text-sm text-red-500 dark:text-red-400">
-              {formState.errors.content?.join(", ")}
-            </p>
             <p className="text-sm text-red-500 dark:text-red-400">
               {formState.errors.content?.join(", ")}
             </p>
