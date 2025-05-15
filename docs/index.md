@@ -423,6 +423,10 @@ This directory holds all images, these have been used for backdrops and placehol
 ****
    * ### src/lib
       * ### src/lib/reminderChecks.js
+      * `checkAndSendReminders()` is an asynchronous server-side function responsible for sending reminder notifications for todo tasks scheduled for the current day. Defines the start and end of the current day to filter reminders due today.
+      * Queries the database with `reminderDate` between the start and end of today. Status of either "PENDING" or "IN_PROGRESS". `remindedAt` unset (i.e., reminders not already sent).
+      * Includes related List with its collaborators and the assigned User
+      * Sends reminders via the `sendReminder` function to both the task owner and all collaborators. Marks each todo’s `remindedAt` timestamp after successfully sending the reminder to prevent duplicate notifications.
       * ### src/lib/utils.js
 ****
    * ### src/utils
