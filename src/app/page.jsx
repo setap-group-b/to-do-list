@@ -13,13 +13,19 @@ async function LandingPage() {
       {/* Header Section */}
       <header className="p-6 md:p-8 flex items-center justify-between backdrop-blur-md bg-white/70 dark:bg-gray-900/70 sticky top-0 z-50 shadow-sm border-b border-indigo-100 dark:border-indigo-900/40">
         <Logo className="transform hover:scale-105 transition-transform duration-300" />
-        <Button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:opacity-90 transition-all duration-300 text-white font-medium px-6 py-2 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-0.5">
-          {session ? (
-            <Link href="/dashboard" className="text-white">Go to Task Board</Link>
-          ) : (
-            <Link href="/login" className="text-white">Login / Sign up</Link>
-          )}
-        </Button>
+        {session ? (
+          <Link href="/dashboard">
+            <Button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:opacity-90 transition-all duration-300 text-white font-medium px-6 py-2 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-0.5">
+              Go to Task Board
+            </Button>
+          </Link>
+        ) : (
+          <Link href="/login">
+            <Button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:opacity-90 transition-all duration-300 text-white font-medium px-6 py-2 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-0.5">
+              Login / Sign up
+            </Button>
+          </Link>
+        )}
       </header>
 
       {/* Hero Section */}
@@ -31,11 +37,11 @@ async function LandingPage() {
         <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-3xl mb-12 leading-relaxed">
           Streamline your workflow with our intuitive task management platform featuring smart priorities, deadlines, and real-time collaboration.
         </p>
-        <Button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:opacity-90 transition-all duration-300 text-white font-medium px-10 py-4 text-xl rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1">
-          <Link href={session ? "/dashboard" : "/signup"}>
+        <Link href={session ? "/dashboard" : "/signup"}>
+          <Button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:opacity-90 transition-all duration-300 text-white font-medium px-10 py-4 text-xl rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1">
             Get Started
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </section>
 
       {/* Photo Showcase Section */}
@@ -272,11 +278,11 @@ async function LandingPage() {
       {/* CTA Section */}
       <section className="py-20 px-6 text-center bg-gradient-to-b from-white to-indigo-50 dark:from-gray-900 dark:to-indigo-950/30">
         <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-800 dark:text-gray-100">Ready to Get Organized?</h2>
-        <Button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:opacity-90 transition-all duration-300 text-white font-medium px-12 py-4 text-xl rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1">
-          <Link href={session ? "/dashboard" : "/signup"}>
+        <Link href={session ? "/dashboard" : "/signup"}>
+          <Button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:opacity-90 transition-all duration-300 text-white font-medium px-12 py-4 text-xl rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-1">
             Start Your Journey
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </section>
 
       {/* Footer */}
