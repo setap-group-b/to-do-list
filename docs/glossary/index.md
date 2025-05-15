@@ -517,6 +517,13 @@ This directory holds all images, these have been used for backdrops and placehol
   
 - ### src/utils/index.js
 - This file acts as a centralized export module for all server-side data-fetching functions used across the application. By using this file, other modules can import utilities more cleanly without needing to reference individual paths.
+- `getUserTodos`	fetches all todos for a specific list where the user is an owner or collaborator.
+- `getUserTodo`	Fetches a specific todo item for a user and list.
+- `getUserGroups`	Fetches all collaborative groups (lists shared with the user).
+- `getUserGroup`	Fetches a single shared list the user is part of.
+- `getUserLists`	Fetches all lists owned by the user.
+- `getUserList`	Fetches a specific list owned by the user.
+- `getServerSessionWrapper`	Wraps `getServerSession()` using your custom NextAuth configuration.
 
 ---
 
