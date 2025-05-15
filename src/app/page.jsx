@@ -12,7 +12,10 @@ async function LandingPage() {
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-950/30 dark:via-purple-950/30 dark:to-pink-950/30">
       {/* Header Section */}
       <header className="p-6 md:p-8 flex items-center justify-between backdrop-blur-md bg-white/70 dark:bg-gray-900/70 sticky top-0 z-50 shadow-sm border-b border-indigo-100 dark:border-indigo-900/40">
-        <Logo className="transform hover:scale-105 transition-transform duration-300" />
+        <div className="relative group">
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg blur-sm" />
+          <Logo className="transform group-hover:scale-110 transition-all duration-300 ease-in-out group-hover:shadow-lg rounded-lg relative z-10" />
+        </div>
         {session ? (
           <Link href="/dashboard">
             <Button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:opacity-90 transition-all duration-300 text-white font-medium px-6 py-2 rounded-lg shadow-md hover:shadow-lg hover:-translate-y-0.5">
@@ -51,12 +54,13 @@ async function LandingPage() {
             See It In Action
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+            <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl transition-all duration-300 transform hover:-translate-y-1 group hover:shadow-[0_0_15px_rgba(255,255,255,0.5)] dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 dark:group-hover:bg-white/5 transition-all duration-300 rounded-2xl" />
               <Image 
                 src="/dashboard-preview.jpg"
                 alt="Dashboard Preview"
                 fill
-                className="object-cover"
+                className="object-cover transition-all duration-300"
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
@@ -66,12 +70,13 @@ async function LandingPage() {
                 </div>
               </div>
             </div>
-            <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+            <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl transition-all duration-300 transform hover:-translate-y-1 group hover:shadow-[0_0_15px_rgba(255,255,255,0.5)] dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 dark:group-hover:bg-white/5 transition-all duration-300 rounded-2xl" />
               <Image 
                 src="/task-management.jpg"
                 alt="Task Management Interface"
                 fill
-                className="object-cover"
+                className="object-cover transition-all duration-300"
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
@@ -81,12 +86,13 @@ async function LandingPage() {
                 </div>
               </div>
             </div>
-            <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+            <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl transition-all duration-300 transform hover:-translate-y-1 group hover:shadow-[0_0_15px_rgba(255,255,255,0.5)] dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 dark:group-hover:bg-white/5 transition-all duration-300 rounded-2xl" />
               <Image 
                 src="/priority-management.jpg"
                 alt="Priority Management Interface"
                 fill
-                className="object-cover"
+                className="object-cover transition-all duration-300"
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
@@ -96,12 +102,13 @@ async function LandingPage() {
                 </div>
               </div>
             </div>
-            <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+            <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl transition-all duration-300 transform hover:-translate-y-1 group hover:shadow-[0_0_15px_rgba(255,255,255,0.5)] dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 dark:group-hover:bg-white/5 transition-all duration-300 rounded-2xl" />
               <Image 
                 src="/collaboration.jpg"
                 alt="Team Collaboration"
                 fill
-                className="object-cover"
+                className="object-cover transition-all duration-300"
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
