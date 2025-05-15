@@ -33,13 +33,31 @@ import { CSS } from "@dnd-kit/utilities";
 const LOCAL_STORAGE_KEY = "sidebar-list-order";
 
 const SortableListItem = ({ list, state }) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: list.id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+    active,
+  } = useSortable({ id: list.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
+
+  const [wasDragging, setWasDragging] = useState(false);
+
+  useEffect(() => {
+    if (isDragging) {
+      setWasDragging(true);
+    } else if (wasDragging) {
+      const timer = setTimeout(() => setWasDragging(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isDragging, wasDragging]);
 
   return (
     <SidebarMenuItem
@@ -49,22 +67,41 @@ const SortableListItem = ({ list, state }) => {
       {...listeners}
     >
       <SidebarMenuButton className="text-sidebar-foreground">
-        <Link
-          href={`/dashboard/list/${list.id}/todo`}
-          className={cn(
-            "flex items-center gap-4",
-            state === "expanded" ? "w-full" : "",
-          )}
-        >
+        {!wasDragging && (
+          <Link
+            href={`/dashboard/list/${list.id}/todo`}
+            className={cn(
+              "flex items-center gap-4",
+              state === "expanded" ? "w-full" : "",
+            )}
+          >
+            <div
+              className="h-2 w-2 rounded-full mr-2"
+              style={{ backgroundColor: list.backgroundColour || "#999" }}
+            />
+            <span className="truncate">{list.title}</span>
+            <span className="ml-auto bg-muted text-xs rounded px-2 py-0.5">
+              {list.taskCount ?? 0}
+            </span>
+          </Link>
+        )}
+        {wasDragging && (
           <div
-            className="h-2 w-2 rounded-full mr-2"
-            style={{ backgroundColor: list.backgroundColour || "#999" }}
-          />
-          <span className="truncate">{list.title}</span>
-          <span className="ml-auto bg-muted text-xs rounded px-2 py-0.5">
-            {list.taskCount ?? 0}
-          </span>
-        </Link>
+            className={cn(
+              "flex items-center gap-4 pointer-events-none",
+              state === "expanded" ? "w-full" : "",
+            )}
+          >
+            <div
+              className="h-2 w-2 rounded-full mr-2"
+              style={{ backgroundColor: list.backgroundColour || "#999" }}
+            />
+            <span className="truncate">{list.title}</span>
+            <span className="ml-auto bg-muted text-xs rounded px-2 py-0.5">
+              {list.taskCount ?? 0}
+            </span>
+          </div>
+        )}
       </SidebarMenuButton>
     </SidebarMenuItem>
   );
@@ -114,9 +151,13 @@ const Lists = ({ userLists }) => {
     );
   });
 
-  console.log("filteredLists:", filteredLists);
-
-  const sensors = useSensors(useSensor(PointerSensor));
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5, // Require 5px movement before drag starts
+      },
+    }),
+  );
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -166,8 +207,8 @@ const Lists = ({ userLists }) => {
               items={filteredLists.map((item) => item.id)}
               strategy={verticalListSortingStrategy}
             >
-              {filteredLists.slice(0, 5).map((list) => {
-                console.log("Rendering list item:", list); 
+              {filteredLists.map((list) => {
+                console.log("Rendering list item:", list);
                 return (
                   <SortableListItem key={list.id} list={list} state={state} />
                 );
