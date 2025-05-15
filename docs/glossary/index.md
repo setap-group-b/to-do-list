@@ -448,41 +448,52 @@ This directory holds all images, these have been used for backdrops and placehol
 - `status icon`. icon next to the status of the tasks
 - `priority` levels used for each task (HIGH,MEDIUM,LOW,NONE)
 - `priorityObject` is a readable map for priority values.
+  
 - ### src/utils/cyclePriority.js
 - Cycles through the predefined list of priorities (e.g., HIGH, MEDIUM, LOW, NONE) and sets the next one in the list. When it reaches the end, it loops back to the start.
 - `currentPriority`: The current priority object (e.g., { value: "MEDIUM" }).
 - `priorities`: Array of priority objects to cycle through (e.g., `[{ value: "HIGH" }, { value: "MEDIUM" }, ...]`).
 - `setPriority`: A setter function to update the selected priority.
 - In practice this is will work such that If `currentPriority` is "LOW", and the priorities list is [HIGH, MEDIUM, LOW, NONE], it will cycle to "NONE" next. From "NONE", it will cycle back to "HIGH".
+  
 - ### src/utils/displayError.js
 - To show a user-friendly error notification using `react-hot-toast` based on different possible error formats.
 - `err`: Can be a string, object, or server response containing an error message. If `err` is a string, it directly displays it as a toast error.
 - If `err.data.message` is an array, it loops through the array and displays each message.
 - a default error message: "Something went wrong, please try again!".
+  
 - ### src/utils/functions.js
 - `randomColor(isLightMode: boolean): string` Generates a random color based on the theme mode. In light mode, generates darker shades (0–99). In dark mode, generates lighter shades (150–255).
 - `dateFormatter(date: string | Date, options?: Intl.DateTimeFormatOptions): string`. Formats a given date into a readable string using British English locale `(en-GB)`. `date`: A Date object or date string. `options`: `Optional Intl.DateTimeFormatOptions` to customize formatting.(e.g., "Thursday, 15 May 2025 at 12:34:56").
 - `capitalizeString(value: string): string`. Returns the string with its first character in uppercase. capitalizeString("hello");  // "Hello"
 - `modifyOptions(arr: string[], label?: string): { label: string, value: string }[]`. Transforms an array of strings into an array of objects for use in dropdowns or selects. Returns: Array of `{ label, value }` pairs. For example, `modifyOptions(["low", "medium"]);`
 - `getNotificationDate(deadlineDate: Date | string, option: string): Date | null`. Calculates a notification date relative to a given deadline. Returns: A Date object representing the notification time, or null if invalid. Subtracts time from the deadline based on the option. If the calculated date is in the past, returns today’s date instead. eg. `getNotificationDate("2025-06-01", "1 week");`
+  
 - ### src/utils/gatAllTasks.js
 - `getAllTasks(user, isCompleted)` fetches all tasks associated with a given user — including tasks from their own lists and any shared (collaborative) lists.
 - `Promise<Todo[]>:` An array of tasks (todos) accessible by the user, as returned from Prisma’s `findMany()` query. Queries the `todo` table for tasks where the user is the owner of the list `(List.userId)`. Or the user is a collaborator on the list `(List.collaborators)`.
-- The `isCompleted` parameter is not currently used in the query. You may filter tasks like this in the future where you can get completed tasks or not etc. 
+- The `isCompleted` parameter is not currently used in the query. You may filter tasks like this in the future where you can get completed tasks or not etc.
+  
 - ### src/utils/getServerSessionWrapper.js
 - A helper function that wraps NextAuth’s `getServerSession()` with pre-configured authentication options. This function simplifies server-side access to the current user session by using your authOptions configuration. It's useful in server components, API routes, or any place where server-side authentication is required.
 - `Promise<Session | null>` Resolves to the authenticated user's session object, or null if the user is not logged in.
+  
 - ### src/utils/getUserGroup.js
 - `getUserGroup(user, listId)` function checks whether the user is a collaborator on a given list (or group). It ensures that only authorized users can access the list's data. It uses Prisma’s `findUnique` method on the list model with a condition that checks both the id of the list and whether the user is listed as a collaborator.
 - `user: { id: string }` is the user object (or just an object with the user's ID)
 - `listId: string` is the unique identifier of the list/group to look up.
 - `Promise<List | null>` resolves to the list if the user is a collaborator, otherwise null.
+  
 - ### src/utils/getUserGroups.js
 - `getUserGroups(user)` fetches all the lists/groups where the user is a collaborator.
 - `user: { id: string }` the current user object or an object with at least the user's id.
 - `Promise<List[]>` promise that resolves to an array of list objects where the user is a collaborator.
-- 
+  
 - ### src/utils/getUserList.js
+- This function is used to fetch a single list that was created by the current user, ensuring only list owners can access this data. It also fetches any collaborators who have been invited to this list.
+- `user: { id: string }` authenticates user (must be the owner of the list).
+- `listId: string` is the unique identifier of the list to fetch.
+- `Promise<List | null>` is the promise resolving to the list object if found, or null if not found or not owned by the user.
 - ### src/utils/getUserLists.js
 - ### src/utils/getUserToDo.js
 - ### src/utils/getUserToDos.js
