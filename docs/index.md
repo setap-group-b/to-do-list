@@ -395,6 +395,7 @@ This directory holds all images, these have been used for backdrops and placehol
       * ### src/components/ui 
         *  
         * ### src/components/ui/button.jsx
+        * `Button({ className, variant, size, asChild, ...props })` is a reusable UI component for rendering buttons across the app.The asChild prop allows rendering custom elements (like a, Link, etc.) instead of a standard button, using Radix UI's Slot.Includes built-in accessibility and focus styles using focus-visible, aria-invalid, and disabled states.
         * ### src/components/ui/card.jsx
         * ### src/components/ui/theme-provider.jsx
         * > This is an incomplete component directory, files that need linking to will be added ahead of the main bulk of content
