@@ -515,7 +515,8 @@ This directory holds all images, these have been used for backdrops and placehol
 - `listId	string`	is ID of the list to fetch todos from.
 - A Promise resolving to an array of Todo objects.
   
-- ### src/utils/index.js 
+- ### src/utils/index.js
+- This file acts as a centralized export module for all server-side data-fetching functions used across the application. By using this file, other modules can import utilities more cleanly without needing to reference individual paths.
 
 ---
 
