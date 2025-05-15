@@ -431,6 +431,11 @@ This directory holds all images, these have been used for backdrops and placehol
 ****
    * ### src/utils
    * ### src/utils/constants.js
+   * localStorageFont, localStorageBoldness is used for persistant user font and boldness preferences in localStorage.
+   * `status` represent which state the task is in (pending, in progress or completed)
+   * `status icon`. icon next to the status of the tasks
+   * `priority` levels used for each task (HIGH,MEDIUM,LOW,NONE)
+   * `priorityObject` is a readable map for priority values. 
    * ### src/utils/cyclePriority.js
    * ### src/utils/displayError.js
    * ### src/utils/functions.js
