@@ -58,3 +58,17 @@ To include email notification feature:
    EMAIL_PORT # 465 or 587
    EMAIL_FROM=your-email@example.com # Default "from" address
 ```
+
+### Prerequisites
+
+- Node.js 18.x or higher  
+- npm (comes with Node.js)  
+- A Neon Postgres database (see [Neon docs](https://neon.tech/docs))  
+- Vercel CLI installed globally (`npm i -g vercel` recommended)  
+
+### Troubleshooting
+
+- If environment variables don’t load, ensure `.env` is in the root and correctly formatted.  
+- For OAuth errors, check callback URLs exactly match those set in GitHub/Google OAuth apps.  
+- If prisma commands fail, check your database connection string and Neon dashboard.  
+
