@@ -459,8 +459,12 @@ This directory holds all images, these have been used for backdrops and placehol
 - `err`: Can be a string, object, or server response containing an error message. If `err` is a string, it directly displays it as a toast error.
 - If `err.data.message` is an array, it loops through the array and displays each message.
 - a default error message: "Something went wrong, please try again!".
-- 
 - ### src/utils/functions.js
+- `randomColor(isLightMode: boolean): string` Generates a random color based on the theme mode. In light mode, generates darker shades (0–99). In dark mode, generates lighter shades (150–255).
+- `dateFormatter(date: string | Date, options?: Intl.DateTimeFormatOptions): string`. Formats a given date into a readable string using British English locale `(en-GB)`. `date`: A Date object or date string. `options`: `Optional Intl.DateTimeFormatOptions` to customize formatting.(e.g., "Thursday, 15 May 2025 at 12:34:56").
+- `capitalizeString(value: string): string`. Returns the string with its first character in uppercase. capitalizeString("hello");  // "Hello"
+- `modifyOptions(arr: string[], label?: string): { label: string, value: string }[]`. Transforms an array of strings into an array of objects for use in dropdowns or selects. Returns: Array of `{ label, value }` pairs. For example, `modifyOptions(["low", "medium"]);`
+- `getNotificationDate(deadlineDate: Date | string, option: string): Date | null`. Calculates a notification date relative to a given deadline. Returns: A Date object representing the notification time, or null if invalid. Subtracts time from the deadline based on the option. If the calculated date is in the past, returns today’s date instead. eg. `getNotificationDate("2025-06-01", "1 week");`
 - ### src/utils/gatAllTasks.js
 - ### src/utils/getServerSessionWrapper.js
 - ### src/utils/getUserGroup.js
