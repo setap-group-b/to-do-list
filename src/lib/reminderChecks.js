@@ -20,7 +20,7 @@ export async function checkAndSendReminders() {
 
   for (const reminder of reminders) {
     await sendReminder(reminder, [
-      ...reminder.List.collaborators,
+      ...(reminder.List.collaborators || []),
       reminder.User,
     ]);
     await prisma.todo.update({
