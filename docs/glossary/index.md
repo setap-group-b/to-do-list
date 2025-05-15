@@ -494,8 +494,20 @@ This directory holds all images, these have been used for backdrops and placehol
 - `user: { id: string }` authenticates user (must be the owner of the list).
 - `listId: string` is the unique identifier of the list to fetch.
 - `Promise<List | null>` is the promise resolving to the list object if found, or null if not found or not owned by the user.
+  
 - ### src/utils/getUserLists.js
+- `getUserLists(user)` function to retrieve all lists owned by a user. It does not return lists the user is a collaborator on — only those they have created. Useful for building a user's dashboard or home view.
+- `user: { id: string }` authenticated user whose lists will be fetched.
+- `Promise<List[]>` resolves to an array of lists owned by the user.
+- `Todo:` An array of to-do items associated with the list.
+- `collaborators:` An array of user objects with: id, name, email, image
+
 - ### src/utils/getUserToDo.js
+- `getUserTodo(user, todoId, listId)` fetches a specific to-do item that the user has access to — either as the list owner or a collaborator.
+- `user: { id: string }` is the currently authenticated user.
+- `todoId: string` is the unique ID of the to-do item being requested.
+- `listId: string` is the list ID to ensure the todo belongs to a specific list.
+- `Promise<Todo | null>` A single to-do item object if access is permitted, or null if not found or access is denied.
 - ### src/utils/getUserToDos.js
 - ### src/utils/index.js
 
