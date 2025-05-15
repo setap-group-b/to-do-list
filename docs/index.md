@@ -430,5 +430,18 @@ This directory holds all images, these have been used for backdrops and placehol
       * ### src/lib/utils.js
 ****
    * ### src/utils
+   * ### src/utils/constants.js
+   * ### src/utils/cyclePriority.js
+   * ### src/utils/displayError.js
+   * ### src/utils/functions.js
+   * ### src/utils/gatAllTasks.js
+   * ### src/utils/getServerSessionWrapper.js
+   * ### src/utils/getUserGroup.js
+   * ### src/utils/getUserGroups.js
+   * ### src/utils/getUserList.js
+   * ### src/utils/getUserLists.js
+   * ### src/utils/getUserToDo.js
+   * ### src/utils/getUserToDos.js
+   * ### src/utils/index.js
 ****
 #### *To be continued...*
