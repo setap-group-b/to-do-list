@@ -1,6 +1,6 @@
 # To-do List
 
-[![Tests for Next.js app](https://github.com/setap-group-b/to-do-list/actions/workflows/test.yml/badge.svg)](https://github.com/setap-group-b/to-do-list/actions/workflows/test.yml)
+[![Tests for To-do List](https://github.com/setap-group-b/to-do-list/actions/workflows/test.yml/badge.svg)](https://github.com/setap-group-b/to-do-list/actions/workflows/test.yml)
 
 Software Engineering Theory & Practice Group-1B "To-do List" Coursework Project.
 
