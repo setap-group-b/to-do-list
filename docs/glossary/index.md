@@ -91,8 +91,6 @@ This database schema uses the [**Prisma**](https://www.prisma.io/docs) library f
 
     - The unique constraint `@@unique([identifier, token])` also allows for easier querying of this particular model due to the component logic enforcing that `identifier` + `token` must be unique.
 
----
-
 ### lib/auth.js
 
 - **authOptions():** This function is supported by [**NextAuth.js**](https://next-auth.js.org/getting-started/introduction), a subsection of [**Next.js**](https://nextjs.org/docs) which focuses heavily on authenticating and validating data.
@@ -118,8 +116,6 @@ This database schema uses the [**Prisma**](https://www.prisma.io/docs) library f
 
     - `secret: process.env.NEXTAUTH_SECRET` then encrypts our session's key by adding a long and randomly generated string to the end of a JWT.
 
----
-
 ### lib/mailer.js
 
 This file is responsible for the sending of the notification reminder for a user's tasks that have a deadline (e.g. "You have 1 week before your deadline!"), it utlises the [**NodeMailer**](https://nodemailer.com/) library to structure and send emails to the desired recipient(s).
@@ -140,15 +136,11 @@ This file is responsible for the sending of the notification reminder for a user
   > subject: => Takes the `task.title` and `date` to provide an automated subject field.
   > text: takes various fields from the `task` object and formats it in a welcoming and friendly pre-written message to notify them their task is due in X amount of time.
 
----
-
 ### lib/prisma.js
 
 This file is responsible for establishing the prisma client using the [**prisma library**](https://www.prisma.io/docs)
 
 - checks if the app is running in `"development"` or `"production"` mode, in production, code runs once so calling a new client each instance is safe. However in development, the server typically refreshes after each file change putting strain on the database from numerous redundant connections.
-
----
 
 ### lib/schema.js
 
@@ -159,15 +151,11 @@ This file contains the code responsible for passing formatted credentials to our
   - This creates an object to be used in the authorisation for users logging in/ registering
     - Contains fields `{ name, email, password }`, all of these have constraints and default values to enforce valid inputs and maintain consistency in terms of formatting.
 
----
-
 ## node_modules
 
 Here belongs all of the necessary dependencies required for this project installed by running `npm i`, however the length and contents of this directory are subject to change over the course of the app's lifetime.
 
 > For a better explanation of node modules or npm in general, please visit [**the npm site**](https://docs.npmjs.com/about-npm)
-
----
 
 ## /public
 
@@ -175,30 +163,22 @@ This directory holds all images, these have been used for backdrops and placehol
 
 - Use of the Next.js `Image` component has also been utilised for its increased performance and optimisation [**src/app/page.jsx**](#srcapppagejsx)
 
----
-
 ## /src
 
-### src/app
+### src/app/(auth)
 
-- ### src/app/(auth)
+#### src/app/(auth)/login
 
-  - ### src/app/(auth)/login
+Imports all of the necessary components from [**`"/ui/card.jsx"`**](#srccomponentsuicardjsx) and arranges them to build the login ui of the app.
 
-    - Imports all of the necessary components from [**`"/ui/card.jsx"`**](#srccomponentsuicardjsx) and arranges them to build the login ui of the app.
+#### src/app/(auth)/signup
 
-    - ### src/app/(auth)/signup
+- Almost identical to `"src/app/(auth)/login"` in terms of the imported components, with the only difference being some contextual text differences between logging in and registering.
 
-      - Almost identical to `"src/app/(auth)/login"` in terms of the imported components, with the only difference being some contextual text differences between logging in and registering.
+#### src/app/(auth)/layout.jsx
 
-    ### src/app/(auth)/layout.jsx
-
-    - Checks if a user is already authenticated, redirecting to the dashboard if so.
-    - If not, the desired layout is injected into the `"children"` parameter of div `className="flex flex-1 items-center justify-center w-full"`
-
----
-
-### src/app/actions
+- Checks if a user is already authenticated, redirecting to the dashboard if so.
+- If not, the desired layout is injected into the `"children"` parameter of div `className="flex flex-1 items-center justify-center w-full"`
 
 ### src/app/actions
 
@@ -215,316 +195,344 @@ This directory holds all images, these have been used for backdrops and placehol
 - `updateList(listId, formState, formData)`: Stores a parsed `todoSchema` object to have its fields passed into a Prisma `.update({ where, data })`. `listId` identifies the list to be updated, and the parsed values overwrite the values of that list.
 - `deleteList(listId)`: If the passed `listId` is found in the Prisma schema, `.delete()` is called on that list's ID; errors are thrown if not found.
 
-    - ### src/app/actions/todo.js
-      - `todoSchema` defines a zod schema for a to-do-list entry, containing a title, content, priority, deadline, notification and status. Each of these fields has the constraints and input requirements established at their declaration with zod's [**primitives**](https://zod.dev/?id=primitives)
-      - `createTodo(listId, type, formState, formData)`:
-      - `updateTodo(id, listId, type, formState, status)`:
-      - `updateTodoStatus(id, listId, type, status)`:
+#### src/app/actions/todo.js
+
+- `todoSchema` defines a zod schema for a to-do-list entry, containing a title, content, priority, deadline, notification and status. Each of these fields has the constraints and input requirements established at their declaration with zod's [**primitives**](https://zod.dev/?id=primitives)
+- `createTodo(listId, type, formState, formData)`:
+- `updateTodo(id, listId, type, formState, status)`:
+- `updateTodoStatus(id, listId, type, status)`:
+
+### src/app/api
+
+#### src/app/api/auth/[...nextauth]/route.js
+
+- This file loads the authentication options we previously declared in [**lib/auth**](#libauthjs) for use in our GET and POST requests.
+
+#### src/app/api/auth/signup/route.js
+
+- This file handles the signup functionality of our login system, as the fields parsed from our zod schema [**signUpSchema**](#libschemajs) are checked against the database for existing accounts.
+- The parsed password is hashed using [**bcrypt**](https://www.npmjs.com/package/bcrypt) and excluded from the userData object to avoid exposing sensitive information in the response messages
+
+#### src/app/api/cron
+
+#### src/app/api/cron/route.js
+
+- [**`checkAndSendReminders()`**](#srclibreminderchecksjs) is used here to gather a list of users who have not yet been reminded about the deadline of their task (based on their `notification` setting) and send out a wave of pre-written reminder emails.
+
+#### src/app/api/index.js
+
+- This file only exports the `src/app/api/[...nextauth]/route` code.
 
 ---
 
- ### src/app/api
+### src/app/dashboard/group
 
-   ### src/app/api/auth
+#### src/app/dashboard/group/[listId]/todo/[id]/edit/page.jsx
 
-     ### src/app/api/auth/[...nextauth]/route.js
-      - This file loads the authentication options we previously declared in [**lib/auth**](#libauthjs) for use in our GET and POST requests.
-     ### src/app/api/auth/signup/route.js
+- `PostsEdit({ params })` Updates a user's todo list by pulling the cached list and updating its initialData fields. Cache is used here for greatly increased efficiency and speed when fetching.
 
-      - This file handles the signup functionality of our login system, as the fields parsed from our zod schema [**signUpSchema**](#libschemajs) are checked against the database for existing accounts.
-      - The parsed password is hashed using [**bcrypt**](https://www.npmjs.com/package/bcrypt) and excluded from the userData object to avoid exposing sensitive information in the response messages
+#### src/app/dashboard/group/[listId]/todo/[id]/add/page.jsx
 
-    - ### src/app/api/cron
+- Solely return the TodoForm function component with appropriate default values for its `initialData` parameter: `initialData={{title: "", content: "", priority: "", status: ""}}`
 
-      - ### src/app/api/cron/route.js
-        - [**`checkAndSendReminders()`**](#srclibreminderchecksjs) is used here to gather a list of users who have not yet been reminded about the deadline of their task (based on their `notification` setting) and send out a wave of pre-written reminder emails.
+#### src/app/dashboard/group/[listId]/todo/page.jsx
 
-    - ### src/app/api/index.js
-      - This file only exports the `src/app/api/[...nextauth]/route` code.
+- This file uses the function components [`**Todos**`](#srccomponentstodos), [`**PageHeader**`](#srccomponentspageheaderjsx) and [`**Button**`](#srccomponentsusbuttonjsx) to form the list of group tasks a user is collaborating on.
 
----
+#### src/app/dashboard/group/page.jsx
 
- ### src/app/dashboard
+- This file uses the [**`PageHeader`**](#srccomponentspageheaderjsx) and [**`Groups`**](#srccomponentsgroupsjsx) function components to form the group page/ dashboard.
 
-   ### src/app/dashboard/group
+#### src/app/dashboard/list
 
-     ### src/app/dashboard/group/[listId]/todo
+#### src/app/dashboard/list/[listId]
 
-      - ### src/app/dashboard/group/[listId]/todo/[id]/edit/page.jsx
+#### src/app/dashboard/list/[listId]/edit/page.jsx
 
-        - `PostsEdit({ params })` Updates a user's todo list by pulling the cached list and updating its initialData fields. Cache is used here for greatly increased efficiency and speed when fetching.
+Also uses the `PostsEdit({ params })` function to return a new [**`ListForm`**](#srccomponentslistform) for a created [**`List`**](#srccomponentslist) with updated values passed into the form's `initialData` fields.
 
-        - ### src/app/dashboard/group/[listId]/todo/[id]/add/page.jsx
-          - Solely return the TodoForm function component with appropriate default values for its `initialData` parameter: `initialData={{title: "", content: "", priority: "", status: ""}}`
-        - ### src/app/dashboard/group/[listId]/todo/page.jsx
-          - This file uses the function components [`**Todos**`](#srccomponentstodos), [`**PageHeader**`](#srccomponentspageheaderjsx) and [`**Button**`](#srccomponentsusbuttonjsx) to form the list of group tasks a user is collaborating on.
+#### src/app/dashboard/list/[listId]/todo
 
-      - ### src/app/dashboard/group/page.jsx
-        - This file uses the [**`PageHeader`**](#srccomponentspageheaderjsx) and [**`Groups`**](#srccomponentsgroupsjsx) function components to form the group page/ dashboard.
+#### src/app/dashboard/list/[listId]/todo/[id]/edit/page.jsx
 
-    ***
+- Again, uses `PostsEdit({ params })` to return an updated Todo Form, this time with updated `initialData` field values.
 
-    - ### src/app/dashboard/list
+#### src/app/dashboard/list/[listId]/todo/add/page.jsx
 
-      - ### src/app/dashboard/list/[listId]
+- `userTodoAdd({ params })` calls [**`createTodo`**](#srcappactionstodojs) to initialise a valid listId within the database and append the function component [**TodoForm**](#srccomponentstodoform) to that new list.
 
-        - ### src/app/dashboard/list/[listId]/edit/page.jsx
+#### src/app/dashboard/list/[listId]/todo/page.jsx
 
-          - Also uses the `PostsEdit({ params })` function to return a new [**`ListForm`**](#srccomponentslistform) for a created [**`List`**](#srccomponentslist) with updated values passed into the form's `initialData` fields.
+- `UserList({ params })` uses cache to fetch a user's list and display it using the [`PageHeader`\*\*](#srccomponentspageheaderjsx), [**`Button`**](#srccomponentsusbuttonjsx), [**`AddCollaborators`**](#srccomponentsaddcollaboratorsjsx), [**`ListDelete`**](#srccomponentslistdelete) and [**`Todos`**](#srccomponentstodos) function components to format the page.
 
-        - ### src/app/dashboard/list/[listId]/todo
-          - ### src/app/dashboard/list/[listId]/todo/[id]/edit/page.jsx
-            - Again, uses `PostsEdit({ params })` to return an updated Todo Form, this time with updated `initialData` field values.
-          - ### src/app/dashboard/list/[listId]/todo/add/page.jsx
-            - `userTodoAdd({ params })` calls [**`createTodo`**](#srcappactionstodojs) to initialise a valid listId within the database and append the function component [**TodoForm**](#srccomponentstodoform) to that new list.
-          - ### src/app/dashboard/list/[listId]/todo/page.jsx
-            - `UserList({ params })` uses cache to fetch a user's list and display it using the [**`PageHeader`**](#srccomponentspageheaderjsx), [**`Button`**](#srccomponentsusbuttonjsx), [**`AddCollaborators`**](#srccomponentsaddcollaboratorsjsx), [**`ListDelete`**](#srccomponentslistdelete) and [**`Todos`**](#srccomponentstodos) function components to format the page.
+#### src/app/dashboard/list/add/page.jsx
 
-      - ### src/app/dashboard/list/add/page.jsx
-      - `UserListAdd()` returns a [**`ListForm`**](#srccomponentslistform) with the [**`createList`**](#srcappactionslistjs) logic being passed as the formAction.
+- `UserListAdd()` returns a [**`ListForm`**](#srccomponentslistform) with the [**`createList`**](#srcappactionslistjs) logic being passed as the formAction.
 
-      - ### src/app/dashboard/list/page.jsx
-      - `UserLists()` returns a page that fetches and displays all of a users currently created [**`Lists`**](#srccomponentslists), with the option to create a new list by redirecting to [**`/dashboard/list/add`**](#srcappdashboardlistaddpagejsx).
+#### src/app/dashboard/list/page.jsx
 
-    - ### src/app/dashboard/settings
+- `UserLists()` returns a page that fetches and displays all of a users currently created [**`Lists`**](#srccomponentslists), with the option to create a new list by redirecting to [**`/dashboard/list/add`**](#srcappdashboardlistaddpagejsx).
 
-      - ### src/app/dashboard/settings/index.jsx
+### src/app/dashboard/settings
 
-        - `SettingsPage({ userData })` declares the structure of the settings page, along with some handlers for customisable features such as the theme, font, boldness, of text.
-        - The distinct sections of `Account`, `Theme`, `Font Size` and `Font Boldness` are also defined and composed of function components from the `/components/ui` directory.
+#### src/app/dashboard/settings/index.jsx
 
-      - ### src/app/dashboard/settings/page.jsx
-        - `Settings()` is used to validate the user's session, then return the function component `<SettingsPage/>` in a more modularised form to reduce code bloating on our main page hosting multiple function components.
+- `SettingsPage({ userData })` declares the structure of the settings page, along with some handlers for customisable features such as the theme, font, boldness, of text.
+- The distinct sections of `Account`, `Theme`, `Font Size` and `Font Boldness` are also defined and composed of function components from the `/components/ui` directory.
 
-    - ### src/app/dashboard/layout.jsx
+#### src/app/dashboard/settings/page.jsx
 
-      - `AuthLayout({ children })` validates a user's session before returning the logic and layout of the [**`<Sidebar/>`**](#srccomponentssidebar) for use on the display pages of the app.
+- `Settings()` is used to validate the user's session, then return the function component `<SettingsPage/>` in a more modularised form to reduce code bloating on our main page hosting multiple function components.
 
-    - ### src/app/dashboard/page.jsx
-      - This file combines all of the html and React components to form our home page, only after that user's session has been validated.
+#### src/app/dashboard/layout.jsx
 
-  - ### src/app/globals.css
-    - This file provides dynamic theming through the use of [**`oklch()`**](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch) and [**`tailwind CSS`**](https://tailwindcss.com/docs/installation/using-vite).
-    - This holds some of the presets for global settings like the light and dark-mode feature
+- `AuthLayout({ children })` validates a user's session before returning the logic and layout of the [**`<Sidebar/>`**](#srccomponentssidebar) for use on the display pages of the app.
 
-- ### src/app/layout.jsx
+#### src/app/dashboard/page.jsx
 
-  - `RootLayout({ children })` declares and initialises some of the variables used in [**`<ThemeProvider/>`**](#srccomponentsuitheme-providerjsx).
+- This file combines all of the html and React components to form our home page, only after that user's session has been validated.
 
-- ### src/app/page.jsx
-  - `LandingPage()` returns all of the html and embedded React components to create the initial page that is displayed on load, from here a user will either login or signup and enter the protected directories of the app.
+### src/app
 
----
+#### src/app/globals.css
 
-- ### src/components
+- This file provides dynamic theming through the use of [**`oklch()`**](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch) and [**`tailwind CSS`**](https://tailwindcss.com/docs/installation/using-vite).
+- This holds some of the presets for global settings like the light and dark-mode feature
 
-  - ### src/components/List/index.jsx
+#### src/app/layout.jsx
 
-    - `List({ list })` contains the html and React components to display the user's current lists as well as the options to create new lists and append tasks.
+- `RootLayout({ children })` declares and initialises some of the variables used in [**`<ThemeProvider/>`**](#srccomponentsuitheme-providerjsx).
 
-  - ### src/components/ListDelete/index.jsx
+#### src/app/page.jsx
 
-    - `ListDelete({ listId, className })` packages the functionality of [**deleteList**](#srcappactionslistjs) into a `<ReusableButton/>` function component while preventing the form from being submitted in the standard way.
+- `LandingPage()` returns all of the html and embedded React components to create the initial page that is displayed on load, from here a user will either login or signup and enter the protected directories of the app.
 
-  - ### src/components/ListForm/index.jsx
+### src/components
 
-    - `ListForm({ formAction, initialData })` contains the html and React components to display the list creation form held at `'/Home/Dashboard/List`.
+#### src/components/List/index.jsx
 
-  - ### src/components/Lists/index.jsx
+- `List({ list })` contains the html and React components to display the user's current lists as well as the options to create new lists and append tasks.
 
-    - `Lists()` checks for a valid session before pulling the user's currently stored lists from cache for greatly increased speed.
-    - The stored lists are then mapped into an array for display in [`'/dashboard/list'`](#srcappdashboardlist)
+#### src/components/ListDelete/index.jsx
 
-  - ### src/components/Nav
+- `ListDelete({ listId, className })` packages the functionality of [**deleteList**](#srcappactionslistjs) into a `<ReusableButton/>` function component while preventing the form from being submitted in the standard way.
 
-    - ### src/components/Nav/index.jsx
+#### src/components/ListForm/index.jsx
 
-      - `Nav()` is responsible for the display of the Nav bar commonly seen spanning along the top of the app's pages, It mostly displays a formatted 'current path' in the app's directories.
+- `ListForm({ formAction, initialData })` contains the html and React components to display the list creation form held at `'/Home/Dashboard/List`.
 
-    - ### src/components/Nav/SettingsDropdown.jsx
-      - `SettingsDropdown()` is comprised of mainly React components and displays the dropdown menu when clicking on the user's profile picture.
-      - This functions also contains the handlers for the pressable buttons (`Settings` and `Logout`)
+#### src/components/Lists/index.jsx
 
-  - ### src/components/SessionWrapper/index.jsx
+- `Lists()` checks for a valid session before pulling the user's currently stored lists from cache for greatly increased speed.
+- The stored lists are then mapped into an array for display in [`'/dashboard/list'`](#srcappdashboardlist)
 
-    - This files singular purpose is to initialise NextAuth's [**`SessionProvider`**](https://next-auth.js.org/getting-started/client#sessionprovider) and store this result in a variable to be used across the app (`SessionWrapper`).
+#### src/components/Nav/index.jsx
 
-  - ### src/components/Sidebar
+- `Nav()` is responsible for the display of the Nav bar commonly seen spanning along the top of the app's pages, It mostly displays a formatted 'current path' in the app's directories.
 
-    - ### src/components/Sidebar/Groups.jsx
+#### src/components/Nav/SettingsDropdown.jsx
 
-      - `Groups()` pulls the available groups in a user's session from cache, then passes them to the [**`<GroupsList/>`**](#srccomponentssidebargroupslistjsx) component for rendering on its respective page
+- `SettingsDropdown()` is comprised of mainly React components and displays the dropdown menu when clicking on the user's profile picture.
+- This functions also contains the handlers for the pressable buttons (`Settings` and `Logout`)
 
-    - ### src/components/Sidebar/GroupsList.jsx
+#### src/components/SessionWrapper/index.jsx
 
-      - `Group({ state, group })` contains the html and logic to display the currently available group lists the user has access to.
-      - `GroupsList({ groups })` forms the structure of this panel on the sidebar, mapping the number of available `<Group/>` items as children to its structure.
+- This files singular purpose is to initialise NextAuth's [**`SessionProvider`**](https://next-auth.js.org/getting-started/client#sessionprovider) and store this result in a variable to be used across the app (`SessionWrapper`).
 
-    - ### src/components/Sidebar/index.jsx
+#### src/components/Sidebar
 
-      - `index()` contains the React components that display the `🏠 Home` button that redirects the user to `'/dashboard/`
-      - this function also pulls the user's current lists from cache to be displayed in the space below the `home` button.
+#### src/components/Sidebar/Groups.jsx
 
-    - ### src/components/Sidebar/SortableListItem.jsx
+- `Groups()` pulls the available groups in a user's session from cache, then passes them to the [**`<GroupsList/>`**](#srccomponentssidebargroupslistjsx) component for rendering on its respective page
 
-      - `SortableListItem({ list, state })` One of the sortable lists in the sidebar.
+#### src/components/Sidebar/GroupsList.jsx
 
-    - ### src/components/Sidebar/Lists.jsx
+- `Group({ state, group })` contains the html and logic to display the currently available group lists the user has access to.
+- `GroupsList({ groups })` forms the structure of this panel on the sidebar, mapping the number of available `<Group/>` items as children to its structure.
 
-      - `SortableListItem({ list, state })` Allows for drag and drop styling with the list items displayed on the sidebar using the React toolkit [**`dnd kit`**](https://docs.dndkit.com/api-documentation/context-provider).
-      - `Lists({ userLists })` contains the display logic for the lists held in the sidebar as well as the wider options of creating new lists or viewing all lists.
-        - This function also stores `<SortableListItem/>` as a child node of Lists structure, utilising localStorage to help the custom order of lists persist across sessions.
+#### src/components/Sidebar/index.jsx
 
-    ### src/components/Sidebar/Sidebar.jsx
+- `index()` contains the React components that display the `🏠 Home` button that redirects the user to `'/dashboard/`
+- this function also pulls the user's current lists from cache to be displayed in the space below the `home` button.
 
-      - `Sidebar({ children })` acts as a unifying function to act as a wrapper for the various subcomponents the sidebar is comprised of.
-      - This is visible in [`'/src/components/Sidebar`](#srccomponentssidebar)
+#### src/components/Sidebar/SortableListItem.jsx
 
-    ### src/components/TestButton/index.jsx
+- `SortableListItem({ list, state })` One of the sortable lists in the sidebar.
 
-      - Simply returns a button used for testing
+#### src/components/Sidebar/Lists.jsx
 
-    - ### src/components/Todo/index.jsx
+- `SortableListItem({ list, state })` Allows for drag and drop styling with the list items displayed on the sidebar using the React toolkit [**`dnd kit`**](https://docs.dndkit.com/api-documentation/context-provider).
+- `Lists({ userLists })` contains the display logic for the lists held in the sidebar as well as the wider options of creating new lists or viewing all lists.
+  - This function also stores `<SortableListItem/>` as a child node of Lists structure, utilising localStorage to help the custom order of lists persist across sessions.
 
-      - `Todo({ type, listId, task })` contains the html and React components to render a single Todo item on the `'Home/Dashboard/List/Todo'` page.
-      - The `'Accordion'` descriptors represent the components ability to 'extend' and show its content [**read more here...**](https://react-bootstrap.netlify.app/docs/components/accordion/).
+#### src/components/Sidebar/Sidebar.jsx
 
-    - ### src/components/TodoForm/index.jsx
+- `Sidebar({ children })` acts as a unifying function to act as a wrapper for the various subcomponents the sidebar is comprised of.
+- This is visible in [`'/src/components/Sidebar`](#srccomponentssidebar)
 
-      - `TodoForm({ formAction, initialData, listId, listType })` contains the html and React components for rendering a form capable of establishing a new task for a todo list
-      - Each field has the necessary error handling and input validators to limit issues when submitting using the built in handlers
+#### src/components/TestButton/index.jsx
 
-    - ### src/components/Todos/index.jsx
+- Simply returns a button used for testing
 
-      - `Todos({ type = "list", listId })` pulls the user's current todo lists and maps them to the appropriate fields of the `<Accordion/>` component (e.g. assigning title to the accordion's head and the content to its initially hidden section).
+#### src/components/Todo/index.jsx
 
-    - ### src/components/ui
-      -
-      - ### src/components/ui/button.jsx
-      - `Button({ className, variant, size, asChild, ...props })` is a reusable UI component for rendering buttons across the app.The asChild prop allows rendering custom elements (like a, Link, etc.) instead of a standard button, using Radix UI's Slot.Includes built-in accessibility and focus styles using focus-visible, aria-invalid, and disabled states.
-      - ### src/components/ui/card.jsx
-      - `Card({ className, ...props })` renders the main card wrapper with base padding, border, and shadow styles. Accepts additional props and custom class names.Child components like CardHeader, CardTitle, CardDescription, CardContent, and CardFooter are used to structure content clearly.
-      - Supports customization via the className prop for each section.
-      - ### src/components/ui/theme-provider.jsx
-      - > This is an incomplete component directory, files that need linking to will be added ahead of the main bulk of content
-    - ### src/components/AddCollaborators.jsx
-    - `AddCollaborators({ listId, user, listCollaborators })` is a modal component that allows users to manage collaborators for a specific to-do list. Built with the Dialog component from @/components/ui/dialog to open a modal when clicking the Add collaborators button.
-    - Uses useState to track the current list of collaborators and useActionState to handle async form submissions using the createGroup server action
-    - The ReusableMultiTextInput component is used to add multiple collaborators via email, with built-in validation and change tracking.
-    - A hidden <input> field serializes the collaborators (excluding the current user) for form submission.
-    - Displays form validation errors if any are returned from the createGroup action.
-    - Includes a red "Remove all collaborators" link that calls the deleteGroup server action to clear the list.
-    - ### src/components/Groups.jsx
-    - `Groups()` is an asynchronous server component that fetches and displays the user's current groups.Uses `getServerSessionWrapper()` to determine if a user is logged in. If not, it displays a sign-in prompt.Uses `getUserGroups()` wrapped in a cached function ("use cache") to retrieve the authenticated user's groups from the database or backend.
-    - If no groups exist, it encourages the user to create one.
-    - If groups are found, they are displayed in a responsive grid layout, each rendered with the Group component.
-    - ### src/components/PageHeader.jsx
-    - `PageHeader({ title })` renders a simple, reusable page header with a back navigation button and a dynamic title.Uses the `useRouter()` hook from Next.js to enable backward navigation via `router.back()`.Displays a left-pointing arrow icon (LucideArrowLeft) that functions as a back button. Accepts a title prop which is rendered next to the icon, automatically capitalized.Used to give context and navigation
+- `Todo({ type, listId, task })` contains the html and React components to render a single Todo item on the `'Home/Dashboard/List/Todo'` page.
+- The `'Accordion'` descriptors represent the components ability to 'extend' and show its content [**read more here...**](https://react-bootstrap.netlify.app/docs/components/accordion/).
 
----
+#### src/components/TodoForm/index.jsx
 
-- ### src/hooks
-- ### src/hooks/use-mobile.js
+- `TodoForm({ formAction, initialData, listId, listType })` contains the html and React components for rendering a form capable of establishing a new task for a todo list
+- Each field has the necessary error handling and input validators to limit issues when submitting using the built in handlers
+
+#### src/components/Todos/index.jsx
+
+- `Todos({ type = "list", listId })` pulls the user's current todo lists and maps them to the appropriate fields of the `<Accordion/>` component (e.g. assigning title to the accordion's head and the content to its initially hidden section).
+
+### src/components/ui
+
+#### src/components/ui/button.jsx
+
+- `Button({ className, variant, size, asChild, ...props })` is a reusable UI component for rendering buttons across the app.The asChild prop allows rendering custom elements (like a, Link, etc.) instead of a standard button, using Radix UI's Slot.Includes built-in accessibility and focus styles using focus-visible, aria-invalid, and disabled states.
+
+#### src/components/ui/card.jsx
+
+- `Card({ className, ...props })` renders the main card wrapper with base padding, border, and shadow styles. Accepts additional props and custom class names.Child components like CardHeader, CardTitle, CardDescription, CardContent, and CardFooter are used to structure content clearly.
+- Supports customization via the className prop for each section.
+
+#### src/components/ui/theme-provider.jsx
+
+#### src/components/AddCollaborators.jsx
+
+- AddCollaborators({ listId, user, listCollaborators })` is a modal component that allows users to manage collaborators for a specific to-do list. Built with the Dialog component from @/components/ui/dialog to open a modal when clicking the Add collaborators button.
+- Uses useState to track the current list of collaborators and useActionState to handle async form submissions using the createGroup server action
+- The ReusableMultiTextInput component is used to add multiple collaborators via email, with built-in validation and change tracking.
+- A hidden `<input>` field serializes the collaborators (excluding the current user) for form submission.
+- Displays form validation errors if any are returned from the createGroup action.
+- Includes a red "Remove all collaborators" link that calls the deleteGroup server action to clear the list.
+
+#### src/components/Groups.jsx
+
+- `Groups()` is an asynchronous server component that fetches and displays the user's current groups.Uses `getServerSessionWrapper()` to determine if a user is logged in. If not, it displays a sign-in prompt.Uses `getUserGroups()` wrapped in a cached function ("use cache") to retrieve the authenticated user's groups from the database or backend.
+- If no groups exist, it encourages the user to create one.
+- If groups are found, they are displayed in a responsive grid layout, each rendered with the Group component.
+
+#### src/components/PageHeader.jsx
+
+- `PageHeader({ title })` renders a simple, reusable page header with a back navigation button and a dynamic title.Uses the `useRouter()` hook from Next.js to enable backward navigation via `router.back()`.Displays a left-pointing arrow icon (LucideArrowLeft) that functions as a back button. Accepts a title prop which is rendered next to the icon, automatically capitalized.Used to give context and navigation
+
+### src/hooks
+
+#### src/hooks/use-mobile.js
+
 - `useIsMobile()` is a React hook that detects whether the current viewport width is considered mobile size.Defines a mobile breakpoint constant at 768 pixels.
 - `window.matchMedia` to listen for viewport width changes below the breakpoint.
 - Sets and returns a boolean state isMobile indicating if the screen width is less than the mobile breakpoint.
 
----
+### src/lib
 
-- ### src/lib
-  - ### src/lib/reminderChecks.js
-  - `checkAndSendReminders()` is an asynchronous server-side function responsible for sending reminder notifications for todo tasks scheduled for the current day. Defines the start and end of the current day to filter reminders due today.
-  - Queries the database with `reminderDate` between the start and end of today. Status of either "PENDING" or "IN_PROGRESS". `remindedAt` unset (i.e., reminders not already sent).
-  - Includes related List with its collaborators and the assigned User
-  - Sends reminders via the `sendReminder` function to both the task owner and all collaborators. Marks each todo’s `remindedAt` timestamp after successfully sending the reminder to prevent duplicate notifications.
-  - ### src/lib/utils.js
+#### src/lib/reminderChecks.js
 
----
+- `checkAndSendReminders()` is an asynchronous server-side function responsible for sending reminder notifications for todo tasks scheduled for the current day. Defines the start and end of the current day to filter reminders due today.
+- Queries the database with `reminderDate` between the start and end of today. Status of either "PENDING" or "IN_PROGRESS". `remindedAt` unset (i.e., reminders not already sent).
+- Includes related List with its collaborators and the assigned User
+- Sends reminders via the `sendReminder` function to both the task owner and all collaborators. Marks each todo’s `remindedAt` timestamp after successfully sending the reminder to prevent duplicate notifications.
 
-- ### src/utils
-- ### src/utils/constants.js
+#### src/lib/utils.js
+
+### src/utils
+
+#### src/utils/constants.js
+
 - localStorageFont, localStorageBoldness is used for persistant user font and boldness preferences in localStorage.
 - `status` represent which state the task is in (pending, in progress or completed)
 - `status icon`. icon next to the status of the tasks
 - `priority` levels used for each task (HIGH,MEDIUM,LOW,NONE)
 - `priorityObject` is a readable map for priority values.
-  
-- ### src/utils/cyclePriority.js
+
+#### src/utils/cyclePriority.js
+
 - Cycles through the predefined list of priorities (e.g., HIGH, MEDIUM, LOW, NONE) and sets the next one in the list. When it reaches the end, it loops back to the start.
 - `currentPriority`: The current priority object (e.g., { value: "MEDIUM" }).
 - `priorities`: Array of priority objects to cycle through (e.g., `[{ value: "HIGH" }, { value: "MEDIUM" }, ...]`).
 - `setPriority`: A setter function to update the selected priority.
 - In practice this is will work such that If `currentPriority` is "LOW", and the priorities list is [HIGH, MEDIUM, LOW, NONE], it will cycle to "NONE" next. From "NONE", it will cycle back to "HIGH".
-  
-- ### src/utils/displayError.js
+
+#### src/utils/displayError.js
+
 - To show a user-friendly error notification using `react-hot-toast` based on different possible error formats.
 - `err`: Can be a string, object, or server response containing an error message. If `err` is a string, it directly displays it as a toast error.
 - If `err.data.message` is an array, it loops through the array and displays each message.
 - a default error message: "Something went wrong, please try again!".
-  
-- ### src/utils/functions.js
+
+#### src/utils/functions.js
+
 - `randomColor(isLightMode: boolean): string` Generates a random color based on the theme mode. In light mode, generates darker shades (0–99). In dark mode, generates lighter shades (150–255).
 - `dateFormatter(date: string | Date, options?: Intl.DateTimeFormatOptions): string`. Formats a given date into a readable string using British English locale `(en-GB)`. `date`: A Date object or date string. `options`: `Optional Intl.DateTimeFormatOptions` to customize formatting.(e.g., "Thursday, 15 May 2025 at 12:34:56").
-- `capitalizeString(value: string): string`. Returns the string with its first character in uppercase. capitalizeString("hello");  // "Hello"
+- `capitalizeString(value: string): string`. Returns the string with its first character in uppercase. capitalizeString("hello"); // "Hello"
 - `modifyOptions(arr: string[], label?: string): { label: string, value: string }[]`. Transforms an array of strings into an array of objects for use in dropdowns or selects. Returns: Array of `{ label, value }` pairs. For example, `modifyOptions(["low", "medium"]);`
 - `getNotificationDate(deadlineDate: Date | string, option: string): Date | null`. Calculates a notification date relative to a given deadline. Returns: A Date object representing the notification time, or null if invalid. Subtracts time from the deadline based on the option. If the calculated date is in the past, returns today’s date instead. eg. `getNotificationDate("2025-06-01", "1 week");`
-  
-- ### src/utils/gatAllTasks.js
+
+#### src/utils/gatAllTasks.js
+
 - `getAllTasks(user, isCompleted)` fetches all tasks associated with a given user — including tasks from their own lists and any shared (collaborative) lists.
 - `Promise<Todo[]>:` An array of tasks (todos) accessible by the user, as returned from Prisma’s `findMany()` query. Queries the `todo` table for tasks where the user is the owner of the list `(List.userId)`. Or the user is a collaborator on the list `(List.collaborators)`.
 - The `isCompleted` parameter is not currently used in the query. You may filter tasks like this in the future where you can get completed tasks or not etc.
-  
-- ### src/utils/getServerSessionWrapper.js
+
+#### src/utils/getServerSessionWrapper.js
+
 - A helper function that wraps NextAuth’s `getServerSession()` with pre-configured authentication options. This function simplifies server-side access to the current user session by using your authOptions configuration. It's useful in server components, API routes, or any place where server-side authentication is required.
 - `Promise<Session | null>` Resolves to the authenticated user's session object, or null if the user is not logged in.
-  
-- ### src/utils/getUserGroup.js
+
+#### src/utils/getUserGroup.js
+
 - `getUserGroup(user, listId)` function checks whether the user is a collaborator on a given list (or group). It ensures that only authorized users can access the list's data. It uses Prisma’s `findUnique` method on the list model with a condition that checks both the id of the list and whether the user is listed as a collaborator.
 - `user: { id: string }` is the user object (or just an object with the user's ID)
 - `listId: string` is the unique identifier of the list/group to look up.
 - `Promise<List | null>` resolves to the list if the user is a collaborator, otherwise null.
-  
-- ### src/utils/getUserGroups.js
+
+#### src/utils/getUserGroups.js
+
 - `getUserGroups(user)` fetches all the lists/groups where the user is a collaborator.
 - `user: { id: string }` the current user object or an object with at least the user's id.
 - `Promise<List[]>` promise that resolves to an array of list objects where the user is a collaborator.
-  
-- ### src/utils/getUserList.js
+
+#### src/utils/getUserList.js
+
 - This function is used to fetch a single list that was created by the current user, ensuring only list owners can access this data. It also fetches any collaborators who have been invited to this list.
 - `user: { id: string }` authenticates user (must be the owner of the list).
 - `listId: string` is the unique identifier of the list to fetch.
 - `Promise<List | null>` is the promise resolving to the list object if found, or null if not found or not owned by the user.
-  
-- ### src/utils/getUserLists.js
+
+#### src/utils/getUserLists.js
+
 - `getUserLists(user)` function to retrieve all lists owned by a user. It does not return lists the user is a collaborator on — only those they have created. Useful for building a user's dashboard or home view.
 - `user: { id: string }` authenticated user whose lists will be fetched.
 - `Promise<List[]>` resolves to an array of lists owned by the user.
 - `Todo:` An array of to-do items associated with the list.
 - `collaborators:` An array of user objects with: id, name, email, image
 
-- ### src/utils/getUserToDo.js
+#### src/utils/getUserToDo.js
+
 - `getUserTodo(user, todoId, listId)` fetches a specific to-do item that the user has access to — either as the list owner or a collaborator.
 - `user: { id: string }` is the currently authenticated user.
 - `todoId: string` is the unique ID of the to-do item being requested.
 - `listId: string` is the list ID to ensure the todo belongs to a specific list.
 - `Promise<Todo | null>` A single to-do item object if access is permitted, or null if not found or access is denied.
-  
-- ### src/utils/getUserToDos.js
+
+#### src/utils/getUserToDos.js
+
 - `getUserTodos(user, listId)` fetches all to-do items from a specific list where the user is either the owner or a collaborator, ordered by deadline.
-- `user	{ id: string }`	The current logged-in user object.
-- `listId	string`	is ID of the list to fetch todos from.
+- `user { id: string }` The current logged-in user object.
+- `listId string` is ID of the list to fetch todos from.
 - A Promise resolving to an array of Todo objects.
-  
-- ### src/utils/index.js
+
+#### src/utils/index.js
+
 - This file acts as a centralized export module for all server-side data-fetching functions used across the application. By using this file, other modules can import utilities more cleanly without needing to reference individual paths.
-- `getUserTodos`	fetches all todos for a specific list where the user is an owner or collaborator.
-- `getUserTodo`	Fetches a specific todo item for a user and list.
-- `getUserGroups`	Fetches all collaborative groups (lists shared with the user).
-- `getUserGroup`	Fetches a single shared list the user is part of.
-- `getUserLists`	Fetches all lists owned by the user.
-- `getUserList`	Fetches a specific list owned by the user.
-- `getServerSessionWrapper`	Wraps `getServerSession()` using your custom NextAuth configuration.
-
----
-
-#### _To be continued..._
+- `getUserTodos` fetches all todos for a specific list where the user is an owner or collaborator.
+- `getUserTodo` Fetches a specific todo item for a user and list.
+- `getUserGroups` Fetches all collaborative groups (lists shared with the user).
+- `getUserGroup` Fetches a single shared list the user is part of.
+- `getUserLists` Fetches all lists owned by the user.
+- `getUserList` Fetches a specific list owned by the user.
+- `getServerSessionWrapper` Wraps `getServerSession()` using your custom NextAuth configuration.
